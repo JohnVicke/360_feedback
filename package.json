@@ -11,7 +11,7 @@
         "dev": "concurrently \"npm run server\" \"npm run client\""
     },
     "author": "Viktor Malmedal, Staffan Westerlund, Isak Larsson, Pontus Sundgren, Vidar Häggström",
-    "license": "MIT",
+    "license": "UNLICENSED",
     "dependencies": {
         "concurrently": "^5.1.0",
         "cors": "^2.8.5",
