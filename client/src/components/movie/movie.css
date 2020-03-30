@@ -1,0 +1,26 @@
+.movie_card {
+    height: 15rem;
+    width: 30rem;
+    display: flex;
+    list-style-type: none;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    background-color: #cccc;
+}
+
+.content h1 {
+    font-size: 2rem;
+    padding: 1rem;
+    margin: 0;
+    display: flex;
+}
+.movie_card img {
+    height: 15rem;
+    width: auto;
+    border-radius: 1rem;
+}
+
+.content .genre {
+    list-style: none;
+}
