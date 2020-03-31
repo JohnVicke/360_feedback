@@ -11,3 +11,4 @@ router.get('/movie/:id', MovieCtrl.getMovieById)
 router.get('/movies', MovieCtrl.getMovies)
 
 module.exports = router
+

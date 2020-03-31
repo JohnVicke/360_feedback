@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Bolt';
+  src: local('Bolt Regular'), url('./fonts/Bolt Regular.ttf') format('truetype');
+}
+
+
 .App {
   text-align: center;
 }
@@ -28,6 +34,37 @@
   color: #61dafb;
 }
 
+.startpage-text1 {
+  color: white;
+  text-align: center;
+  font-size: 50px;
+  font-family: 'Bolt';
+
+}
+
+.startpage-text2 {
+  color: #61DAFB;
+  text-align: center;
+  font-size: 75px;
+  font-family: 'Bolt';
+  margin-top: -0.4em;
+  margin-bottom: -0.15em;
+
+}
+
+.startpage-background {
+  background-color: #343A40;
+  height: 70em;
+
+}
+
+.first-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 20em;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +73,4 @@
     transform: rotate(360deg);
   }
 }
+

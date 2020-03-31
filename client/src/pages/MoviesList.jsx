@@ -9,6 +9,7 @@ import 'react-table-v6/react-table.css'
 
 const Wrapper = styled.div`
     padding: 0 40px 40px 40px;
+    padding-top: 40px
 `
 const Update = styled.div`
     color: #ef9b0f;
