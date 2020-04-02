@@ -25,6 +25,10 @@ const MovieSchema = mongoose.Schema(
         imgSrc: {
             type: String,
             required: true
+        },
+        desc: {
+            type: String,
+            required: true
         }
     },
     { collection: 'movies' }

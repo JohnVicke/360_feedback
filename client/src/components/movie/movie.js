@@ -15,7 +15,10 @@ class Movie extends Component {
                 </div>
                 <div className="content">
                     <h1>{movie.name}</h1>
-                    <ul className="genre">
+                    <p>{movie.desc}</p>
+                </div>
+                <div className="genre">
+                    <ul>
                         {movie.genre.map(genre => (
                             <li>{genre}</li>
                         ))}
