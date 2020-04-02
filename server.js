@@ -8,15 +8,7 @@ const fs = require('fs');
 const https = require('https');
 const { auth, requiresAuth } = require('express-openid-connect');
 
-const config = {
-    required: false,
-    auth0Logout: true,
-    baseURL: 'https://localhost:8000',
-    issuerBaseURL: 'https://360feedback.eu.auth0.com',
-    clientID: 'VzDzHt6dHUG3WiAitRcuYZd9fFQHdqwY',
-    appSessionSecret:
-        '6fc20ed91c00b449ffcb1d9293f6182fea1fea6ff1a4145e9c59bcce39f97e93'
-};
+const config = require('config.json');
 
 const app = express();
 
