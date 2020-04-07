@@ -29,7 +29,7 @@ class StartPage extends Component {
         return (
 
             <div className="startpage-background">
-                <img className="first-image" src="https://www.panoramaaudiovisual.com/wp-content/uploads/2019/06/IMDB.jpg" alt="imdb"/>
+                <img className="first-image" src="https://www.fostercity.org/sites/default/files/styles/gallery500/public/imageattachments/parksrec/page/10791/thursday_movie.png?itok=XakMswGX" alt="imdb"/>
                 <p className="startpage-text1">YOUR WORST MOVIE</p>
                 <p className="startpage-text2">{this.state.worstMovie}</p>
 

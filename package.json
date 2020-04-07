@@ -22,7 +22,10 @@
         "express": "^4.17.1",
         "lodash": "^4.17.15",
         "mongoose": "^5.9.6",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
         "react-router-dom": "^5.1.2",
+        "react-scripts": "^3.4.1",
         "react-table": "^7.0.0",
         "react-table-v6": "^6.8.6",
         "styled-components": "^5.0.1"
