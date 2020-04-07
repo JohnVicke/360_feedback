@@ -3,22 +3,20 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const app = express();
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 dotenv.config({ path: './config.env' });
 
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(cors());
 
-app.get('/api/test', (req, res) => {
-    const testing = [
-        { id: 1, firstName: 'Viktor', lastName: 'Malmedal' },
-        { id: 2, firstName: 'Pontus', lastName: 'Sundgren' },
-        { id: 3, firstName: 'Vidar', lastName: 'Häggström' },
-        { id: 4, firstName: 'Staffan', lastName: 'Westerlund' },
-        { id: 5, firstName: 'Isak', lastName: 'Larsson' }
-    ];
-
-    res.json(testing);
-});
+mongoose.connect(
+    process.env.CONNECTION_STRING,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => console.log('Connected to database :)')
+);
 
 const port = process.env.PORT || 5000;
 
@@ -27,3 +25,9 @@ app.listen(port, () =>
         `Server running in ${process.env.NODE_ENV} mode, on port ${port}`
     )
 );
+
+// Import Routers
+const userRoutes = require('./routes/UserRoutes');
+
+// Setup API endpoints
+app.use('/api/users/', userRoutes);
