@@ -1,0 +1,67 @@
+li,
+a,
+button,
+p {
+    font-weight: 800;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+}
+.btn {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background: none;
+    cursor: pointer;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    outline: none;
+    position: relative;
+    border: 2px solid #fff;
+    padding: 5px 30px;
+    transition: all 0.3s ease;
+    border-radius: 5%;
+}
+
+.btn:hover {
+    color: #1a1a1a;
+    background-color: #fff;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 15%;
+}
+.logo-wrapper {
+    display: flex;
+}
+
+.ad {
+    padding-top: 40px;
+}
+
+.logo {
+    background-image: url('logo.svg');
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
+.nav_links {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+.nav_links li {
+    transition: all 0.3s ease 0s;
+    padding: 0 2rem;
+}
+
+.user {
+    font-size: 2rem;
+}

@@ -1,0 +1,19 @@
+.ads-comp-container {
+    text-align: center;
+}
+
+.ads-container {
+    padding-top: 2rem;
+}
+
+.ads-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 30%;
+}
+
+.radio {
+    float: left;
+    padding-right: 2rem;
+}

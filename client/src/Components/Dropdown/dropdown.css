@@ -1,0 +1,46 @@
+.dd-wrapper {
+    position: absolute;
+    left: 45rem;
+    top: 5rem;
+}
+
+.dd-header {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    user-select: none;
+}
+
+.fontawesome {
+    margin-left: 10px;
+    margin-top: -5px;
+}
+
+.dd-list {
+    animation: 0.3s ease 0s 1 slideIn;
+    list-style-type: none;
+    border: 2px #fff;
+    border-style: hidden solid solid solid;
+}
+
+.dd-list-item {
+    user-select: none;
+    margin: 1rem 0;
+    cursor: pointer;
+}
+
+.button {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0%;
+        transform: translateY(-15%);
+    }
+    100% {
+        opacity: 100%;
+        transform: translateY(0);
+    }
+}

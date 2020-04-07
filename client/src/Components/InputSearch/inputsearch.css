@@ -1,0 +1,22 @@
+.icon {
+    padding: 10px;
+    text-align: center;
+    float: right;
+    color: white;
+}
+
+.input-container {
+    display: flex;
+    width: 100%;
+}
+
+.input-field {
+    width: 100%;
+    outline: none;
+}
+
+input[type='text'] {
+    padding: 0 1rem;
+    color: #fff;
+    font-weight: 800;
+}

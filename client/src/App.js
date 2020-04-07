@@ -1,15 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Test from './components/test/test';
+import Toolbar from './Components/Navbar/Toolbar';
+import Ads from './Components/Ads/Ads';
 
+import './app.css';
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <Test />
+        <div>
+            <header>
+                <Toolbar />
             </header>
+            <Ads />
         </div>
     );
 }

@@ -6,3 +6,4 @@ dist
 yarn.lock
 config.env
 *.pem
+/server_only/node_modules/

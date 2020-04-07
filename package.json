@@ -11,13 +11,18 @@
         "dev": "concurrently \"npm run server\" \"npm run client\"",
         "serv_only": "nodemon server.js --prefix server_only"
     },
-    "author": "Viktor Malmedal, Staffan Westerlund, Isak Larsson, Pontus Sundgren, Vidar Häggström",
+    "author": "Viktor Malmedal",
     "license": "UNLICENSED",
     "dependencies": {
+        "bootstrap": "^4.4.1",
         "concurrently": "^5.1.0",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "node-sass": "^4.13.1",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "reactstrap": "^8.4.1"
     },
     "devDependencies": {
         "morgan": "^1.10.0",
