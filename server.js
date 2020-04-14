@@ -72,7 +72,9 @@ app.listen(port, () =>
 // Import Routers
 const userRoutes = require('./routes/UserRoutes');
 const templateRoutes = require('./routes/TemplateRoutes');
+const surveyRoutes = require('./routes/SurveyRoutes');
 
 // Setup API endpoints
 app.use('/api/users/', userRoutes);
 app.use('/api/templates/', templateRoutes);
+app.use('/api/surveys/', surveyRoutes);
