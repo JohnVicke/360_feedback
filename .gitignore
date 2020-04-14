@@ -4,5 +4,5 @@ package-lock.json
 dist
 *.log
 yarn.lock
-.config.env
+config.env
 *.pem
