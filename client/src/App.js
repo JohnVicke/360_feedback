@@ -23,7 +23,7 @@ function App() {
                 </header>
                 <Switch>
                     <Route path="/" exact />
-                    <PrivateRoute path="/profile" componet={Profile} />
+                    <PrivateRoute path="/profile" component={Profile} />
                 </Switch>
             </Router>
         </div>
