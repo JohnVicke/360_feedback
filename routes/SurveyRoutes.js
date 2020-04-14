@@ -19,7 +19,7 @@ const {
 // Sets up the routes.
 router.get('/', getAllSurveys);
 router.get('/:id', getSurveyById);
-router.get('/:id', getSurveyByEmployeeId);
+router.get('/e/:id', getSurveyByEmployeeId);
 router.post('/', createSurvey);
 router.put('/:id', updateSurvey);
 router.delete('/:id', deleteSurvey);
