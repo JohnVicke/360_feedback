@@ -114,6 +114,7 @@ updateSurvey = async (req, res) => {
         survey.end_date = body.end_date;
         survey.template_id = body.template_id;
         survey.responses = body.responses;
+        survey.creator = body.creator;
         survey
             .save()
             .then(() => {

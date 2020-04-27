@@ -13,6 +13,7 @@ const surveySchema = mongoose.Schema(
         end_date: { type: Date, required: true },
         template_id: { type: mongoose.Schema.ObjectId, required: true },
         responses: { type: Array, required: true },
+        creator: { type: mongoose.Schema.ObjectId, required: true },
     },
     // needed because otherwise the collection wont be found.
     { collection: 'survey' }
