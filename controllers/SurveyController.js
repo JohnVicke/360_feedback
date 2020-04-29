@@ -73,7 +73,7 @@ createSurvey = (req, res) => {
     survey
         .save()
         .then(() => {
-            return res.status(201).json({
+            return res.status(200).json({
                 success: true,
                 id: survey._id,
                 message: 'Survey created!',

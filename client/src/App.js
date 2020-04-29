@@ -16,14 +16,14 @@ function App() {
         return <div>loading...</div>;
     }
     return (
-        <div className="App">
+        <div className='App'>
             <Router history={history}>
-                <header className="App-header">
+                <header className='App-header'>
                     <NavBar />
                 </header>
                 <Switch>
-                    <Route path="/" exact />
-                    <PrivateRoute path="/profile" component={Profile} />
+                    <Route path='/' exact />
+                    <PrivateRoute path='/profile' component={Profile} />
                 </Switch>
             </Router>
         </div>
