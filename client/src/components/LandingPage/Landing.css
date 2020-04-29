@@ -26,11 +26,11 @@
 }
 .para-logo {
     padding-top: 3%;
-    height: 4rem;
+    height: 8em;
 }
 
 .welcome-text {
-    padding-top: 6%;
+    padding-top: 10%;
 
     display: flex;
     justify-content: center;
@@ -39,8 +39,8 @@
 .welcome-text h1 {
     color: white;
     font-family: 'Source Sans Pro';
-    font-weight: 700;
-    font-size: 50px;
+    font-weight: 400;
+    font-size: 1.5rem;
 }
 .login-area {
     display: flex;
@@ -58,7 +58,7 @@
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
     border: none;
     transition: ease-in-out 0.2s;
 }
