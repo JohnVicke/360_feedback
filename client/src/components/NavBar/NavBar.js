@@ -16,7 +16,7 @@ import {
     MenuItem,
 } from '@material-ui/core';
 
-import logo from '../../assets/logo/notextlogo.svg';
+import logo from '../../assets/logos/notextlogo.svg';
 
 const theme = createMuiTheme({
     palette: {
@@ -64,10 +64,6 @@ const NavBar = () => {
         setAnchorEl(null);
     };
 
-    const toHome = () => {
-        history.push('/');
-    };
-
     const toProfile = () => {
         handleClose();
         history.push('/profile');
@@ -89,7 +85,7 @@ const NavBar = () => {
                 >
                     <Toolbar>
                         <Box display='flex' flexGrow={1}>
-                            <Button onClick={toHome}>
+                            <Button onClick={toProfile}>
                                 <Avatar src={logo} className={classes.avatar} />
                                 <Typography
                                     variant='h6'
@@ -110,7 +106,7 @@ const NavBar = () => {
                                 className={classes.avatar}
                             />
                             <Typography variant='h6' className={classes.header}>
-                                {user.name} Viktor Malmedal
+                                {user.name}
                             </Typography>
                         </Button>
                         <Menu

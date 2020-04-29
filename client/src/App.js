@@ -6,21 +6,26 @@ import Profile from './components/Profile/Profile';
 import history from './utils/history';
 import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
+import NavBar from './components/NavBar/NavBar';
 import './assets/fonts/fonts.css';
 
-
 function App() {
-    const { loading } = useAuth0();
+    const { loading, isAuthenticated } = useAuth0();
 
-    if (loading) {
-        return <div>loading...</div>;
+    if (!isAuthenticated) {
+        return (
+            <div>
+                <LandingPage />
+            </div>
+        );
     }
     return (
-        <div className="App">
+        <div className='App'>
             <Router history={history}>
+                <NavBar />
                 <Switch>
-                    <Route path="/" exact component={LandingPage} />
-                    <PrivateRoute path="/profile" component={Profile} />
+                    <Route path='/' component={Profile} />
+                    <PrivateRoute path='/profile' component={Profile} />
                 </Switch>
             </Router>
         </div>

@@ -1,12 +1,6 @@
-@font-face {
-    font-family: 'Source Sans Pro Bold';
-    src: local('Source Sans Pro Bold'),
-        url('./SOURCESANSPRO-BOLD.TTF') format('truetype');
-}
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 .landing-page {
     height: 100vh;
-    background-image: url('para-background.png');
+    background-image: url('../../assets/background/para-background.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;
@@ -43,7 +37,8 @@
 }
 .welcome-text h1 {
     color: white;
-    font-family: 'Source Sans Pro Bold';
+    font-family: 'Source Sans Pro';
+    font-weight: 700;
     font-size: 50px;
 }
 .login-area {
