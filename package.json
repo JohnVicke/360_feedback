@@ -13,6 +13,7 @@
     "author": "Viktor Malmedal, Staffan Westerlund, Isak Larsson, Pontus Sundgren, Vidar Häggström",
     "license": "UNLICENSED",
     "dependencies": {
+        "@material-ui/core": "^4.9.12",
         "concurrently": "^5.1.0",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",

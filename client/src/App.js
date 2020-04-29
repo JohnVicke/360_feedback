@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import Test from './components/test/test';
 import NavBar from './components/NavBar/NavBar';
 import { useAuth0 } from './react-auth0-spa';
 
