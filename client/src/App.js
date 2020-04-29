@@ -6,6 +6,8 @@ import Profile from './components/Profile/Profile';
 import history from './utils/history';
 import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
+import './assets/fonts/fonts.css';
+
 
 function App() {
     const { loading } = useAuth0();
