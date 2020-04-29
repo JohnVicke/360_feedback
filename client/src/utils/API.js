@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({
-    baseURL: 'http://localhost:8000',
+export default axios.create({
+    baseURL: 'http://localhost:8000/api',
     responseType: 'json',
 });
-
-export function helloWorld() {
-    return 'hello world';
-}
