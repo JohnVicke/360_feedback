@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth0 } from './react-auth0-spa';
 
 import { Router, Route, Switch } from 'react-router-dom';
@@ -8,9 +8,15 @@ import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
 import NavBar from './components/NavBar/NavBar';
 import './assets/fonts/fonts.css';
+import { helloWorld } from './utils/API';
 
 function App() {
     const { loading, isAuthenticated } = useAuth0();
+    const [loaded, setLoaded] = useState();
+
+    useEffect(() => {
+        setLoaded([helloWorld()]);
+    });
 
     if (!isAuthenticated) {
         return (
