@@ -53,7 +53,7 @@ dotenv.config({ path: './config.env' });
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(auth(config));
+//app.use(auth(config));
 
 mongoose.connect(
     process.env.CONNECTION_STRING,
@@ -71,6 +71,10 @@ app.listen(port, () =>
 
 // Import Routers
 const userRoutes = require('./routes/UserRoutes');
+const templateRoutes = require('./routes/TemplateRoutes');
+const surveyRoutes = require('./routes/SurveyRoutes');
 
 // Setup API endpoints
 app.use('/api/users/', userRoutes);
+app.use('/api/templates/', templateRoutes);
+app.use('/api/surveys/', surveyRoutes);
