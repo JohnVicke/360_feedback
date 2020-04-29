@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'Source Sans Pro Bold';
+    src: local('Source Sans Pro Bold'),
+        url('./SOURCESANSPRO-BOLD.TTF') format('truetype');
+}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.landing-page {
+    height: 100vh;
+    background-image: url('para-background.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.overlay {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: auto;
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+.items h1 {
+    color: white;
+}
+.para-logo {
+    padding-top: 3%;
+    height: 4rem;
+}
+
+.welcome-text {
+    padding-top: 6%;
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.welcome-text h1 {
+    color: white;
+    font-family: 'Source Sans Pro Bold';
+    font-size: 50px;
+}
+.login-area {
+    display: flex;
+    justify-content: center;
+}
+.login-button {
+    display: inline-block;
+    color: black;
+    background-color: white;
+    border-radius: 5px;
+    display: inline-block;
+    height: 4rem;
+    width: 14rem;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 3rem;
+    border: none;
+    transition: ease-in-out 0.2s;
+}
+.login-button:hover {
+    transform: scale(1.1);
+}
+
+.login-button img {
+    float: left;
+    height: 30px;
+}
