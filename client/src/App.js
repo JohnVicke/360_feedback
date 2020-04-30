@@ -12,7 +12,9 @@ import './assets/fonts/fonts.css';
 function App() {
     const { loading, isAuthenticated } = useAuth0();
 
-    if (!isAuthenticated) {
+    if (loading) {
+        return <div>loading...</div>;
+    } else if (!isAuthenticated) {
         return (
             <div>
                 <LandingPage />

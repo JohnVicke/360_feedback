@@ -119,8 +119,8 @@ const NavBar = () => {
                             }}
                             keepMounted
                             transformOrigin={{
-                                vertical: 'left',
-                                horizontal: 'top',
+                                vertical: 'bottom',
+                                horizontal: 'center',
                             }}
                             open={open}
                             onClose={handleClose}
