@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '../../react-auth0-spa';
 import { GetUserByEmail } from '../../utils/API';
-import { makeStyles, ThemeProvider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import NavBar from '../NavBar/NavBar';
 
 const useStyles = makeStyles({

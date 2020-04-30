@@ -20,6 +20,7 @@ const LandingPage = () => {
                 <div className='welcome-text'>
                     <h1>Welcome to 360 Feedback!</h1>
                 </div>
+
                 <div className='login-area'>
                     <LoginButton
                         variant='contained'
