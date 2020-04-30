@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '../../react-auth0-spa';
-import api from '../../utils/API';
+import { GetUserByEmail } from '../../utils/API';
 
 const Profile = () => {
     const [userInfo, setUserInfo] = useState([]);
@@ -8,9 +8,8 @@ const Profile = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await api.get(`/users/email/${user.email}`);
+            const response = await GetUserByEmail(user.email);
             console.log(response);
-
             setUserInfo(response);
         };
         fetchUser();
@@ -21,7 +20,7 @@ const Profile = () => {
     }
 
     return (
-        <Fragment>
+        <div>
             <img src={user.picture} alt='Profile' />
             <h2>{user.name}</h2>
             <p>{user.email}</p>
@@ -29,7 +28,7 @@ const Profile = () => {
             <code>{JSON.stringify(userInfo.data, null, 2)}</code>
             <h2>Fetched from Auth0 --></h2>
             <code>{JSON.stringify(user, null, 2)}</code>
-        </Fragment>
+        </div>
     );
 };
 
