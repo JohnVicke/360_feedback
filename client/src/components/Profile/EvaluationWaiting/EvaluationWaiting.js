@@ -23,7 +23,7 @@ const MyButton = styled(Button)({
     background: '#EEEEEE',
     border: 0,
     borderRadius: 3,
-    color: 'black',
+    color: 'black!important',
     height: 96,
     padding: '0 20px',
     transition: 'ease-in-out 0.2s',

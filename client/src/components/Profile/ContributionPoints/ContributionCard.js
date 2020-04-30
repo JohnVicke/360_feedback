@@ -25,12 +25,8 @@ const ContributionCard = (props) => {
 
     return (
         <div>
-            <Paper>
-                <Box
-                    display='flex'
-                    flexDirection='row'
-                    justifyContent='space-around'
-                >
+            <Paper style={{ backgroundColor: '#EEEEEE', marginRight: '2rem' }}>
+                <Box display='flex' flexDirection='row'>
                     <Box
                         display='flex'
                         flexDirection='column'

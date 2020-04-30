@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '../../react-auth0-spa';
 import { GetUserByEmail } from '../../utils/API';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Box, Typography, Avatar } from '@material-ui/core';
 import NavBar from '../NavBar/NavBar';
+import ContributionPoints from './ContributionPoints/ContributionPoints';
+import EvaluationWaiting from './EvaluationWaiting/EvaluationWaiting';
 
 const useStyles = makeStyles({
     profile: {
@@ -10,6 +12,11 @@ const useStyles = makeStyles({
         background: 'rgb(126,231,119)',
         background:
             'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
+    },
+
+    avatar: {
+        height: 120,
+        width: 120,
     },
 });
 
@@ -24,6 +31,7 @@ const Profile = () => {
             console.log(response);
             setUserInfo(response);
         };
+
         fetchUser();
     }, [user]);
 
@@ -34,13 +42,24 @@ const Profile = () => {
     return (
         <div className={classes.profile}>
             <NavBar />
-            <img src={user.picture} alt='Profile' />
-            <h2>{user.name}</h2>
-            <p>{user.email}</p>
-            <h1>FUCKING FINALLY --> Fetched via hooks</h1>
-            <code>{JSON.stringify(userInfo.data, null, 2)}</code>
-            <h2>Fetched from Auth0 --></h2>
-            <code>{JSON.stringify(user, null, 2)}</code>
+            <Box display='flex' flexDirection='column'>
+                <Typography variant='h4'>My profile</Typography>
+                <Box display='flex' flexDirection='row' alignItems='center'>
+                    <Avatar
+                        src={user.picture}
+                        className={classes.avatar}
+                        width='120px'
+                        height='120px'
+                    />
+                    <Typography variant='h3'>{user.name}</Typography>
+                </Box>
+                <EvaluationWaiting
+                    userPic={user.picture}
+                    name={user.name}
+                    role='Software Developer'
+                />
+                <ContributionPoints />
+            </Box>
         </div>
     );
 };

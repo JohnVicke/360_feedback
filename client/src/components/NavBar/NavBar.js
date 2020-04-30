@@ -90,6 +90,7 @@ const NavBar = () => {
                                 <Typography
                                     variant='h6'
                                     className={classes.header}
+                                    style={{ color: '#fff' }}
                                 >
                                     360 Feedback
                                 </Typography>
@@ -105,7 +106,11 @@ const NavBar = () => {
                                 src={user.picture}
                                 className={classes.avatar}
                             />
-                            <Typography variant='h6' className={classes.header}>
+                            <Typography
+                                variant='h6'
+                                className={classes.header}
+                                style={{ color: '#fff' }}
+                            >
                                 {user.name}
                             </Typography>
                         </Button>
@@ -115,11 +120,11 @@ const NavBar = () => {
                             anchorEl={anchorEl}
                             anchorOrigin={{
                                 vertical: 'bottom',
-                                horizontal: 'left',
+                                horizontal: 'center',
                             }}
                             keepMounted
                             transformOrigin={{
-                                vertical: 'bottom',
+                                vertical: 'top',
                                 horizontal: 'center',
                             }}
                             open={open}

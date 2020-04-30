@@ -22,7 +22,7 @@ const summary = {
 };
 const ContributionPoints = (props) => {
     return (
-        <Box display='flex' flexDirection='row' justifyContent='space-around'>
+        <Box display='flex' flexDirection='row'>
             {Object.keys(summary).map((section) => (
                 <ContributionCard
                     cardInfo={summary[section]}
