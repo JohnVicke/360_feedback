@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '../../react-auth0-spa';
 import { GetUserByEmail } from '../../utils/API';
+import { makeStyles, ThemeProvider } from '@material-ui/core';
+import NavBar from '../NavBar/NavBar';
+
+const useStyles = makeStyles({
+    profile: {
+        height: '100vh',
+        background: 'rgb(126,231,119)',
+        background:
+            'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
+    },
+});
 
 const Profile = () => {
+    const classes = useStyles();
     const [userInfo, setUserInfo] = useState([]);
     const { loading, user } = useAuth0();
 
@@ -20,7 +32,8 @@ const Profile = () => {
     }
 
     return (
-        <div>
+        <div className={classes.profile}>
+            <NavBar />
             <img src={user.picture} alt='Profile' />
             <h2>{user.name}</h2>
             <p>{user.email}</p>

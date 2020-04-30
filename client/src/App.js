@@ -6,7 +6,6 @@ import Profile from './components/Profile/Profile';
 import history from './utils/history';
 import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
-import NavBar from './components/NavBar/NavBar';
 import './assets/fonts/fonts.css';
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
     return (
         <div className='App'>
             <Router history={history}>
-                <NavBar />
                 <Switch>
                     <Route path='/' component={Profile} />
                     <PrivateRoute path='/profile' component={Profile} />
