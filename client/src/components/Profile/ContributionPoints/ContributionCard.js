@@ -26,7 +26,7 @@ const ContributionCard = (props) => {
     const overallStyle = {
         paper: {
             backgroundColor: '#EEEEEE',
-            marginRight: '1rem',
+            marginRight: '2rem',
             height: '122px',
         },
         box: {
@@ -48,7 +48,7 @@ const ContributionCard = (props) => {
         paper: {
             marginTop: '1rem',
             backgroundColor: '#EEEEEE',
-            marginRight: '1rem',
+            marginRight: '2rem',
             height: '90px',
             paddingBottom: '1rem',
         },
