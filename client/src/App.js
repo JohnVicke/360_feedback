@@ -5,6 +5,7 @@ import Profile from './components/Profile/Profile';
 import history from './utils/history';
 import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
+import FillEvaluation from './components/FillEvaluation/FillEvaluation';
 import './assets/fonts/fonts.css';
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         <div className='App'>
             <Router history={history}>
                 <Switch>
-                    <Route path='/' component={Profile} />
+                    <Route path='/' component={FillEvaluation} />
                     <PrivateRoute path='/profile' component={Profile} />
                 </Switch>
             </Router>

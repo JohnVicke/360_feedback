@@ -11,6 +11,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { styled } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Scale from './Scale';
 
 const MyCard = styled(Card)({
     background: '#222222',
@@ -33,6 +34,7 @@ const MyButton = styled(Button)({
     height: 30,
     width: 150,
     marginTop: '2rem',
+    marginBottom: '1.6rem',
     transition: 'ease-in-out 0.2s',
     '& :hover': {
         color: '#5ABE41',
@@ -96,14 +98,14 @@ class Question extends React.Component {
                 );
             } else {
                 return (
-                    <Box alignItems="center" style={{ marginTop: '2rem' }}>
+                    <Box alignItems='center' style={{ marginTop: '2rem' }}>
                         <MyButton2 onClick={comp.handleRemoveComment}>
                             <RemoveCircleIcon></RemoveCircleIcon>
                         </MyButton2>
                         <TextField
-                            id="filled-basic"
-                            label="Comment"
-                            variant="filled"
+                            id='filled-basic'
+                            label='Comment'
+                            variant='filled'
                             style={{
                                 width: '580px',
                                 marginLeft: 'auto',
@@ -123,7 +125,7 @@ class Question extends React.Component {
             }
         }
         return (
-            <Box display="flex" flexDirection="row">
+            <Box display='flex' flexDirection='row'>
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
                     <Typography
                         style={{
@@ -158,6 +160,7 @@ class Question extends React.Component {
                         How good would you rate Viktor being accountable for his
                         work?
                     </Typography>
+                    <Scale />
                     <Comment comment={comp.state.comment} />
 
                     <Box
@@ -168,7 +171,11 @@ class Question extends React.Component {
                             marginTop: '4rem',
                         }}
                     >
-                        <ContinueButton style={{ float: 'right' }}>
+                        <ContinueButton
+                            style={{
+                                float: 'right',
+                            }}
+                        >
                             Continue
                         </ContinueButton>
                         <BackButton style={{ float: 'left' }}>Back</BackButton>
