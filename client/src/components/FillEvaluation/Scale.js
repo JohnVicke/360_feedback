@@ -57,7 +57,6 @@ const Scale = (props) => {
                     <p>Great</p>
                 </div>
             </div>
-            <h1>{selected}</h1>
         </div>
     );
 };
