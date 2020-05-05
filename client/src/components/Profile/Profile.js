@@ -5,6 +5,7 @@ import { makeStyles, Box, Typography, Avatar } from '@material-ui/core';
 import NavBar from '../NavBar/NavBar';
 import ContributionPoints from './ContributionPoints/ContributionPoints';
 import EvaluationWaiting from './EvaluationWaiting/EvaluationWaiting';
+import happy from '../../assets/misc/emoji-happy.svg';
 
 const useStyles = makeStyles({
     profile: {
@@ -23,30 +24,92 @@ const useStyles = makeStyles({
 const Profile = () => {
     const classes = useStyles();
     const [userInfo, setUserInfo] = useState([]);
+    const [userEvals, setUserEvals] = useState([]);
     const { loading, user } = useAuth0();
+
+    const evalComponent = () => {
+        if (userEvals !== 'null') {
+            return (
+                <EvaluationWaiting
+                    userPic={userEvals.data.picture}
+                    name={`${userEvals.data.given_name} ${userEvals.data.family_name}`}
+                    role={userEvals.data.role}
+                />
+            );
+        } else {
+            return (
+                <Box display='flex' flexDirection='row'>
+                    <img
+                        src={happy}
+                        style={{
+                            height: '90px',
+                            width: '90px',
+                            marginRight: '2rem',
+                        }}
+                    />
+                    <Typography
+                        style={{
+                            fontFamily: 'Source Sans pro',
+                            fontSize: '28px',
+                            fontWeight: '700',
+                            color: '#fff',
+                        }}
+                    >
+                        You have no evaluations
+                        <br /> waiting, good job!
+                    </Typography>
+                </Box>
+            );
+        }
+    };
 
     useEffect(() => {
         const fetchUser = async () => {
             const response = await GetUserByEmail(user.email);
-            const response2 = await GetUserEvals(
-                response.data.responses[0].user_id
-            );
-
-            setUserInfo({ res1: response, res2: response2 });
+            setUserInfo(response);
         };
-
         fetchUser();
     }, [user]);
 
-    if (loading || !userInfo) {
-        return <div>horkukfitta</div>;
+    useEffect(() => {
+        const fetchEval = async () => {
+            const response = await GetUserEvals(
+                userInfo.data.responses[0].user_id
+            );
+            setUserEvals(response);
+        };
+        if (userInfo.length !== 0) {
+            if (userInfo.data.responses.length !== 0) {
+                fetchEval();
+            } else {
+                setUserEvals('null');
+            }
+        }
+    }, [userInfo]);
+
+    if (loading || userInfo.length === 0 || userEvals.length === 0) {
+        return <div>Loading...</div>;
     }
 
     return (
         <div className={classes.profile}>
             <NavBar />
-            <Box display='flex' flexDirection='column'>
-                <Typography variant='h4'>My profile</Typography>
+            <Box
+                display='flex'
+                flexDirection='column'
+                style={{ padding: '2rem 6rem' }}
+            >
+                <Typography
+                    style={{
+                        fontFamily: 'Source Sans pro',
+                        color: '#fff',
+                        fontSize: '28px',
+                        fontWeight: '400',
+                        marginBottom: '2rem',
+                    }}
+                >
+                    My profile
+                </Typography>
                 <Box display='flex' flexDirection='row' alignItems='center'>
                     <Avatar
                         src={user.picture}
@@ -54,9 +117,55 @@ const Profile = () => {
                         width='120px'
                         height='120px'
                     />
-                    <Typography variant='h3'>{user.name}</Typography>
+                    <Box
+                        display='flex'
+                        flexDirection='row'
+                        style={{ margin: '0 2rem' }}
+                    >
+                        <Typography
+                            style={{
+                                fontFamily: 'Source Sans pro',
+                                color: '#fff',
+                                fontSize: '38px',
+                                fontWeight: '400',
+                                marginRight: '1rem',
+                            }}
+                        >
+                            {user.name + ','}
+                        </Typography>
+                        <Typography
+                            style={{
+                                fontFamily: 'Source Sans pro',
+                                color: '#fff',
+                                fontSize: '38px',
+                                fontWeight: '700',
+                            }}
+                        >
+                            {userInfo.data.role}
+                        </Typography>
+                    </Box>
                 </Box>
-                <EvaluationWaiting userId={'kuk'} />
+                <Typography
+                    style={{
+                        fontFamily: 'Source Sans pro',
+                        fontSize: '28px',
+                        margin: '2rem 0',
+                        color: '#fff',
+                    }}
+                >
+                    Evaluations waiting for submission
+                </Typography>
+                {evalComponent()}
+                <Typography
+                    style={{
+                        fontFamily: 'Source Sans pro',
+                        fontSize: '28px',
+                        margin: '2rem 0',
+                        color: '#fff',
+                    }}
+                >
+                    Overall Contribution Points
+                </Typography>
                 <ContributionPoints />
             </Box>
         </div>
