@@ -56,7 +56,7 @@ const Profile = () => {
                     />
                     <Typography variant='h3'>{user.name}</Typography>
                 </Box>
-                <EvaluationWaiting userId={} />
+                <EvaluationWaiting userId={'kuk'} />
                 <ContributionPoints />
             </Box>
         </div>
