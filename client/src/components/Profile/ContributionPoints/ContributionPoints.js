@@ -20,9 +20,38 @@ const summary = {
         errorhandling: 9.3,
     },
 };
+
+const totalScore = {
+    overall: {
+        work:
+            Math.round(
+                (Object.values(summary.work).reduce((a, b) => a + b, 0) /
+                    Object.values(summary.work).length) *
+                    10
+            ) / 10,
+        social:
+            Math.round(
+                (Object.values(summary.social).reduce((a, b) => a + b, 0) /
+                    Object.values(summary.social).length) *
+                    10
+            ) / 10,
+        dev:
+            Math.round(
+                (Object.values(summary.dev).reduce((a, b) => a + b, 0) /
+                    Object.values(summary.dev).length) *
+                    10
+            ) / 10,
+    },
+};
+
+// TODO: Fixa ghetto lösning
 const ContributionPoints = (props) => {
     return (
-        <Box display='flex' flexDirection='row'>
+        <Box display='flex' flexDirection='row' style={{ overflow: '' }}>
+            <ContributionCard
+                cardInfo={totalScore.overall}
+                section={'Overall'}
+            />
             {Object.keys(summary).map((section) => (
                 <ContributionCard
                     cardInfo={summary[section]}

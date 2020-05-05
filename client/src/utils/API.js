@@ -6,6 +6,11 @@ const api = axios.create({
 });
 
 export async function GetUserByEmail(email) {
-    const response = await api.get(`/users/email/${email}`);
-    return response;
+    const res = await api.get(`/users/email/${email}`);
+    return res;
+}
+
+export async function GetUserEvals(id) {
+    const res = await api.get(`/users/${id}`);
+    return res;
 }

@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { GetUserEvals } from '../../../utils/API';
 const useStyles = makeStyles({
     avatar: {
         marginRight: '1rem',
@@ -61,6 +62,7 @@ const EvaluationWaiting = (props) => {
     const pic = props.userPic;
     const name = props.name;
     const role = props.role;
+    const userId = props.userId;
     const classes = useStyles();
 
     return (

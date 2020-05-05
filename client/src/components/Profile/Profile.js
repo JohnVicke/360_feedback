@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '../../react-auth0-spa';
-import { GetUserByEmail } from '../../utils/API';
+import { GetUserByEmail, GetUserEvals } from '../../utils/API';
 import { makeStyles, Box, Typography, Avatar } from '@material-ui/core';
 import NavBar from '../NavBar/NavBar';
 import ContributionPoints from './ContributionPoints/ContributionPoints';
@@ -28,15 +28,18 @@ const Profile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             const response = await GetUserByEmail(user.email);
-            console.log(response);
-            setUserInfo(response);
+            const response2 = await GetUserEvals(
+                response.data.responses[0].user_id
+            );
+
+            setUserInfo({ res1: response, res2: response2 });
         };
 
         fetchUser();
     }, [user]);
 
     if (loading || !userInfo) {
-        return <div>Loading...</div>;
+        return <div>horkukfitta</div>;
     }
 
     return (
@@ -53,11 +56,7 @@ const Profile = () => {
                     />
                     <Typography variant='h3'>{user.name}</Typography>
                 </Box>
-                <EvaluationWaiting
-                    userPic={user.picture}
-                    name={user.name}
-                    role='Software Developer'
-                />
+                <EvaluationWaiting userId={'kuk'} />
                 <ContributionPoints />
             </Box>
         </div>

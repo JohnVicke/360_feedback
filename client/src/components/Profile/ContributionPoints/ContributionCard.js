@@ -23,25 +23,67 @@ const ContributionCard = (props) => {
     };
     const overall = getOverall();
 
+    const overallStyle = {
+        paper: {
+            backgroundColor: '#EEEEEE',
+            marginRight: '1rem',
+            height: '122px',
+        },
+        box: {
+            p: {
+                fontFamily: 'Source Sans pro',
+                fontSize: '18px',
+                fontWeight: '700',
+                textTransform: 'uppercase',
+            },
+
+            h1: {
+                fontSize: '36px',
+                fontWeight: '700',
+            },
+        },
+    };
+
+    const cardStyle = {
+        paper: {
+            marginTop: '1rem',
+            backgroundColor: '#EEEEEE',
+            marginRight: '1rem',
+            height: '90px',
+            paddingBottom: '1rem',
+        },
+        box: {
+            p: {
+                fontFamily: 'Source Sans Pro',
+                fontSize: '14px',
+                fontWeight: '400',
+                textTransform: 'uppercase',
+            },
+        },
+    };
+
     return (
         <div>
-            <Paper style={{ backgroundColor: '#EEEEEE', marginRight: '2rem' }}>
+            <Paper
+                style={
+                    section === 'Overall' ? overallStyle.paper : cardStyle.paper
+                }
+            >
                 <Box display='flex' flexDirection='row'>
-                    <Box
-                        display='flex'
-                        flexDirection='column'
-                        style={{ padding: '0 4rem 0 2rem' }}
-                    >
+                    <Box style={{ padding: '0 1rem' }}>
                         <p
-                            style={{
-                                fontFamily: 'Source Sans Pro',
-                                fontWeight: '700',
-                            }}
+                            style={
+                                section === 'Overall'
+                                    ? overallStyle.box.p
+                                    : cardStyle.box.p
+                            }
                         >
                             {section}
                         </p>
                         <h1
                             style={{
+                                fontSize:
+                                    section === 'Overall' ? '36px' : '26px',
                                 color: getColor(overall),
                             }}
                         >
@@ -50,31 +92,32 @@ const ContributionCard = (props) => {
                     </Box>
                     <hr
                         style={{
-                            marginRight: '2rem',
-                            height: '6rem',
-                            marginTop: 'auto',
-                            marginBottom: 'auto',
+                            margin: 'auto 1rem auto 0.5rem',
+                            height: '5rem',
+                            border: '1px solid #CECECE',
                         }}
                     />
+
                     {Object.keys(cardInfo).map((x) => (
-                        <Box
-                            display='flex'
-                            flexDirection='column'
-                            key={x}
-                            style={{ marginRight: '2rem' }}
-                        >
+                        <Box key={x} style={{ marginRight: '2rem' }}>
                             <p
-                                style={{
-                                    fontFamily: 'Source Sans Pro',
-                                    fontWeight: '700',
-                                }}
+                                style={
+                                    section === 'Overall'
+                                        ? overallStyle.box.p
+                                        : cardStyle.box.p
+                                }
                             >
                                 {x}
                             </p>
                             <h2
                                 style={{
+                                    paddingTop:
+                                        section === 'Overall'
+                                            ? '0.5rem'
+                                            : '2px',
+                                    fontSize:
+                                        section === 'Overall' ? '28px' : '22px',
                                     color: getColor(cardInfo[x]),
-                                    paddingTop: '0.5rem',
                                 }}
                             >
                                 {cardInfo[x]}
