@@ -76,6 +76,7 @@ class Question extends React.Component {
         super(props);
         this.state = {
             comment: false,
+            component: this.props.component,
         };
     }
 
@@ -84,6 +85,73 @@ class Question extends React.Component {
     };
     handleRemoveComment = async (event) => {
         this.setState({ comment: false });
+    };
+    handleContinue = async (event) => {
+        var currentSection = this.state.component.state.currentSection;
+        var currentQuestion = this.state.component.state.currentQuestion;
+        var currentSectionLength = this.state.component.state.sections[
+            currentSection - 1
+        ].questions.length;
+        var nrOfSections = this.state.component.state.sections.length;
+        console.log(nrOfSections);
+        if (
+            currentSection === nrOfSections &&
+            currentQuestion === currentSectionLength - 1
+        ) {
+            this.state.component.setState({ finish: true });
+        } else {
+            this.state.component.setState({ finish: false });
+        }
+        if (currentSection === nrOfSections) {
+            if (currentQuestion === currentSectionLength) {
+                this.state.component.setState({ finished: true });
+                window.alert('LAST QUESTION');
+            } else {
+                currentQuestion++;
+                this.state.component.setState({ currentQuestion });
+            }
+        } else {
+            if (currentQuestion === currentSectionLength) {
+                currentQuestion = 1;
+                currentSection++;
+                this.state.component.setState({ currentSection });
+                this.state.component.setState({ currentQuestion });
+            } else {
+                currentQuestion++;
+
+                this.state.component.setState({ currentQuestion });
+            }
+        }
+    };
+    handleBack = async (event) => {
+        var currentSection = this.state.component.state.currentSection;
+        var currentQuestion = this.state.component.state.currentQuestion;
+        var currentSectionLength = this.state.component.state.sections[
+            currentSection - 1
+        ].questions.length;
+        var nrOfSections = this.state.component.state.sections.length;
+        console.log(nrOfSections);
+
+        if (currentSection === 1) {
+            if (currentQuestion === 1) {
+                window.alert('FIRST QUESTION');
+            } else {
+                currentQuestion--;
+                this.state.component.setState({ currentQuestion });
+            }
+        } else {
+            if (currentQuestion === 1) {
+                currentSection--;
+                currentQuestion = this.state.component.state.sections[
+                    currentSection - 1
+                ].questions.length;
+                this.state.component.setState({ currentSection });
+                this.state.component.setState({ currentQuestion });
+            } else {
+                currentQuestion--;
+                this.state.component.setState({ currentQuestion });
+            }
+        }
     };
     render() {
         var comp = this;
@@ -98,14 +166,14 @@ class Question extends React.Component {
                 );
             } else {
                 return (
-                    <Box alignItems='center' style={{ marginTop: '2rem' }}>
+                    <Box alignItems="center" style={{ marginTop: '2rem' }}>
                         <MyButton2 onClick={comp.handleRemoveComment}>
                             <RemoveCircleIcon></RemoveCircleIcon>
                         </MyButton2>
                         <TextField
-                            id='filled-basic'
-                            label='Comment'
-                            variant='filled'
+                            id="filled-basic"
+                            label="Comment"
+                            variant="filled"
                             style={{
                                 width: '580px',
                                 marginLeft: 'auto',
@@ -124,8 +192,33 @@ class Question extends React.Component {
                 );
             }
         }
+        function Continue(props) {
+            if (props.finish === false) {
+                return (
+                    <ContinueButton
+                        onClick={props.comp.handleContinue}
+                        style={{
+                            float: 'right',
+                        }}
+                    >
+                        Continue
+                    </ContinueButton>
+                );
+            } else {
+                return (
+                    <ContinueButton
+                        onClick={props.comp.handleContinue}
+                        style={{
+                            float: 'right',
+                        }}
+                    >
+                        Finish
+                    </ContinueButton>
+                );
+            }
+        }
         return (
-            <Box display='flex' flexDirection='row'>
+            <Box display="flex" flexDirection="row">
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
                     <Typography
                         style={{
@@ -134,7 +227,12 @@ class Question extends React.Component {
                             fontFamily: 'Source Sans pro',
                         }}
                     >
-                        1/2
+                        {this.state.component.state.currentQuestion} /{' '}
+                        {
+                            this.state.component.state.sections[
+                                this.state.component.state.currentSection - 1
+                            ].questions.length
+                        }
                     </Typography>
                     <Typography
                         style={{
@@ -144,7 +242,14 @@ class Question extends React.Component {
                             marginTop: '2rem',
                         }}
                     >
-                        How Accountable is Viktor?
+                        {this.state.component.state.sections[
+                            this.state.component.state.currentSection - 1
+                        ].questions[
+                            this.state.component.state.currentQuestion - 1
+                        ].content.replace(
+                            /#name/,
+                            this.state.component.state.name
+                        )}
                     </Typography>
                     <Typography
                         style={{
@@ -155,10 +260,13 @@ class Question extends React.Component {
                             opacity: '75%',
                         }}
                     >
-                        This is a description of the question,
-                        <br />
-                        How good would you rate Viktor being accountable for his
-                        work?
+                        {
+                            this.state.component.state.sections[
+                                this.state.component.state.currentSection - 1
+                            ].questions[
+                                this.state.component.state.currentQuestion - 1
+                            ].description
+                        }
                     </Typography>
                     <Scale />
                     <Comment comment={comp.state.comment} />
@@ -171,14 +279,16 @@ class Question extends React.Component {
                             marginTop: '4rem',
                         }}
                     >
-                        <ContinueButton
-                            style={{
-                                float: 'right',
-                            }}
+                        <Continue
+                            finish={this.state.component.state.finish}
+                            comp={this}
+                        ></Continue>
+                        <BackButton
+                            onClick={this.handleBack}
+                            style={{ float: 'left' }}
                         >
-                            Continue
-                        </ContinueButton>
-                        <BackButton style={{ float: 'left' }}>Back</BackButton>
+                            Back
+                        </BackButton>
                     </Box>
                 </MyCard>
             </Box>
