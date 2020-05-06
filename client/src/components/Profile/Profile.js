@@ -7,6 +7,7 @@ import ContributionPoints from './ContributionPoints/ContributionPoints';
 import EvaluationWaiting from './EvaluationWaiting/EvaluationWaiting';
 import happy from '../../assets/misc/emoji-happy.svg';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const useStyles = makeStyles({
     profile: {
@@ -27,15 +28,17 @@ const Profile = () => {
     const [userInfo, setUserInfo] = useState([]);
     const [userEvals, setUserEvals] = useState([]);
     const { loading, user } = useAuth0();
-    let thisBooleanIsFuckingTrash = true;
 
     const evalComponent = () => {
         if (userEvals !== 'null') {
             return (
-                <Box display="flex" flexDirection="row">
+                <Box display='flex' flexDirection='row'>
                     {userEvals.map((submissionUser) => (
                         <div style={{ paddingRight: '2rem' }}>
-                            <Link to="/fillin">
+                            <Link
+                                to='/fillin'
+                                style={{ textDecoration: 'none' }}
+                            >
                                 <EvaluationWaiting
                                     userPic={submissionUser.user_data.picture}
                                     name={`${submissionUser.user_data.given_name} ${submissionUser.user_data.family_name}`}
@@ -48,7 +51,7 @@ const Profile = () => {
             );
         } else {
             return (
-                <Box display="flex" flexDirection="row">
+                <Box display='flex' flexDirection='row'>
                     <img
                         src={happy}
                         style={{
@@ -94,7 +97,9 @@ const Profile = () => {
                 });
             });
             Promise.all(requests).then(() => {
-                setUserEvals(resArray);
+                setTimeout(() => {
+                    setUserEvals(resArray);
+                }, 1000);
             });
         };
         if (userInfo.length !== 0) {
@@ -107,16 +112,15 @@ const Profile = () => {
     }, [userInfo]);
 
     if (loading || userEvals.length === 0) {
-        thisBooleanIsFuckingTrash = false;
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     return (
         <div className={classes.profile}>
             <NavBar />
             <Box
-                display="flex"
-                flexDirection="column"
+                display='flex'
+                flexDirection='column'
                 style={{ padding: '2rem 6rem' }}
             >
                 <Typography
@@ -130,16 +134,16 @@ const Profile = () => {
                 >
                     My profile
                 </Typography>
-                <Box display="flex" flexDirection="row" alignItems="center">
+                <Box display='flex' flexDirection='row' alignItems='center'>
                     <Avatar
                         src={user.picture}
                         className={classes.avatar}
-                        width="120px"
-                        height="120px"
+                        width='120px'
+                        height='120px'
                     />
                     <Box
-                        display="flex"
-                        flexDirection="row"
+                        display='flex'
+                        flexDirection='row'
                         style={{ margin: '0 2rem' }}
                     >
                         <Typography

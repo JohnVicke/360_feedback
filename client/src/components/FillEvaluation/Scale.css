@@ -58,11 +58,12 @@
     background-color: #4392fe;
     border-radius: 50%;
     color: #fff;
+    position: relative;
 }
 
 .button-group:hover::before {
     position: absolute;
-    top: 530px;
+    top: 30px;
     width: 50px;
     height: 50px;
     content: '';
@@ -78,7 +79,7 @@
 }
 
 .button-group-selected::before {
-    position: fixed;
+    position: absolute;
     top: 530px;
     width: 50px;
     height: 50px;
