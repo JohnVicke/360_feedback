@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '../../react-auth0-spa';
-import { GetUserByEmail, GetUserEvals } from '../../utils/API';
+import { GetUserByEmail, GetUserEvals, getTemplate } from '../../utils/API';
 import { makeStyles, Box, Typography, Avatar } from '@material-ui/core';
 import NavBar from '../NavBar/NavBar';
 import ContributionPoints from './ContributionPoints/ContributionPoints';
@@ -26,15 +26,22 @@ const Profile = () => {
     const [userInfo, setUserInfo] = useState([]);
     const [userEvals, setUserEvals] = useState([]);
     const { loading, user } = useAuth0();
+    let thisBooleanIsFuckingTrash = true;
 
     const evalComponent = () => {
         if (userEvals !== 'null') {
             return (
-                <EvaluationWaiting
-                    userPic={userEvals.data.picture}
-                    name={`${userEvals.data.given_name} ${userEvals.data.family_name}`}
-                    role={userEvals.data.role}
-                />
+                <Box display='flex' flexDirection='row'>
+                    {userEvals.map((submissionUser) => (
+                        <div style={{ paddingRight: '2rem' }}>
+                            <EvaluationWaiting
+                                userPic={submissionUser.user_data.picture}
+                                name={`${submissionUser.user_data.given_name} ${submissionUser.user_data.family_name}`}
+                                role={submissionUser.user_data.role}
+                            />
+                        </div>
+                    ))}
+                </Box>
             );
         } else {
             return (
@@ -73,10 +80,19 @@ const Profile = () => {
 
     useEffect(() => {
         const fetchEval = async () => {
-            const response = await GetUserEvals(
-                userInfo.data.responses[0].user_id
-            );
-            setUserEvals(response);
+            let resArray = [];
+            const requests = userInfo.data.responses.map(async (response) => {
+                const res = await GetUserEvals(response.user_id);
+                const template = await getTemplate(response.survey_id);
+                resArray.push({
+                    template: template.data,
+                    answers: response.answers,
+                    user_data: res.data,
+                });
+            });
+            Promise.all(requests).then(() => {
+                setUserEvals(resArray);
+            });
         };
         if (userInfo.length !== 0) {
             if (userInfo.data.responses.length !== 0) {
@@ -87,7 +103,8 @@ const Profile = () => {
         }
     }, [userInfo]);
 
-    if (loading || userInfo.length === 0 || userEvals.length === 0) {
+    if (loading || userEvals.length === 0) {
+        thisBooleanIsFuckingTrash = false;
         return <div>Loading...</div>;
     }
 

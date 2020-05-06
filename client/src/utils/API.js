@@ -14,3 +14,8 @@ export async function GetUserEvals(id) {
     const res = await api.get(`/users/${id}`);
     return res;
 }
+
+export async function getTemplate(id) {
+    const res = await api.get(`/questionare/${id}`);
+    return res;
+}
