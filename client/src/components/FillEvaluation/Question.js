@@ -94,9 +94,17 @@ class Question extends React.Component {
         ].questions.length;
         var nrOfSections = this.state.component.state.sections.length;
         console.log(nrOfSections);
-
+        if (
+            currentSection === nrOfSections &&
+            currentQuestion === currentSectionLength - 1
+        ) {
+            this.state.component.setState({ finish: true });
+        } else {
+            this.state.component.setState({ finish: false });
+        }
         if (currentSection === nrOfSections) {
             if (currentQuestion === currentSectionLength) {
+                this.state.component.setState({ finished: true });
                 window.alert('LAST QUESTION');
             } else {
                 currentQuestion++;
@@ -184,6 +192,31 @@ class Question extends React.Component {
                 );
             }
         }
+        function Continue(props) {
+            if (props.finish === false) {
+                return (
+                    <ContinueButton
+                        onClick={props.comp.handleContinue}
+                        style={{
+                            float: 'right',
+                        }}
+                    >
+                        Continue
+                    </ContinueButton>
+                );
+            } else {
+                return (
+                    <ContinueButton
+                        onClick={props.comp.handleContinue}
+                        style={{
+                            float: 'right',
+                        }}
+                    >
+                        Finish
+                    </ContinueButton>
+                );
+            }
+        }
         return (
             <Box display="flex" flexDirection="row">
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
@@ -246,14 +279,10 @@ class Question extends React.Component {
                             marginTop: '4rem',
                         }}
                     >
-                        <ContinueButton
-                            onClick={this.handleContinue}
-                            style={{
-                                float: 'right',
-                            }}
-                        >
-                            Continue
-                        </ContinueButton>
+                        <Continue
+                            finish={this.state.component.state.finish}
+                            comp={this}
+                        ></Continue>
                         <BackButton
                             onClick={this.handleBack}
                             style={{ float: 'left' }}

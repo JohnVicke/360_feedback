@@ -3,6 +3,7 @@ import { makeStyles, Box, Typography, Avatar } from '@material-ui/core';
 import './FillEvaluation.css';
 import NavBar from '../NavBar/NavBar';
 import Question from './Question';
+import Submitted from './Submit/Submitted';
 
 class FillEvaluation extends Component {
     constructor(props) {
@@ -13,6 +14,8 @@ class FillEvaluation extends Component {
             templateName: 'Developer evaluation',
             currentSection: 1,
             currentQuestion: 1,
+            finish: false,
+            finished: false,
             sections: [
                 {
                     name: 'Section1',
@@ -58,43 +61,58 @@ class FillEvaluation extends Component {
     render() {
         const component = this;
 
-        return (
-            <div className="background">
-                <NavBar />
-                <Typography
-                    style={{
-                        color: '#fff',
-                        textAlign: 'center',
-                        fontSize: '24px',
-                        fontFamily: 'Source Sans Pro',
-                        fontWeight: '400',
-                        textTransform: 'uppercase',
-                        marginTop: '5rem',
-                    }}
-                >
-                    {component.state.fullName} - {component.state.templateName}
-                </Typography>
-                <hr style={{ width: '1200px' }} />
-                <Typography
-                    style={{
-                        color: '#fff',
-                        textAlign: 'center',
-                        fontSize: '20px',
-                        fontFamily: 'Source Sans Pro',
-                        fontWeight: '400',
-                        textTransform: 'uppercase',
-                        marginTop: '3rem',
-                    }}
-                >
-                    {
-                        component.state.sections[
-                            component.state.currentSection - 1
-                        ].name
-                    }
-                </Typography>
-                <Question component={component} />
-            </div>
-        );
+        function Finished(props) {
+            if (props.component.state.finished === false) {
+                return (
+                    <div className="background">
+                        <NavBar />
+                        <Typography
+                            style={{
+                                color: '#fff',
+                                textAlign: 'center',
+                                fontSize: '24px',
+                                fontFamily: 'Source Sans Pro',
+                                fontWeight: '400',
+                                textTransform: 'uppercase',
+                                marginTop: '5rem',
+                            }}
+                        >
+                            {component.state.fullName} -{' '}
+                            {component.state.templateName}
+                        </Typography>
+                        <hr style={{ width: '1200px' }} />
+                        <Typography
+                            style={{
+                                color: '#fff',
+                                textAlign: 'center',
+                                fontSize: '20px',
+                                fontFamily: 'Source Sans Pro',
+                                fontWeight: '400',
+                                textTransform: 'uppercase',
+                                marginTop: '3rem',
+                            }}
+                        >
+                            {
+                                component.state.sections[
+                                    component.state.currentSection - 1
+                                ].name
+                            }
+                        </Typography>
+                        <Question component={component} />
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="background">
+                        <NavBar />
+                        <div className="submitted-margin">
+                            <Submitted />
+                        </div>
+                    </div>
+                );
+            }
+        }
+        return <Finished component={component}></Finished>;
     }
 }
 
