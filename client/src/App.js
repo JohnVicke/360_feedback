@@ -7,6 +7,7 @@ import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
 import FillEvaluation from './components/FillEvaluation/FillEvaluation';
 import './assets/fonts/fonts.css';
+import Loading from './components/Loading/Loading';
 
 function App() {
     const { loading, isAuthenticated } = useAuth0();
@@ -16,7 +17,7 @@ function App() {
     } else if (!isAuthenticated) {
         return (
             <div>
-                <LandingPage />
+                <Loading />
             </div>
         );
     }

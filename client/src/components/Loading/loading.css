@@ -1,0 +1,16 @@
+.platypus-container {
+    overflow: hidden;
+    padding-top: 15%;
+    text-align: center;
+}
+
+.platypus {
+    animation: rotate 1.2s ease-in-out infinite;
+    animation-timing-function: cubic-bezier(1, 0, 0.5, 1);
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
