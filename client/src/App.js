@@ -21,11 +21,11 @@ function App() {
         );
     }
     return (
-        <div className='App'>
+        <div className="App">
             <Router history={history}>
                 <Switch>
-                    <PrivateRoute path='/' component={Profile} />
-                    <PrivateRoute path='/profile' component={Profile} />
+                    <PrivateRoute path="/" component={FillEvaluation} />
+                    <PrivateRoute path="/profile" component={Profile} />
                 </Switch>
             </Router>
         </div>

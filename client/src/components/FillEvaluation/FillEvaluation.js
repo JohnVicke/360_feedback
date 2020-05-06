@@ -5,7 +5,59 @@ import NavBar from '../NavBar/NavBar';
 import Question from './Question';
 
 class FillEvaluation extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: 'Viktor',
+            fullName: 'Viktor Malmedal',
+            templateName: 'Developer evaluation',
+            currentSection: 1,
+            currentQuestion: 1,
+            sections: [
+                {
+                    name: 'Section1',
+                    questions: [
+                        {
+                            type: 'liekert',
+                            content: 'How good is #name?',
+                            description:
+                                'This is a question about how good this employee is',
+                            q_id: 1,
+                        },
+                        {
+                            type: 'liekert',
+                            content: 'How bad is #name?',
+                            description:
+                                'This is a question about how bad this employee is',
+                            q_id: 2,
+                        },
+                    ],
+                },
+                {
+                    name: 'Section2',
+                    questions: [
+                        {
+                            type: 'liekert',
+                            content: 'How king is #name?',
+                            description:
+                                'This is a question about how king this employee is',
+                            q_id: 1,
+                        },
+                        {
+                            type: 'liekert',
+                            content: 'How unking is #name?',
+                            description:
+                                'This is a question about how unking this employee is',
+                            q_id: 2,
+                        },
+                    ],
+                },
+            ],
+        };
+    }
     render() {
+        const component = this;
+
         return (
             <div className="background">
                 <NavBar />
@@ -20,7 +72,7 @@ class FillEvaluation extends Component {
                         marginTop: '5rem',
                     }}
                 >
-                    Viktor Malmedal - December evaluation
+                    {component.state.fullName} - {component.state.templateName}
                 </Typography>
                 <hr style={{ width: '1200px' }} />
                 <Typography
@@ -34,9 +86,13 @@ class FillEvaluation extends Component {
                         marginTop: '3rem',
                     }}
                 >
-                    Section 1: Accountability
+                    {
+                        component.state.sections[
+                            component.state.currentSection - 1
+                        ].name
+                    }
                 </Typography>
-                <Question />
+                <Question component={component} />
             </div>
         );
     }
