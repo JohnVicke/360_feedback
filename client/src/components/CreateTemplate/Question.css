@@ -1,0 +1,44 @@
+.q-title {
+    color: #fff;
+    margin: 2rem 0;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    width: 380px;
+    height: 45px;
+}
+
+.q-description {
+    color: #fff;
+    outline: none;
+    resize: none;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    width: 380px;
+    height: 100px;
+}
+
+.switch {
+    background-color: #7b7b7b;
+    border-radius: 20px;
+    width: 220px;
+}
+
+.selection {
+    padding: 0 2rem;
+    border-radius: 20px;
+}
+
+.selection p {
+    font-family: Source Sans pro;
+    font-size: 15px;
+}
+
+.selected {
+    cursor: pointer;
+    color: #000;
+    height: auto;
+    background-color: #f5f5f5;
+    animation: 0.5s ease-in-out change;
+}
