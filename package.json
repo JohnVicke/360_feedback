@@ -22,7 +22,8 @@
         "express-openid-connect": "^0.6.0",
         "fs": "0.0.1-security",
         "https": "^1.0.0",
-        "mongoose": "^5.9.7"
+        "mongoose": "^5.9.7",
+        "react-transition-group": "^4.4.1"
     },
     "devDependencies": {
         "morgan": "^1.10.0",
