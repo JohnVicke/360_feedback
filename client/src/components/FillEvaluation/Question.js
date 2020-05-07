@@ -146,12 +146,16 @@ class Question extends React.Component {
                 }
             }
             console.log(responses);
+
+            //Pushing the new answer to the database.
+
             const pushingApi = await UpdateUserResponses(
                 this.state.component.state.userId,
                 { responses: responses }
             );
             console.log('Done!');
             console.log(pushingApi);
+
             if (
                 currentSection === nrOfSections &&
                 currentQuestion === currentSectionLength - 1
@@ -212,7 +216,23 @@ class Question extends React.Component {
     };
     render() {
         var comp = this;
+        function GetCurrentAnswer(props) {
+            const answers = props.state.response.answers;
+            const currentQuestion = props.state.currentQuestion;
+            const currentSection = props.state.currentSection;
+            for (var i = 0; i < answers.length; i++) {
+                if (
+                    answers[i].q_id === currentQuestion &&
+                    answers[i].s_id === currentSection
+                ) {
+                    console.log('Found current question!');
+                    return answers[i];
+                }
+            }
+            return 'null';
+        }
         function Comment(props) {
+            GetCurrentAnswer(props.comp);
             if (props.comment === false) {
                 return (
                     <MyButton onClick={comp.handleAddComment}>
@@ -317,7 +337,10 @@ class Question extends React.Component {
                         }
                     </Typography>
                     <Scale handler={this.handleAnswer} />
-                    <Comment comment={comp.state.comment} />
+                    <Comment
+                        comment={comp.state.comment}
+                        comp={this.state.component}
+                    />
 
                     <Box
                         style={{
