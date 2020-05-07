@@ -86,6 +86,7 @@ class Question extends React.Component {
             component: this.props.component,
             commentText: '',
             answer: '',
+            answers: [],
         };
         this.handleAnswer = this.handleAnswer.bind(this);
     }
@@ -175,8 +176,11 @@ class Question extends React.Component {
                 if (currentQuestion === currentSectionLength) {
                     currentQuestion = 1;
                     currentSection++;
-                    this.state.component.setState({ currentSection });
-                    this.state.component.setState({ currentQuestion });
+                    console.log(currentSection);
+                    this.state.component.setState({
+                        currentSection,
+                        currentQuestion,
+                    });
                 } else {
                     currentQuestion++;
 
@@ -214,25 +218,54 @@ class Question extends React.Component {
             }
         }
     };
-    render() {
-        var comp = this;
-        function GetCurrentAnswer(props) {
-            const answers = props.state.response.answers;
-            const currentQuestion = props.state.currentQuestion;
-            const currentSection = props.state.currentSection;
+
+    componentDidMount = async () => {
+        const answers = this.state.component.state.response.answers;
+        const currentQuestion = this.state.component.state.currentQuestion;
+        const currentSection = this.state.component.state.currentSection;
+        for (var i = 0; i < answers.length; i++) {
+            if (
+                answers[i].q_id === currentQuestion &&
+                answers[i].s_id === currentSection
+            ) {
+                this.setState({
+                    commentText: answers[i].comment,
+                    comment: true,
+                    answers: answers,
+                });
+            }
+        }
+    };
+
+    componentDidUpdate = async () => {
+        const answers = this.state.component.state.response.answers;
+        console.log('ANSWERS: ');
+        console.log(answers);
+        if (this.state.answers !== answers) {
+            console.log('OLIKA MÅSTE UPPDATERA');
+            const currentQuestion = this.state.component.state.currentQuestion;
+            const currentSection = this.state.component.state.currentSection;
             for (var i = 0; i < answers.length; i++) {
                 if (
                     answers[i].q_id === currentQuestion &&
                     answers[i].s_id === currentSection
                 ) {
-                    console.log('Found current question!');
-                    return answers[i];
+                    console.log('JAG KÖRS');
+
+                    this.setState({
+                        commentText: answers[i].comment,
+                        comment: true,
+                        answers: answers,
+                    });
                 }
             }
-            return 'null';
         }
+    };
+
+    render() {
+        var comp = this;
+
         function Comment(props) {
-            GetCurrentAnswer(props.comp);
             if (props.comment === false) {
                 return (
                     <MyButton onClick={comp.handleAddComment}>
