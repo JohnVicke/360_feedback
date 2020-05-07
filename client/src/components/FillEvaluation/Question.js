@@ -12,6 +12,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { styled } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Scale from './Scale';
+import './Question.css';
 
 const MyCard = styled(Card)({
     background: '#222222',
@@ -211,7 +212,7 @@ class Question extends React.Component {
             }
         }
         return (
-            <Box display='flex' flexDirection='row'>
+            <Box display='flex' flexDirection='row' className='q-slide'>
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
                     <Typography
                         style={{

@@ -91,6 +91,7 @@ class FillEvaluation extends Component {
                             Section{' '}
                             {`${component.state.currentSection}/${component.state.sections.length}`}
                         </p>
+
                         <Question component={component} />
                     </div>
                 );

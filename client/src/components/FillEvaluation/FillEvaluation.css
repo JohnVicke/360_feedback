@@ -7,6 +7,7 @@
         rgba(14, 17, 24, 1) 0%,
         rgba(38, 46, 63, 1) 100%
     );
+    overflow-x: hidden;
 }
 .submitted-margin {
     margin-top: 15rem;
