@@ -147,6 +147,17 @@ deleteUser = async (req, res) => {
         });
     }).catch((err) => console.log(err));
 };
+patchUserResponse = async (req, res) => {
+    try {
+        const updatedUser = await User.updateOne(
+            { _id: req.params.id },
+            { $set: { responses: req.body.responses } }
+        );
+        res.json(updatedUser);
+    } catch (err) {
+        res.json({ message: err });
+    }
+};
 
 module.exports = {
     getAllUsers,
@@ -155,4 +166,5 @@ module.exports = {
     createUser,
     updateUser,
     deleteUser,
+    patchUserResponse,
 };

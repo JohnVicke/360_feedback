@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as _ from 'lodash';
 import {
     Button,
     makeStyles,
@@ -12,6 +13,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { styled } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Scale from './Scale';
+import { GetUserById, UpdateUserResponses } from '../../utils/API';
 
 const MyCard = styled(Card)({
     background: '#222222',
@@ -82,11 +84,23 @@ class Question extends React.Component {
         this.state = {
             comment: false,
             component: this.props.component,
+            commentText: '',
+            answer: '',
         };
+        this.handleAnswer = this.handleAnswer.bind(this);
+    }
+
+    handleAnswer(num) {
+        this.setState({ answer: num });
     }
 
     handleAddComment = async (event) => {
         this.setState({ comment: true });
+    };
+    handleComment = async (event) => {
+        const commentText = event.target.value;
+        console.log(commentText);
+        this.setState({ commentText });
     };
     handleRemoveComment = async (event) => {
         this.setState({ comment: false });
@@ -99,31 +113,71 @@ class Question extends React.Component {
         ].questions.length;
         var nrOfSections = this.state.component.state.sections.length;
         console.log(nrOfSections);
-        if (
-            currentSection === nrOfSections &&
-            currentQuestion === currentSectionLength - 1
-        ) {
-            this.state.component.setState({ finish: true });
-        } else {
-            this.state.component.setState({ finish: false });
-        }
-        if (currentSection === nrOfSections) {
-            if (currentQuestion === currentSectionLength) {
-                this.state.component.setState({ finished: true });
-            } else {
-                currentQuestion++;
-                this.state.component.setState({ currentQuestion });
-            }
-        } else {
-            if (currentQuestion === currentSectionLength) {
-                currentQuestion = 1;
-                currentSection++;
-                this.state.component.setState({ currentSection });
-                this.state.component.setState({ currentQuestion });
-            } else {
-                currentQuestion++;
 
-                this.state.component.setState({ currentQuestion });
+        if (this.state.answer === '') {
+            window.alert('Fill in answer!');
+        } else {
+            window.alert('Good answer!' + this.state.answer);
+            const res = await (
+                await GetUserById(this.state.component.state.userId)
+            ).data;
+            var responses = res.responses;
+            var answers = [];
+            var answer = {
+                q_id: currentQuestion,
+                s_id: currentSection,
+                content: this.state.answer,
+                comment: this.state.commentText,
+            };
+            for (var i = 0; i < responses.length; i++) {
+                if (
+                    responses[i].survey_id ===
+                    this.state.component.state.response.survey_id
+                ) {
+                    for (var j = 0; j < responses[i].answers.length; j++) {
+                        if (
+                            responses[i].answers[j].q_id === answer.q_id &&
+                            responses[i].answers[j].s_id === answer.s_id
+                        ) {
+                            responses[i].answers.splice(j, 1);
+                        }
+                    }
+                    responses[i].answers.push(answer);
+                }
+            }
+            console.log(responses);
+            const pushingApi = await UpdateUserResponses(
+                this.state.component.state.userId,
+                { responses: responses }
+            );
+            console.log('Done!');
+            console.log(pushingApi);
+            if (
+                currentSection === nrOfSections &&
+                currentQuestion === currentSectionLength - 1
+            ) {
+                this.state.component.setState({ finish: true });
+            } else {
+                this.state.component.setState({ finish: false });
+            }
+            if (currentSection === nrOfSections) {
+                if (currentQuestion === currentSectionLength) {
+                    this.state.component.setState({ finished: true });
+                } else {
+                    currentQuestion++;
+                    this.state.component.setState({ currentQuestion });
+                }
+            } else {
+                if (currentQuestion === currentSectionLength) {
+                    currentQuestion = 1;
+                    currentSection++;
+                    this.state.component.setState({ currentSection });
+                    this.state.component.setState({ currentQuestion });
+                } else {
+                    currentQuestion++;
+
+                    this.state.component.setState({ currentQuestion });
+                }
             }
         }
     };
@@ -169,28 +223,29 @@ class Question extends React.Component {
                 );
             } else {
                 return (
-                    <Box alignItems='center' style={{ marginTop: '2rem' }}>
+                    <Box alignItems="center" style={{ marginTop: '2rem' }}>
                         <MyButton2 onClick={comp.handleRemoveComment}>
                             <RemoveCircleIcon></RemoveCircleIcon>
                         </MyButton2>
                         <TextField
-                            id='filled-basic'
-                            label='Comment'
-                            variant='filled'
+                            id="filled-basic"
+                            label="Comment"
+                            variant="filled"
                             style={{
                                 width: '580px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                             }}
+                            autoFocus="true"
+                            value={comp.state.commentText}
                             InputProps={{
                                 style: {
                                     color: 'white',
                                     fontFamily: 'Source Sans Pro',
                                 },
                             }}
-                        >
-                            Type
-                        </TextField>
+                            onChange={comp.handleComment}
+                        ></TextField>
                     </Box>
                 );
             }
@@ -211,7 +266,7 @@ class Question extends React.Component {
             }
         }
         return (
-            <Box display='flex' flexDirection='row'>
+            <Box display="flex" flexDirection="row">
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
                     <Typography
                         style={{
@@ -261,7 +316,7 @@ class Question extends React.Component {
                             ].description
                         }
                     </Typography>
-                    <Scale />
+                    <Scale handler={this.handleAnswer} />
                     <Comment comment={comp.state.comment} />
 
                     <Box

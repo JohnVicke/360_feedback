@@ -15,25 +15,31 @@ class FillEvaluation extends Component {
             templateName: '',
             currentSection: 1,
             currentQuestion: 1,
+            userId: '',
             finish: false,
             finished: false,
             sections: [],
+            response: '',
         };
     }
     componentDidMount() {
+        console.log(this.props.location.state);
         const {
             fromProfile: {
                 answers,
                 template: { description, name, sections },
                 user_data: { given_name, family_name },
             },
+            myId,
         } = this.props.location.state;
-
+        console.log(answers);
         this.setState({
             sections: sections,
             name: given_name,
             fullName: `${given_name} ${family_name}`,
             templateName: name,
+            userId: myId,
+            response: answers,
         });
     }
 
@@ -46,7 +52,7 @@ class FillEvaluation extends Component {
         function Finished(props) {
             if (props.component.state.finished === false) {
                 return (
-                    <div className='background'>
+                    <div className="background">
                         <NavBar />
                         <Typography
                             style={{
@@ -96,9 +102,9 @@ class FillEvaluation extends Component {
                 );
             } else {
                 return (
-                    <div className='background'>
+                    <div className="background">
                         <NavBar />
-                        <div className='submitted-margin'>
+                        <div className="submitted-margin">
                             <Submitted />
                         </div>
                     </div>

@@ -10,6 +10,11 @@ export async function GetUserByEmail(email) {
     return res;
 }
 
+export async function GetUserById(id) {
+    const res = await api.get(`/users/${id}`);
+    return res;
+}
+
 export async function GetUserEvals(id) {
     const res = await api.get(`/users/${id}`);
     return res;
@@ -17,5 +22,9 @@ export async function GetUserEvals(id) {
 
 export async function getTemplate(id) {
     const res = await api.get(`/questionare/${id}`);
+    return res;
+}
+export async function UpdateUserResponses(id, responses) {
+    const res = await api.patch(`/users/${id}`, responses);
     return res;
 }
