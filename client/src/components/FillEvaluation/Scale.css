@@ -52,13 +52,13 @@
 .button-group,
 .button-group-selected {
     transition: 0.2s ease-in-out;
+    position: relative;
 }
 
 .button-group:hover {
     background-color: #4392fe;
     border-radius: 50%;
     color: #fff;
-    position: relative;
 }
 
 .button-group:hover::before {
@@ -80,11 +80,12 @@
 
 .button-group-selected::before {
     position: absolute;
-    top: 530px;
+    top: 30px;
     width: 50px;
     height: 50px;
     content: '';
     border-bottom: 2px #f5f5f5 solid;
+    animation: transformWidth 0.1s ease-out;
 }
 
 @keyframes transformWidth {
