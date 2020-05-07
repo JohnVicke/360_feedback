@@ -22,7 +22,7 @@ const Scale = (props) => {
                     className={getSelectedClassName(1)}
                 >
                     <button style={selectedStyle(1)}>1</button>
-                    <p>Horrible</p>
+                    <p>Strongly disagree</p>
                 </div>
                 <span className='divider'></span>
                 <div
@@ -30,7 +30,7 @@ const Scale = (props) => {
                     className={getSelectedClassName(2)}
                 >
                     <button style={selectedStyle(2)}>2</button>
-                    <p>Bad</p>
+                    <p>Disagree</p>
                 </div>
                 <span className='divider'></span>
                 <div
@@ -38,7 +38,7 @@ const Scale = (props) => {
                     className={getSelectedClassName(3)}
                 >
                     <button style={selectedStyle(3)}>3</button>
-                    <p>Mediocre</p>
+                    <p>Neutral</p>
                 </div>
                 <span className='divider'></span>
                 <div
@@ -46,7 +46,7 @@ const Scale = (props) => {
                     className={getSelectedClassName(4)}
                 >
                     <button style={selectedStyle(4)}>4</button>
-                    <p>Good</p>
+                    <p>Agree</p>
                 </div>
                 <span className='divider'></span>
                 <div
@@ -54,7 +54,7 @@ const Scale = (props) => {
                     className={getSelectedClassName(5)}
                 >
                     <button style={selectedStyle(5)}>5</button>
-                    <p>Great</p>
+                    <p>Strongly agree</p>
                 </div>
             </div>
         </div>
