@@ -171,8 +171,10 @@ class Question extends React.Component {
                 if (currentQuestion === currentSectionLength) {
                     currentQuestion = 1;
                     currentSection++;
-                    this.state.component.setState({ currentSection });
-                    this.state.component.setState({ currentQuestion });
+                    this.state.component.setState({
+                        currentSection,
+                        currentQuestion,
+                    });
                 } else {
                     currentQuestion++;
 
