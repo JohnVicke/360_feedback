@@ -36,7 +36,12 @@ const Profile = () => {
                     {userEvals.map((submissionUser) => (
                         <div style={{ paddingRight: '2rem' }}>
                             <Link
-                                to='/fillin'
+                                to={{
+                                    pathname: '/fillin',
+                                    state: {
+                                        fromProfile: submissionUser,
+                                    },
+                                }}
                                 style={{ textDecoration: 'none' }}
                             >
                                 <EvaluationWaiting

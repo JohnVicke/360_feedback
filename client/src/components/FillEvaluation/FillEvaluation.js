@@ -4,67 +4,49 @@ import './FillEvaluation.css';
 import NavBar from '../NavBar/NavBar';
 import Question from './Question';
 import Submitted from './Submit/Submitted';
+import Loading from '../Loading/Loading';
 
 class FillEvaluation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'Viktor',
-            fullName: 'Viktor Malmedal',
-            templateName: 'Developer evaluation',
+            name: '',
+            fullName: '',
+            templateName: '',
             currentSection: 1,
             currentQuestion: 1,
             finish: false,
             finished: false,
-            sections: [
-                {
-                    name: 'Section1',
-                    questions: [
-                        {
-                            type: 'liekert',
-                            content: 'How good is #name?',
-                            description:
-                                'This is a question about how good this employee is',
-                            q_id: 1,
-                        },
-                        {
-                            type: 'liekert',
-                            content: 'How bad is #name?',
-                            description:
-                                'This is a question about how bad this employee is',
-                            q_id: 2,
-                        },
-                    ],
-                },
-                {
-                    name: 'Section2',
-                    questions: [
-                        {
-                            type: 'liekert',
-                            content: 'How king is #name?',
-                            description:
-                                'This is a question about how king this employee is',
-                            q_id: 1,
-                        },
-                        {
-                            type: 'liekert',
-                            content: 'How unking is #name?',
-                            description:
-                                'This is a question about how unking this employee is',
-                            q_id: 2,
-                        },
-                    ],
-                },
-            ],
+            sections: [],
         };
     }
+    componentDidMount() {
+        const {
+            fromProfile: {
+                answers,
+                template: { description, name, sections },
+                user_data: { given_name, family_name },
+            },
+        } = this.props.location.state;
+
+        this.setState({
+            sections: sections,
+            name: given_name,
+            fullName: `${given_name} ${family_name}`,
+            templateName: name,
+        });
+    }
+
     render() {
         const component = this;
+        if (!component.state.sections.length) {
+            return <Loading />;
+        }
 
         function Finished(props) {
             if (props.component.state.finished === false) {
                 return (
-                    <div className="background">
+                    <div className='background'>
                         <NavBar />
                         <Typography
                             style={{
@@ -74,7 +56,7 @@ class FillEvaluation extends Component {
                                 fontFamily: 'Source Sans Pro',
                                 fontWeight: '400',
                                 textTransform: 'uppercase',
-                                marginTop: '5rem',
+                                marginTop: '2rem',
                             }}
                         >
                             {component.state.fullName} -{' '}
@@ -98,14 +80,25 @@ class FillEvaluation extends Component {
                                 ].name
                             }
                         </Typography>
+                        <p
+                            style={{
+                                textAlign: 'center',
+                                color: '#fff',
+                                fontFamily: 'Source Sans Pro',
+                                textTransform: 'uppercase',
+                            }}
+                        >
+                            Section{' '}
+                            {`${component.state.currentSection}/${component.state.sections.length}`}
+                        </p>
                         <Question component={component} />
                     </div>
                 );
             } else {
                 return (
-                    <div className="background">
+                    <div className='background'>
                         <NavBar />
-                        <div className="submitted-margin">
+                        <div className='submitted-margin'>
                             <Submitted />
                         </div>
                     </div>

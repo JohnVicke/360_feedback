@@ -58,7 +58,12 @@ const ContinueButton = styled(Button)({
     borderRadius: 30,
     height: '40px',
     width: '125px',
+    float: 'right',
     transition: 'ease-in-out 0.2s',
+    '& :hover': {
+        backgroundColor: '#4392FE',
+        transform: 'scale(1,1)',
+    },
 });
 const BackButton = styled(Button)({
     backgroundColor: 'transparent',
@@ -193,23 +198,13 @@ class Question extends React.Component {
         function Continue(props) {
             if (props.finish === false) {
                 return (
-                    <ContinueButton
-                        onClick={props.comp.handleContinue}
-                        style={{
-                            float: 'right',
-                        }}
-                    >
+                    <ContinueButton onClick={props.comp.handleContinue}>
                         Continue
                     </ContinueButton>
                 );
             } else {
                 return (
-                    <ContinueButton
-                        onClick={props.comp.handleContinue}
-                        style={{
-                            float: 'right',
-                        }}
-                    >
+                    <ContinueButton onClick={props.comp.handleContinue}>
                         Finish
                     </ContinueButton>
                 );
