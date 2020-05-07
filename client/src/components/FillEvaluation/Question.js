@@ -105,7 +105,6 @@ class Question extends React.Component {
         if (currentSection === nrOfSections) {
             if (currentQuestion === currentSectionLength) {
                 this.state.component.setState({ finished: true });
-                window.alert('LAST QUESTION');
             } else {
                 currentQuestion++;
                 this.state.component.setState({ currentQuestion });
@@ -134,7 +133,6 @@ class Question extends React.Component {
 
         if (currentSection === 1) {
             if (currentQuestion === 1) {
-                window.alert('FIRST QUESTION');
             } else {
                 currentQuestion--;
                 this.state.component.setState({ currentQuestion });
@@ -166,14 +164,14 @@ class Question extends React.Component {
                 );
             } else {
                 return (
-                    <Box alignItems="center" style={{ marginTop: '2rem' }}>
+                    <Box alignItems='center' style={{ marginTop: '2rem' }}>
                         <MyButton2 onClick={comp.handleRemoveComment}>
                             <RemoveCircleIcon></RemoveCircleIcon>
                         </MyButton2>
                         <TextField
-                            id="filled-basic"
-                            label="Comment"
-                            variant="filled"
+                            id='filled-basic'
+                            label='Comment'
+                            variant='filled'
                             style={{
                                 width: '580px',
                                 marginLeft: 'auto',
@@ -218,7 +216,7 @@ class Question extends React.Component {
             }
         }
         return (
-            <Box display="flex" flexDirection="row">
+            <Box display='flex' flexDirection='row'>
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
                     <Typography
                         style={{
