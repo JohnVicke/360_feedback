@@ -5,6 +5,8 @@ import NavBar from '../NavBar/NavBar';
 import Question from './Question';
 import Submitted from './Submit/Submitted';
 import Loading from '../Loading/Loading';
+import { GetUserEvals } from '../../utils/API';
+import * as _ from 'lodash';
 
 class FillEvaluation extends Component {
     constructor(props) {
@@ -42,6 +44,28 @@ class FillEvaluation extends Component {
             response: answers,
         });
     }
+    componentDidUpdate = async () => {
+        const res = await (await GetUserEvals(this.state.userId)).data;
+        console.log('--------------');
+        console.log(res);
+        console.log('--------------');
+        const responses = res.responses;
+        var response = '';
+        for (var i = 0; i < responses.length; i++) {
+            if (responses[i].survey_id === this.state.response.survey_id) {
+                response = responses[i];
+            }
+        }
+        if (
+            !_(response.answers)
+                .differenceWith(this.state.response.answers, _.isEqual)
+                .isEmpty()
+        ) {
+            this.setState({ response });
+            console.log(response);
+            console.log(this.state.response);
+        }
+    };
 
     render() {
         const component = this;
