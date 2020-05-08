@@ -32,7 +32,7 @@ const Profile = () => {
     const evalComponent = () => {
         if (userEvals !== 'null') {
             return (
-                <Box display='flex' flexDirection='row'>
+                <Box display="flex" flexDirection="row">
                     {userEvals.map((submissionUser) => (
                         <div style={{ paddingRight: '2rem' }}>
                             <Link
@@ -40,6 +40,7 @@ const Profile = () => {
                                     pathname: '/fillin',
                                     state: {
                                         fromProfile: submissionUser,
+                                        myId: userInfo.data._id,
                                     },
                                 }}
                                 style={{ textDecoration: 'none' }}
@@ -56,7 +57,7 @@ const Profile = () => {
             );
         } else {
             return (
-                <Box display='flex' flexDirection='row'>
+                <Box display="flex" flexDirection="row">
                     <img
                         src={happy}
                         style={{
@@ -97,7 +98,7 @@ const Profile = () => {
                 const template = await getTemplate(response.survey_id);
                 resArray.push({
                     template: template.data,
-                    answers: response.answers,
+                    answers: response,
                     user_data: res.data,
                 });
             });
@@ -124,8 +125,8 @@ const Profile = () => {
         <div className={classes.profile}>
             <NavBar />
             <Box
-                display='flex'
-                flexDirection='column'
+                display="flex"
+                flexDirection="column"
                 style={{ padding: '2rem 6rem' }}
             >
                 <Typography
@@ -139,16 +140,16 @@ const Profile = () => {
                 >
                     My profile
                 </Typography>
-                <Box display='flex' flexDirection='row' alignItems='center'>
+                <Box display="flex" flexDirection="row" alignItems="center">
                     <Avatar
                         src={user.picture}
                         className={classes.avatar}
-                        width='120px'
-                        height='120px'
+                        width="120px"
+                        height="120px"
                     />
                     <Box
-                        display='flex'
-                        flexDirection='row'
+                        display="flex"
+                        flexDirection="row"
                         style={{ margin: '0 2rem' }}
                     >
                         <Typography
