@@ -3,7 +3,11 @@ import './Scale.css';
 
 const Scale = (props) => {
     const [selected, setSelected] = useState(0);
-
+    if (props.answer !== '') {
+        if (props.answer !== selected) {
+            setSelected(props.answer);
+        }
+    }
     const selectedStyle = (num) => {
         return selected === num
             ? { backgroundColor: '#4392fe' }

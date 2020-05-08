@@ -210,8 +210,10 @@ class Question extends React.Component {
                 currentQuestion = this.state.component.state.sections[
                     currentSection - 1
                 ].questions.length;
-                this.state.component.setState({ currentSection });
-                this.state.component.setState({ currentQuestion });
+                this.state.component.setState({
+                    currentSection,
+                    currentQuestion,
+                });
             } else {
                 currentQuestion--;
                 this.state.component.setState({ currentQuestion });
@@ -230,6 +232,7 @@ class Question extends React.Component {
             ) {
                 this.setState({
                     commentText: answers[i].comment,
+                    answer: answers[i].content,
                     comment: true,
                     answers: answers,
                 });
@@ -254,6 +257,8 @@ class Question extends React.Component {
 
                     this.setState({
                         commentText: answers[i].comment,
+                        answer: answers[i].content,
+
                         comment: true,
                         answers: answers,
                     });
@@ -369,7 +374,10 @@ class Question extends React.Component {
                             ].description
                         }
                     </Typography>
-                    <Scale handler={this.handleAnswer} />
+                    <Scale
+                        handler={this.handleAnswer}
+                        answer={this.state.answer}
+                    />
                     <Comment
                         comment={comp.state.comment}
                         comp={this.state.component}
