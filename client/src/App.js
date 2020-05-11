@@ -8,7 +8,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import FillEvaluation from './components/FillEvaluation/FillEvaluation';
 import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
-
+import ContributionPoints from './components/Profile/ContributionPoints/ContributionPoints';
 function App() {
     const { loading, isAuthenticated } = useAuth0();
     if (loading) {
@@ -16,7 +16,7 @@ function App() {
     } else if (!isAuthenticated) {
         return (
             <div>
-                <LandingPage />
+                <ContributionPoints />
             </div>
         );
     }
