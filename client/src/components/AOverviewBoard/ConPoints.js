@@ -22,6 +22,19 @@ const MyCard = styled(Card)({
     textAlign: 'center',
 });
 class ConPoints extends Component {
+    getColor = (x) => {
+        var color = '';
+        if (x >= 4) color = '#5ABE41';
+        else if (x == 3) color = '#FFB400';
+        else color = '#FE0642';
+        return color;
+    };
+    getDiffColor = (x) => {
+        var color = '';
+        if (x >= 0) color = '#5ABE41';
+        else color = '#FE0642';
+        return color;
+    };
     render() {
         return this.props.component.state.template.sections.map((section) => {
             return (
@@ -70,7 +83,7 @@ class ConPoints extends Component {
                                     fontSize: '30px',
 
                                     margin: '0',
-                                    color: 'black',
+                                    color: this.getColor(3),
                                 }}
                             >
                                 3
@@ -90,7 +103,7 @@ class ConPoints extends Component {
                                     fontSize: '30px',
 
                                     margin: '0',
-                                    color: 'black',
+                                    color: this.getColor(5),
                                 }}
                             >
                                 5
@@ -110,7 +123,7 @@ class ConPoints extends Component {
                                     fontSize: '30px',
 
                                     margin: '0',
-                                    color: 'black',
+                                    color: this.getDiffColor(-2),
                                 }}
                             >
                                 -2
