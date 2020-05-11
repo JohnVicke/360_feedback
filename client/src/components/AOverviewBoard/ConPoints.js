@@ -25,7 +25,7 @@ class ConPoints extends Component {
     getColor = (x) => {
         var color = '';
         if (x >= 4) color = '#5ABE41';
-        else if (x == 3) color = '#FFB400';
+        else if (x === 3) color = '#FFB400';
         else color = '#FE0642';
         return color;
     };
@@ -35,104 +35,158 @@ class ConPoints extends Component {
         else color = '#FE0642';
         return color;
     };
+    getColleaguesScore = (index) => {
+        var score = 0;
+        var nrOfAnswers = 0;
+        const responses = this.props.component.state.survey.responses;
+        console.log(index);
+        for (var i = 0; i < responses.length; i++) {
+            for (var j = 0; j < responses[i].answers.length; j++) {
+                if (
+                    responses[i].answers[j].s_id === index + 1 &&
+                    responses[i].user_id !== this.props.component.state.userId
+                ) {
+                    console.log('INDEX:  ' + index);
+                    score = score + responses[i].answers[j].content;
+                    nrOfAnswers++;
+                }
+            }
+        }
+        score = score / nrOfAnswers;
+        return score;
+    };
+    getYourScore = (index) => {
+        var score = 0;
+        var nrOfAnswers = 0;
+        const responses = this.props.component.state.survey.responses;
+        console.log(index);
+        for (var i = 0; i < responses.length; i++) {
+            for (var j = 0; j < responses[i].answers.length; j++) {
+                if (
+                    responses[i].answers[j].s_id === index + 1 &&
+                    responses[i].user_id === this.props.component.state.userId
+                ) {
+                    console.log('INDEX:  ' + index);
+                    score = score + responses[i].answers[j].content;
+                    nrOfAnswers++;
+                }
+            }
+        }
+        score = score / nrOfAnswers;
+        return score;
+    };
+    getScoreDifference = (index) => {
+        return this.getColleaguesScore(index) - this.getYourScore(index);
+    };
     render() {
-        return this.props.component.state.template.sections.map((section) => {
-            return (
-                <MyCard
-                    style={{
-                        marginLeft: '5rem',
-                    }}
-                >
-                    <Typography
+        return this.props.component.state.template.sections.map(
+            (section, index) => {
+                return (
+                    <MyCard
                         style={{
-                            fontFamily: 'Source Sans Pro',
-                            fontSize: '18px',
-                            fontWeight: '700',
-                            color: '#262E3F',
-                            lineHeight: '15px',
-                            marginTop: '0.3rem',
-                            marginBottom: '0',
+                            marginLeft: '5rem',
                         }}
                     >
-                        {section.name}
-                    </Typography>
-                    <hr
-                        style={{
-                            width: '50%',
-                            color: '#CECECE',
-                            margin: '5px auto 0 auto',
-                        }}
-                    ></hr>
-                    <Box
-                        display="flex"
-                        flexDirection="row"
-                        justifyContent="space-between"
-                        margin="0 1rem 0 1rem"
-                    >
-                        <Box>
-                            <p
-                                style={{
-                                    margin: '0',
-                                    fontFamily: 'Source Sans Pro',
-                                }}
-                            >
-                                Colleagues
-                            </p>
-                            <h1
-                                style={{
-                                    fontSize: '30px',
+                        <Typography
+                            style={{
+                                fontFamily: 'Source Sans Pro',
+                                fontSize: '18px',
+                                fontWeight: '700',
+                                color: '#262E3F',
+                                lineHeight: '15px',
+                                marginTop: '0.3rem',
+                                marginBottom: '0',
+                            }}
+                        >
+                            {section.name}
+                        </Typography>
+                        <hr
+                            style={{
+                                width: '50%',
+                                color: '#CECECE',
+                                margin: '5px auto 0 auto',
+                            }}
+                        ></hr>
+                        <Box
+                            display="flex"
+                            flexDirection="row"
+                            justifyContent="space-between"
+                            margin="0 1rem 0 1rem"
+                            onClick={() => {
+                                this.props.click(index);
+                            }}
+                        >
+                            <Box>
+                                <p
+                                    style={{
+                                        margin: '0',
+                                        fontFamily: 'Source Sans Pro',
+                                    }}
+                                >
+                                    Colleagues
+                                </p>
+                                <h1
+                                    style={{
+                                        fontSize: '30px',
 
-                                    margin: '0',
-                                    color: this.getColor(3),
-                                }}
-                            >
-                                3
-                            </h1>
-                        </Box>
-                        <Box>
-                            <p
-                                style={{
-                                    margin: '0',
-                                    fontFamily: 'Source Sans Pro',
-                                }}
-                            >
-                                You
-                            </p>
-                            <h1
-                                style={{
-                                    fontSize: '30px',
+                                        margin: '0',
+                                        color: this.getColor(
+                                            this.getColleaguesScore(index)
+                                        ),
+                                    }}
+                                >
+                                    {this.getColleaguesScore(index)}
+                                </h1>
+                            </Box>
+                            <Box>
+                                <p
+                                    style={{
+                                        margin: '0',
+                                        fontFamily: 'Source Sans Pro',
+                                    }}
+                                >
+                                    You
+                                </p>
+                                <h1
+                                    style={{
+                                        fontSize: '30px',
 
-                                    margin: '0',
-                                    color: this.getColor(5),
-                                }}
-                            >
-                                5
-                            </h1>
-                        </Box>
-                        <Box>
-                            <p
-                                style={{
-                                    margin: '0',
-                                    fontFamily: 'Source Sans Pro',
-                                }}
-                            >
-                                Difference
-                            </p>
-                            <h1
-                                style={{
-                                    fontSize: '30px',
+                                        margin: '0',
+                                        color: this.getColor(
+                                            this.getYourScore(index)
+                                        ),
+                                    }}
+                                >
+                                    {this.getYourScore(index)}
+                                </h1>
+                            </Box>
+                            <Box>
+                                <p
+                                    style={{
+                                        margin: '0',
+                                        fontFamily: 'Source Sans Pro',
+                                    }}
+                                >
+                                    Difference
+                                </p>
+                                <h1
+                                    style={{
+                                        fontSize: '30px',
 
-                                    margin: '0',
-                                    color: this.getDiffColor(-2),
-                                }}
-                            >
-                                -2
-                            </h1>
+                                        margin: '0',
+                                        color: this.getDiffColor(
+                                            this.getScoreDifference(index)
+                                        ),
+                                    }}
+                                >
+                                    {this.getScoreDifference(index)}
+                                </h1>
+                            </Box>
                         </Box>
-                    </Box>
-                </MyCard>
-            );
-        });
+                    </MyCard>
+                );
+            }
+        );
     }
 }
 

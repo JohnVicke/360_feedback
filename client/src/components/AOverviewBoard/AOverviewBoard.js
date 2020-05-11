@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import {
     Box,
-    Card,
     Typography,
-    FormControl,
-    FormLabel,
-    RadioGroup,
-    FormControlLabel,
-    Radio,
     Button,
     Avatar,
     makeStyles,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Slide,
 } from '@material-ui/core';
 import ConPoints from './ConPoints';
 
@@ -25,6 +25,8 @@ class AOverviewBoard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            dialogOpen: false,
+            index: 0,
             templateName: 'May Evaluation',
             userId: 1,
             survey: {
@@ -39,10 +41,10 @@ class AOverviewBoard extends Component {
                             {
                                 q_id: 1,
                                 s_id: 1,
-                                content: 3,
+                                content: 5,
                                 comment: 'Average',
                             },
-                            { q_id: 2, s_id: 1, content: 4, comment: 'good!' },
+                            { q_id: 2, s_id: 1, content: 5, comment: 'good!' },
                         ],
                     },
                     {
@@ -73,6 +75,17 @@ class AOverviewBoard extends Component {
             },
         };
     }
+    Transition = React.forwardRef(function Transition(props, ref) {
+        return <Slide direction="up" ref={ref} {...props} />;
+    });
+    handleClickOpen = (index) => {
+        this.setState({ dialogOpen: true, index });
+    };
+
+    handleClose = () => {
+        this.setState({ dialogOpen: false });
+    };
+
     render() {
         const comp = this;
         return (
@@ -142,7 +155,38 @@ class AOverviewBoard extends Component {
                     >
                         Overall contribution points
                     </Typography>
-                    <ConPoints component={comp} />
+                    <ConPoints component={comp} click={this.handleClickOpen} />
+                    <Dialog
+                        open={this.state.dialogOpen}
+                        TransitionComponent={this.Transition}
+                        keepMounted
+                        onClose={this.handleClose}
+                        aria-labelledby="alert-dialog-slide-title"
+                        aria-describedby="alert-dialog-slide-description"
+                        maxWidth="xl"
+                    >
+                        <Typography style={{ fontSize: '500px' }}>
+                            {
+                                this.state.template.sections[this.state.index]
+                                    .name
+                            }
+                        </Typography>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                                Let Google help apps determine location. This
+                                means sending anonymous location data to Google,
+                                even when no apps are running.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">
+                                Disagree
+                            </Button>
+                            <Button onClick={this.handleClose} color="primary">
+                                Agree
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             </div>
         );
