@@ -8,7 +8,6 @@ import LandingPage from './components/LandingPage/LandingPage';
 import FillEvaluation from './components/FillEvaluation/FillEvaluation';
 import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
-
 function App() {
     const { loading, isAuthenticated } = useAuth0();
     if (loading) {
