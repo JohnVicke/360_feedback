@@ -85,6 +85,13 @@ class AOverviewBoard extends Component {
     handleClose = () => {
         this.setState({ dialogOpen: false });
     };
+    getColor = (x) => {
+        var color = '';
+        if (x >= 4) color = '#5ABE41';
+        else if (x === 3) color = '#FFB400';
+        else color = '#FE0642';
+        return color;
+    };
 
     render() {
         const comp = this;
@@ -163,27 +170,262 @@ class AOverviewBoard extends Component {
                         onClose={this.handleClose}
                         aria-labelledby="alert-dialog-slide-title"
                         aria-describedby="alert-dialog-slide-description"
-                        maxWidth="xl"
+                        maxWidth="lg"
+                        fullWidth="true"
                     >
-                        <Typography style={{ fontSize: '500px' }}>
+                        <Typography
+                            style={{
+                                fontSize: '45px',
+                                textAlign: 'center',
+                                fontFamily: 'Source Sans Pro',
+                                fontWeight: '600',
+                                color: '#262E3F',
+                            }}
+                        >
                             {
                                 this.state.template.sections[this.state.index]
                                     .name
                             }
                         </Typography>
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-slide-description">
-                                Let Google help apps determine location. This
-                                means sending anonymous location data to Google,
-                                even when no apps are running.
-                            </DialogContentText>
-                        </DialogContent>
+                        <Box
+                            display="flex"
+                            flexWrap="wrap"
+                            alignContent="space-between"
+                            margin="0 3rem"
+                        >
+                            <Box maxWidth="400px">
+                                <Typography
+                                    style={{
+                                        fontSize: '18px',
+                                        textAlign: 'Left',
+                                        fontFamily: 'Source Sans Pro',
+                                        fontWeight: '600',
+                                        color: '#262E3F',
+                                        marginBottom: '1rem',
+                                    }}
+                                >
+                                    How easy is David to communicate with?
+                                </Typography>
+
+                                <Box display="flex" flexDirection="column">
+                                    <Box display="flex" flexDirection="row">
+                                        <Box
+                                            display="flex"
+                                            flexDirection="column"
+                                        >
+                                            <Avatar></Avatar>
+                                            <Typography
+                                                style={{
+                                                    fontSize: '14px',
+                                                    fontFamily:
+                                                        'Source Sans Pro',
+                                                    textAlign: 'center',
+                                                    fontWeight: '800',
+                                                }}
+                                            >
+                                                YOU
+                                            </Typography>
+                                        </Box>
+                                        <Typography
+                                            style={{
+                                                fontSize: '40px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '800',
+                                                color: comp.getColor(5),
+                                                margin: '0 2rem',
+                                                lineHeight: '1',
+                                            }}
+                                        >
+                                            5
+                                        </Typography>
+                                        <Typography
+                                            style={{
+                                                fontSize: '12px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '500',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            I think i am very easy to
+                                            communicate with.
+                                        </Typography>
+                                    </Box>
+                                    <Box
+                                        display="flex"
+                                        flexDirection="row"
+                                        style={{ margin: '0.5rem 0' }}
+                                    >
+                                        <Box
+                                            display="flex"
+                                            flexDirection="column"
+                                        >
+                                            <Avatar></Avatar>
+                                        </Box>
+                                        <Typography
+                                            style={{
+                                                fontSize: '40px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '800',
+                                                color: comp.getColor(3),
+                                                margin: '0 2rem',
+                                                lineHeight: '1',
+                                            }}
+                                        >
+                                            3
+                                        </Typography>
+                                        <Typography
+                                            style={{
+                                                fontSize: '12px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '500',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            Not so great!
+                                        </Typography>
+                                    </Box>
+                                    <Box
+                                        display="flex"
+                                        flexDirection="row"
+                                        style={{ margin: '0.5rem 0' }}
+                                    >
+                                        <Box
+                                            display="flex"
+                                            flexDirection="column"
+                                        >
+                                            <Avatar></Avatar>
+                                        </Box>
+                                        <Typography
+                                            style={{
+                                                fontSize: '40px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '800',
+                                                color: comp.getColor(3),
+                                                margin: '0 2rem',
+                                                lineHeight: '1',
+                                            }}
+                                        >
+                                            3
+                                        </Typography>
+                                        <Typography
+                                            style={{
+                                                fontSize: '12px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '500',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            Not so great!
+                                        </Typography>
+                                    </Box>
+                                    <Box
+                                        display="flex"
+                                        flexDirection="row"
+                                        style={{ margin: '0.5rem 0' }}
+                                    >
+                                        <Box
+                                            display="flex"
+                                            flexDirection="column"
+                                        >
+                                            <Avatar></Avatar>
+                                        </Box>
+                                        <Typography
+                                            style={{
+                                                fontSize: '40px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '800',
+                                                color: comp.getColor(2),
+                                                margin: '0 2rem',
+                                                lineHeight: '1',
+                                            }}
+                                        >
+                                            2
+                                        </Typography>
+                                        <Typography
+                                            style={{
+                                                fontSize: '12px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '500',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            Not so great!
+                                        </Typography>
+                                    </Box>
+                                    <Box
+                                        display="flex"
+                                        flexDirection="row"
+                                        style={{ margin: '0.5rem 0' }}
+                                    >
+                                        <Box
+                                            display="flex"
+                                            flexDirection="column"
+                                        >
+                                            <Avatar></Avatar>
+                                        </Box>
+                                        <Typography
+                                            style={{
+                                                fontSize: '40px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '800',
+                                                color: comp.getColor(4),
+                                                margin: '0 2rem',
+                                                lineHeight: '1',
+                                            }}
+                                        >
+                                            4
+                                        </Typography>
+                                        <Typography
+                                            style={{
+                                                fontSize: '12px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '500',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            Not so great!
+                                        </Typography>
+                                    </Box>
+                                    <Box
+                                        display="flex"
+                                        flexDirection="row"
+                                        style={{ margin: '0.5rem 0' }}
+                                    >
+                                        <Box
+                                            display="flex"
+                                            flexDirection="column"
+                                        >
+                                            <Avatar></Avatar>
+                                        </Box>
+                                        <Typography
+                                            style={{
+                                                fontSize: '40px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '800',
+                                                color: comp.getColor(1),
+                                                margin: '0 2rem',
+                                                lineHeight: '1',
+                                            }}
+                                        >
+                                            1
+                                        </Typography>
+                                        <Typography
+                                            style={{
+                                                fontSize: '12px',
+                                                fontFamily: 'Source Sans Pro',
+                                                fontWeight: '500',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            Not so great!
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Box>
                         <DialogActions>
                             <Button onClick={this.handleClose} color="primary">
-                                Disagree
-                            </Button>
-                            <Button onClick={this.handleClose} color="primary">
-                                Agree
+                                Close
                             </Button>
                         </DialogActions>
                     </Dialog>
