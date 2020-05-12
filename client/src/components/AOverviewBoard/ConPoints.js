@@ -39,14 +39,12 @@ class ConPoints extends Component {
         var score = 0;
         var nrOfAnswers = 0;
         const responses = this.props.component.state.survey.responses;
-        console.log(index);
         for (var i = 0; i < responses.length; i++) {
             for (var j = 0; j < responses[i].answers.length; j++) {
                 if (
                     responses[i].answers[j].s_id === index + 1 &&
                     responses[i].user_id !== this.props.component.state.userId
                 ) {
-                    console.log('INDEX:  ' + index);
                     score = score + responses[i].answers[j].content;
                     nrOfAnswers++;
                 }
@@ -59,14 +57,12 @@ class ConPoints extends Component {
         var score = 0;
         var nrOfAnswers = 0;
         const responses = this.props.component.state.survey.responses;
-        console.log(index);
         for (var i = 0; i < responses.length; i++) {
             for (var j = 0; j < responses[i].answers.length; j++) {
                 if (
                     responses[i].answers[j].s_id === index + 1 &&
                     responses[i].user_id === this.props.component.state.userId
                 ) {
-                    console.log('INDEX:  ' + index);
                     score = score + responses[i].answers[j].content;
                     nrOfAnswers++;
                 }
