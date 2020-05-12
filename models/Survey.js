@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
  */
 const surveySchema = mongoose.Schema(
     {
-        e_id: { type: Number, required: true },
+        e_id: { type: mongoose.Schema.ObjectId, required: true },
         end_date: { type: Date, required: true },
         template_id: { type: mongoose.Schema.ObjectId, required: true },
         responses: { type: Array, required: true },

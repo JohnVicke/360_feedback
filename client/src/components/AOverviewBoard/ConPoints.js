@@ -42,10 +42,11 @@ class ConPoints extends Component {
         for (var i = 0; i < responses.length; i++) {
             for (var j = 0; j < responses[i].answers.length; j++) {
                 if (
-                    responses[i].answers[j].s_id === index + 1 &&
-                    responses[i].user_id !== this.props.component.state.userId
+                    responses[i].answers[j].s_id == index + 1 &&
+                    responses[i].user_id != this.props.component.state.userId
                 ) {
-                    score = score + responses[i].answers[j].content;
+                    score =
+                        score + parseInt(responses[i].answers[j].content, 10);
                     nrOfAnswers++;
                 }
             }
@@ -60,10 +61,11 @@ class ConPoints extends Component {
         for (var i = 0; i < responses.length; i++) {
             for (var j = 0; j < responses[i].answers.length; j++) {
                 if (
-                    responses[i].answers[j].s_id === index + 1 &&
-                    responses[i].user_id === this.props.component.state.userId
+                    responses[i].answers[j].s_id == index + 1 &&
+                    responses[i].user_id == this.props.component.state.userId
                 ) {
-                    score = score + responses[i].answers[j].content;
+                    score =
+                        score + parseInt(responses[i].answers[j].content, 10);
                     nrOfAnswers++;
                 }
             }

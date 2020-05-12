@@ -14,6 +14,7 @@ import {
     Slide,
 } from '@material-ui/core';
 import ConPoints from './ConPoints';
+import { GetSurveyById } from '../../utils/API';
 
 const useStyles = makeStyles({
     avatar: {
@@ -25,6 +26,7 @@ class AOverviewBoard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            surveyId: '5eba8593ff1b10be56b09465',
             dialogOpen: false,
             index: 0,
             templateName: 'May Evaluation',
@@ -94,6 +96,14 @@ class AOverviewBoard extends Component {
             },
         };
     }
+
+    componentDidMount = async () => {
+        const res = await (await GetSurveyById(this.state.surveyId)).data;
+        console.log('--------------------------');
+        console.log(res);
+        console.log('--------------------------');
+        this.setState({ userId: res.e_id, survey: res });
+    };
     Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
     });
@@ -112,15 +122,15 @@ class AOverviewBoard extends Component {
         return color;
     };
     getYourAnswer = (index, questionId) => {
+        console.log(index);
+        console.log(questionId);
+
         const responses = this.state.survey.responses;
         for (var i = 0; i < responses.length; i++) {
             if (responses[i].user_id === this.state.userId) {
                 for (var j = 0; j < responses[i].answers.length; j++) {
                     const answer = responses[i].answers[j];
-                    if (
-                        answer.s_id === index + 1 &&
-                        answer.q_id === questionId
-                    ) {
+                    if (answer.s_id == index + 1 && answer.q_id == questionId) {
                         return answer;
                     }
                 }
@@ -134,10 +144,7 @@ class AOverviewBoard extends Component {
             if (responses[i].user_id !== this.state.userId) {
                 for (var j = 0; j < responses[i].answers.length; j++) {
                     const answer = responses[i].answers[j];
-                    if (
-                        answer.s_id === index + 1 &&
-                        answer.q_id === questionId
-                    ) {
+                    if (answer.s_id == index + 1 && answer.q_id == questionId) {
                         console.log('SHOULD PUSH');
                         answers.push(answer);
                     }
@@ -149,266 +156,291 @@ class AOverviewBoard extends Component {
 
     render() {
         const comp = this;
-        return (
-            <div>
-                <div className="background">
-                    <NavBar />
-                    <Typography
-                        style={{
-                            color: '#fff',
-                            fontSize: '24px',
-                            fontFamily: 'Source Sans Pro',
-                            fontWeight: '400',
-                            marginTop: '2rem',
-                            marginLeft: '5rem',
-                            marginBottom: '2rem',
-                        }}
-                    >
-                        {this.state.templateName} for <br />
-                    </Typography>
-                    <Box display="flex" flexDirection="row" alignItems="center">
-                        <Avatar
-                            style={{
-                                width: '120px',
-                                height: '120px',
-                                marginLeft: '5rem',
-                            }}
-                        />
-                        <Box
-                            display="flex"
-                            flexDirection="row"
-                            style={{ margin: '0 2rem' }}
-                        >
-                            <Typography
-                                style={{
-                                    fontFamily: 'Source Sans pro',
-                                    color: '#fff',
-                                    fontSize: '38px',
-                                    fontWeight: '400',
-                                    marginRight: '1rem',
-                                }}
-                            >
-                                Isak Larsson,
-                            </Typography>
-                            <Typography
-                                style={{
-                                    fontFamily: 'Source Sans pro',
-                                    color: '#fff',
-                                    fontSize: '38px',
-                                    fontWeight: '700',
-                                }}
-                            >
-                                Developer
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Typography
-                        style={{
-                            fontFamily: 'Source Sans pro',
-                            color: '#fff',
-                            fontSize: '24px',
-                            fontWeight: '400',
-                            marginRight: '1rem',
-                            marginLeft: '5rem',
-                            marginTop: '3rem',
-                            marginBottom: '3rem',
-                        }}
-                    >
-                        Overall contribution points
-                    </Typography>
-                    <ConPoints component={comp} click={this.handleClickOpen} />
-                    <Dialog
-                        open={this.state.dialogOpen}
-                        TransitionComponent={this.Transition}
-                        keepMounted
-                        onClose={this.handleClose}
-                        aria-labelledby="alert-dialog-slide-title"
-                        aria-describedby="alert-dialog-slide-description"
-                        maxWidth="lg"
-                        fullWidth="true"
-                    >
+        if (this.state.userId === 1) {
+            return <div>Loading...</div>;
+        } else {
+            return (
+                <div>
+                    <div className="background">
+                        <NavBar />
                         <Typography
                             style={{
-                                fontSize: '45px',
-                                textAlign: 'center',
+                                color: '#fff',
+                                fontSize: '24px',
                                 fontFamily: 'Source Sans Pro',
-                                fontWeight: '600',
-                                color: '#262E3F',
+                                fontWeight: '400',
+                                marginTop: '2rem',
+                                marginLeft: '5rem',
+                                marginBottom: '2rem',
                             }}
                         >
-                            {
-                                this.state.template.sections[this.state.index]
-                                    .name
-                            }
+                            {this.state.templateName} for <br />
                         </Typography>
                         <Box
                             display="flex"
-                            flexWrap="wrap"
-                            alignContent="space-between"
-                            margin="0 3rem"
+                            flexDirection="row"
+                            alignItems="center"
                         >
-                            {this.state.template.sections[
-                                this.state.index
-                            ].questions.map((question) => {
-                                return (
-                                    <Box
-                                        maxWidth="400px"
-                                        style={{ margin: '0 3rem 0 3rem' }}
-                                    >
-                                        <Typography
-                                            style={{
-                                                fontSize: '18px',
-                                                textAlign: 'Left',
-                                                fontFamily: 'Source Sans Pro',
-                                                fontWeight: '600',
-                                                color: '#262E3F',
-                                                margin: '0 0 1rem 0 ',
-                                            }}
-                                        >
-                                            {question.content.replace(
-                                                /#name/,
-                                                this.state.name
-                                            )}
-                                        </Typography>
-
+                            <Avatar
+                                style={{
+                                    width: '120px',
+                                    height: '120px',
+                                    marginLeft: '5rem',
+                                }}
+                            />
+                            <Box
+                                display="flex"
+                                flexDirection="row"
+                                style={{ margin: '0 2rem' }}
+                            >
+                                <Typography
+                                    style={{
+                                        fontFamily: 'Source Sans pro',
+                                        color: '#fff',
+                                        fontSize: '38px',
+                                        fontWeight: '400',
+                                        marginRight: '1rem',
+                                    }}
+                                >
+                                    Isak Larsson,
+                                </Typography>
+                                <Typography
+                                    style={{
+                                        fontFamily: 'Source Sans pro',
+                                        color: '#fff',
+                                        fontSize: '38px',
+                                        fontWeight: '700',
+                                    }}
+                                >
+                                    Developer
+                                </Typography>
+                            </Box>
+                        </Box>
+                        <Typography
+                            style={{
+                                fontFamily: 'Source Sans pro',
+                                color: '#fff',
+                                fontSize: '24px',
+                                fontWeight: '400',
+                                marginRight: '1rem',
+                                marginLeft: '5rem',
+                                marginTop: '3rem',
+                                marginBottom: '3rem',
+                            }}
+                        >
+                            Overall contribution points
+                        </Typography>
+                        <ConPoints
+                            component={comp}
+                            click={this.handleClickOpen}
+                        />
+                        <Dialog
+                            open={this.state.dialogOpen}
+                            TransitionComponent={this.Transition}
+                            keepMounted
+                            onClose={this.handleClose}
+                            aria-labelledby="alert-dialog-slide-title"
+                            aria-describedby="alert-dialog-slide-description"
+                            maxWidth="lg"
+                            fullWidth="true"
+                        >
+                            <Typography
+                                style={{
+                                    fontSize: '45px',
+                                    textAlign: 'center',
+                                    fontFamily: 'Source Sans Pro',
+                                    fontWeight: '600',
+                                    color: '#262E3F',
+                                }}
+                            >
+                                {
+                                    this.state.template.sections[
+                                        this.state.index
+                                    ].name
+                                }
+                            </Typography>
+                            <Box
+                                display="flex"
+                                flexWrap="wrap"
+                                alignContent="space-between"
+                                margin="0 3rem"
+                            >
+                                {this.state.template.sections[
+                                    this.state.index
+                                ].questions.map((question) => {
+                                    return (
                                         <Box
-                                            display="flex"
-                                            flexDirection="column"
+                                            maxWidth="400px"
+                                            style={{ margin: '0 3rem 0 3rem' }}
                                         >
+                                            <Typography
+                                                style={{
+                                                    fontSize: '18px',
+                                                    textAlign: 'Left',
+                                                    fontFamily:
+                                                        'Source Sans Pro',
+                                                    fontWeight: '600',
+                                                    color: '#262E3F',
+                                                    margin: '0 0 1rem 0 ',
+                                                }}
+                                            >
+                                                {question.content.replace(
+                                                    /#name/,
+                                                    this.state.name
+                                                )}
+                                            </Typography>
+
                                             <Box
                                                 display="flex"
-                                                flexDirection="row"
+                                                flexDirection="column"
                                             >
                                                 <Box
                                                     display="flex"
-                                                    flexDirection="column"
+                                                    flexDirection="row"
                                                 >
-                                                    <Avatar></Avatar>
+                                                    <Box
+                                                        display="flex"
+                                                        flexDirection="column"
+                                                    >
+                                                        <Avatar></Avatar>
+                                                        <Typography
+                                                            style={{
+                                                                fontSize:
+                                                                    '14px',
+                                                                fontFamily:
+                                                                    'Source Sans Pro',
+                                                                textAlign:
+                                                                    'center',
+                                                                fontWeight:
+                                                                    '800',
+                                                            }}
+                                                        >
+                                                            YOU
+                                                        </Typography>
+                                                    </Box>
                                                     <Typography
                                                         style={{
-                                                            fontSize: '14px',
+                                                            fontSize: '40px',
                                                             fontFamily:
                                                                 'Source Sans Pro',
-                                                            textAlign: 'center',
                                                             fontWeight: '800',
+                                                            color: comp.getColor(
+                                                                comp.getYourAnswer(
+                                                                    comp.state
+                                                                        .index,
+                                                                    question.q_id
+                                                                ).content
+                                                            ),
+                                                            margin: '0 2rem',
+                                                            lineHeight: '1',
                                                         }}
                                                     >
-                                                        YOU
-                                                    </Typography>
-                                                </Box>
-                                                <Typography
-                                                    style={{
-                                                        fontSize: '40px',
-                                                        fontFamily:
-                                                            'Source Sans Pro',
-                                                        fontWeight: '800',
-                                                        color: comp.getColor(
+                                                        {
                                                             comp.getYourAnswer(
                                                                 comp.state
                                                                     .index,
                                                                 question.q_id
                                                             ).content
-                                                        ),
-                                                        margin: '0 2rem',
-                                                        lineHeight: '1',
-                                                    }}
-                                                >
-                                                    {
-                                                        comp.getYourAnswer(
-                                                            comp.state.index,
-                                                            question.q_id
-                                                        ).content
-                                                    }
-                                                </Typography>
-                                                <Typography
-                                                    style={{
-                                                        fontSize: '12px',
-                                                        fontFamily:
-                                                            'Source Sans Pro',
-                                                        fontWeight: '500',
-                                                        color: '#262E3F',
-                                                    }}
-                                                >
-                                                    {
-                                                        comp.getYourAnswer(
-                                                            comp.state.index,
-                                                            question.q_id
-                                                        ).comment
-                                                    }
-                                                </Typography>
-                                            </Box>
-                                            {comp
-                                                .getAnswers(
-                                                    comp.state.index,
-                                                    question.q_id
-                                                )
-                                                .map((answer) => {
-                                                    return (
-                                                        <Box
-                                                            display="flex"
-                                                            flexDirection="row"
-                                                            style={{
-                                                                margin:
-                                                                    '0.5rem 0',
-                                                            }}
-                                                        >
+                                                        }
+                                                    </Typography>
+                                                    <Typography
+                                                        style={{
+                                                            fontSize: '12px',
+                                                            fontFamily:
+                                                                'Source Sans Pro',
+                                                            fontWeight: '500',
+                                                            color: '#262E3F',
+                                                        }}
+                                                    >
+                                                        {
+                                                            comp.getYourAnswer(
+                                                                comp.state
+                                                                    .index,
+                                                                question.q_id
+                                                            ).comment
+                                                        }
+                                                    </Typography>
+                                                </Box>
+                                                {comp
+                                                    .getAnswers(
+                                                        comp.state.index,
+                                                        question.q_id
+                                                    )
+                                                    .map((answer) => {
+                                                        return (
                                                             <Box
                                                                 display="flex"
-                                                                flexDirection="column"
-                                                            >
-                                                                <Avatar></Avatar>
-                                                            </Box>
-                                                            <Typography
+                                                                flexDirection="row"
                                                                 style={{
-                                                                    fontSize:
-                                                                        '40px',
-                                                                    fontFamily:
-                                                                        'Source Sans Pro',
-                                                                    fontWeight:
-                                                                        '800',
-                                                                    color: comp.getColor(
-                                                                        answer.content
-                                                                    ),
                                                                     margin:
-                                                                        '0 2rem',
-                                                                    lineHeight:
-                                                                        '1',
+                                                                        '0.5rem 0',
                                                                 }}
                                                             >
-                                                                {answer.content}
-                                                            </Typography>
-                                                            <Typography
-                                                                style={{
-                                                                    fontSize:
-                                                                        '12px',
-                                                                    fontFamily:
-                                                                        'Source Sans Pro',
-                                                                    fontWeight:
-                                                                        '500',
-                                                                    color:
-                                                                        '#262E3F',
-                                                                }}
-                                                            >
-                                                                {answer.comment}
-                                                            </Typography>
-                                                        </Box>
-                                                    );
-                                                })}
+                                                                <Box
+                                                                    display="flex"
+                                                                    flexDirection="column"
+                                                                >
+                                                                    <Avatar></Avatar>
+                                                                </Box>
+                                                                <Typography
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '40px',
+                                                                        fontFamily:
+                                                                            'Source Sans Pro',
+                                                                        fontWeight:
+                                                                            '800',
+                                                                        color: comp.getColor(
+                                                                            answer.content
+                                                                        ),
+                                                                        margin:
+                                                                            '0 2rem',
+                                                                        lineHeight:
+                                                                            '1',
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        answer.content
+                                                                    }
+                                                                </Typography>
+                                                                <Typography
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '12px',
+                                                                        fontFamily:
+                                                                            'Source Sans Pro',
+                                                                        fontWeight:
+                                                                            '500',
+                                                                        color:
+                                                                            '#262E3F',
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        answer.comment
+                                                                    }
+                                                                </Typography>
+                                                            </Box>
+                                                        );
+                                                    })}
+                                            </Box>
                                         </Box>
-                                    </Box>
-                                );
-                            })}
-                        </Box>
+                                    );
+                                })}
+                            </Box>
 
-                        <DialogActions>
-                            <Button onClick={this.handleClose} color="primary">
-                                Close
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
+                            <DialogActions>
+                                <Button
+                                    onClick={this.handleClose}
+                                    color="primary"
+                                >
+                                    Close
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
