@@ -14,7 +14,8 @@ import {
     Slide,
 } from '@material-ui/core';
 import ConPoints from './ConPoints';
-import { GetSurveyById } from '../../utils/API';
+import { GetSurveyById, GetUserById } from '../../utils/API';
+import Loading from '../Loading/Loading';
 
 const useStyles = makeStyles({
     avatar: {
@@ -31,7 +32,18 @@ class AOverviewBoard extends Component {
             index: 0,
             templateName: 'May Evaluation',
             userId: 1,
+            user: {
+                given_name: 'Isak',
+                family_name: 'Larsson',
+                picture:
+                    'https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png',
+                role: 'Role',
+            },
             name: 'Isak',
+            fullName: 'Isak Larsson',
+            picture:
+                'https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png',
+            role: 'Role',
             survey: {
                 _id: 1,
                 e_id: 1,
@@ -99,10 +111,9 @@ class AOverviewBoard extends Component {
 
     componentDidMount = async () => {
         const res = await (await GetSurveyById(this.state.surveyId)).data;
-        console.log('--------------------------');
-        console.log(res);
-        console.log('--------------------------');
-        this.setState({ userId: res.e_id, survey: res });
+        const user = await (await GetUserById(res.e_id)).data;
+
+        this.setState({ userId: res.e_id, survey: res, user: user });
     };
     Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
@@ -157,7 +168,7 @@ class AOverviewBoard extends Component {
     render() {
         const comp = this;
         if (this.state.userId === 1) {
-            return <div>Loading...</div>;
+            return <Loading />;
         } else {
             return (
                 <div>
@@ -182,6 +193,7 @@ class AOverviewBoard extends Component {
                             alignItems="center"
                         >
                             <Avatar
+                                src={this.state.user.picture}
                                 style={{
                                     width: '120px',
                                     height: '120px',
@@ -202,7 +214,10 @@ class AOverviewBoard extends Component {
                                         marginRight: '1rem',
                                     }}
                                 >
-                                    Isak Larsson,
+                                    {this.state.user.given_name +
+                                        ' ' +
+                                        this.state.user.family_name +
+                                        ', '}
                                 </Typography>
                                 <Typography
                                     style={{
@@ -212,7 +227,7 @@ class AOverviewBoard extends Component {
                                         fontWeight: '700',
                                     }}
                                 >
-                                    Developer
+                                    {this.state.user.role}
                                 </Typography>
                             </Box>
                         </Box>
