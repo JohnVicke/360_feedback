@@ -1,0 +1,70 @@
+.background {
+    height: 100vh;
+    background: rgb(126, 231, 119);
+    background: linear-gradient(
+        45deg,
+        rgba(126, 231, 119, 1) 0,
+        rgba(14, 17, 24, 1) 0%,
+        rgba(38, 46, 63, 1) 100%
+    );
+    overflow-x: hidden;
+}
+
+.createCard {
+    background-color: #222222;
+    border: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    margin: 2rem auto;
+}
+
+.createCard,
+h1,
+p {
+    font-family: Source Sans pro;
+    color: #fff;
+}
+.templateForm {
+    padding-top: 20%;
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.templateForm Button {
+    margin: 2rem 0;
+}
+.preview-container {
+    display: table;
+    width: 70%;
+    height: 80%;
+    border-collapse: collapse;
+    margin: 2rem auto;
+}
+
+.preview-container > div {
+    display: table-cell;
+}
+.preview-container > div:nth-child(1) {
+    text-align: center;
+}
+
+.preview-container > div:nth-child(2) {
+    text-align: right;
+    width: 400px;
+    border-left: 2px rgba(255, 255, 255, 0.2) solid;
+}
+.preview-window {
+    color: #fff;
+    text-align: center;
+    background-color: #222222;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.preview-window .headerText {
+    text-align: center;
+}
+.preview-window .headerText p {
+    opacity: 0.3;
+}
