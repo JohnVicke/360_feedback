@@ -28,3 +28,7 @@ export async function UpdateUserResponses(id, responses) {
     const res = await api.patch(`/users/${id}`, responses);
     return res;
 }
+export async function GetSurveyById(id) {
+    const res = await api.get(`/surveys/${id}`);
+    return res;
+}
