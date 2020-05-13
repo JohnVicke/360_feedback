@@ -6,6 +6,9 @@ import history from './utils/history';
 import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
 import FillEvaluation from './components/FillEvaluation/FillEvaluation';
+import MainMenuTabs from "./components/Admin/MainMenu/MainMenuTabs";
+import NavBar from "./components/NavBar/NavBar";
+import MainMenu from './components/Admin/MainMenu/MainMenu'
 import './assets/fonts/fonts.css';
 
 function App() {
@@ -16,7 +19,7 @@ function App() {
     } else if (!isAuthenticated) {
         return (
             <div>
-                <LandingPage />
+                <MainMenu/>
             </div>
         );
     }
