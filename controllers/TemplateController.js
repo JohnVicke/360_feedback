@@ -43,7 +43,6 @@ getTemplateById = async (req, res) => {
  */
 createTemplate = (req, res) => {
     const body = req.body;
-
     // Return error message if no body is provided.
     if (!body) {
         return res

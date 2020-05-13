@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '../../react-auth0-spa';
-import { GetUserByEmail, GetUserEvals } from '../../utils/API';
+import { GetUserByEmail, GetUserEvals, getTemplate } from '../../utils/API';
 import { makeStyles, Box, Typography, Avatar } from '@material-ui/core';
 import NavBar from '../NavBar/NavBar';
 import ContributionPoints from './ContributionPoints/ContributionPoints';
 import EvaluationWaiting from './EvaluationWaiting/EvaluationWaiting';
 import happy from '../../assets/misc/emoji-happy.svg';
+import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const useStyles = makeStyles({
     profile: {
@@ -30,15 +32,32 @@ const Profile = () => {
     const evalComponent = () => {
         if (userEvals !== 'null') {
             return (
-                <EvaluationWaiting
-                    userPic={userEvals.data.picture}
-                    name={`${userEvals.data.given_name} ${userEvals.data.family_name}`}
-                    role={userEvals.data.role}
-                />
+                <Box display="flex" flexDirection="row">
+                    {userEvals.map((submissionUser) => (
+                        <div style={{ paddingRight: '2rem' }}>
+                            <Link
+                                to={{
+                                    pathname: '/fillin',
+                                    state: {
+                                        fromProfile: submissionUser,
+                                        myId: userInfo.data._id,
+                                    },
+                                }}
+                                style={{ textDecoration: 'none' }}
+                            >
+                                <EvaluationWaiting
+                                    userPic={submissionUser.user_data.picture}
+                                    name={`${submissionUser.user_data.given_name} ${submissionUser.user_data.family_name}`}
+                                    role={submissionUser.user_data.role}
+                                />
+                            </Link>
+                        </div>
+                    ))}
+                </Box>
             );
         } else {
             return (
-                <Box display='flex' flexDirection='row'>
+                <Box display="flex" flexDirection="row">
                     <img
                         src={happy}
                         style={{
@@ -73,10 +92,21 @@ const Profile = () => {
 
     useEffect(() => {
         const fetchEval = async () => {
-            const response = await GetUserEvals(
-                userInfo.data.responses[0].user_id
-            );
-            setUserEvals(response);
+            let resArray = [];
+            const requests = userInfo.data.responses.map(async (response) => {
+                const res = await GetUserEvals(response.user_id);
+                const template = await getTemplate(response.survey_id);
+                resArray.push({
+                    template: template.data,
+                    answers: response,
+                    user_data: res.data,
+                });
+            });
+            Promise.all(requests).then(() => {
+                setTimeout(() => {
+                    setUserEvals(resArray);
+                }, 1000);
+            });
         };
         if (userInfo.length !== 0) {
             if (userInfo.data.responses.length !== 0) {
@@ -87,16 +117,16 @@ const Profile = () => {
         }
     }, [userInfo]);
 
-    if (loading || userInfo.length === 0 || userEvals.length === 0) {
-        return <div>Loading...</div>;
+    if (loading || userEvals.length === 0) {
+        return <Loading />;
     }
 
     return (
         <div className={classes.profile}>
             <NavBar />
             <Box
-                display='flex'
-                flexDirection='column'
+                display="flex"
+                flexDirection="column"
                 style={{ padding: '2rem 6rem' }}
             >
                 <Typography
@@ -110,16 +140,16 @@ const Profile = () => {
                 >
                     My profile
                 </Typography>
-                <Box display='flex' flexDirection='row' alignItems='center'>
+                <Box display="flex" flexDirection="row" alignItems="center">
                     <Avatar
                         src={user.picture}
                         className={classes.avatar}
-                        width='120px'
-                        height='120px'
+                        width="120px"
+                        height="120px"
                     />
                     <Box
-                        display='flex'
-                        flexDirection='row'
+                        display="flex"
+                        flexDirection="row"
                         style={{ margin: '0 2rem' }}
                     >
                         <Typography

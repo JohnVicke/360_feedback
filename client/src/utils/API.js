@@ -10,13 +10,8 @@ export async function GetUserByEmail(email) {
     return res;
 }
 
-export async function GetUserByID(id) {
+export async function GetUserById(id) {
     const res = await api.get(`/users/${id}`);
-    return res;
-}
-
-export async function GetAllUsers() {
-    const res = await api.get(`/users/`);
     return res;
 }
 
@@ -25,17 +20,11 @@ export async function GetUserEvals(id) {
     return res;
 }
 
-export async function GetAllEvaluations() {
-    const res = await api.get(`/surveys/`);
+export async function getTemplate(id) {
+    const res = await api.get(`/questionare/${id}`);
     return res;
 }
-
-export async function GetAllTemplates() {
-    const res = await api.get(`/templates/`);
-    return res;
-}
-
-export async function GetActiveEvaluations(status) {
-    const res = await api.get(`/surveys/?active=true`);
+export async function UpdateUserResponses(id, responses) {
+    const res = await api.patch(`/users/${id}`, responses);
     return res;
 }

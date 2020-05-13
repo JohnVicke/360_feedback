@@ -10,12 +10,11 @@ import MainMenuTabs from "./components/Admin/MainMenu/MainMenuTabs";
 import NavBar from "./components/NavBar/NavBar";
 import MainMenu from './components/Admin/MainMenu/MainMenu'
 import './assets/fonts/fonts.css';
-
+import Loading from './components/Loading/Loading';
 function App() {
     const { loading, isAuthenticated } = useAuth0();
-
     if (loading) {
-        return <div>loading...</div>;
+        return <Loading />;
     } else if (!isAuthenticated) {
         return (
             <div>
@@ -27,8 +26,9 @@ function App() {
         <div className='App'>
             <Router history={history}>
                 <Switch>
-                    <Route path='/' component={FillEvaluation} />
+                    <PrivateRoute exact path='/' component={Profile} />
                     <PrivateRoute path='/profile' component={Profile} />
+                    <PrivateRoute path='/fillin' component={FillEvaluation} />
                 </Switch>
             </Router>
         </div>

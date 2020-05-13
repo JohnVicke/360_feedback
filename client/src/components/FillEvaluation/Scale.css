@@ -27,7 +27,7 @@
 
 .divider {
     flex-grow: 1;
-    width: 100px;
+    width: 150px;
     border: 1px solid #4392fe;
     opacity: 40%;
 }
@@ -52,6 +52,7 @@
 .button-group,
 .button-group-selected {
     transition: 0.2s ease-in-out;
+    position: relative;
 }
 
 .button-group:hover {
@@ -62,13 +63,14 @@
 
 .button-group:hover::before {
     position: absolute;
-    top: 530px;
+    top: 50px;
     width: 50px;
     height: 50px;
     content: '';
     border-bottom: 2px #f5f5f5 solid;
     animation: transformWidth 0.1s ease-out;
 }
+
 .button-group button:focus {
     outline-style: none;
 }
@@ -78,12 +80,13 @@
 }
 
 .button-group-selected::before {
-    position: fixed;
-    top: 530px;
+    position: absolute;
+    top: 50px;
     width: 50px;
     height: 50px;
     content: '';
     border-bottom: 2px #f5f5f5 solid;
+    animation: transformWidth 0.1s ease-out;
 }
 
 @keyframes transformWidth {
