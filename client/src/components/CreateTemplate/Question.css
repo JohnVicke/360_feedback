@@ -6,9 +6,12 @@
     border: none;
     width: 380px;
     height: 45px;
+    padding: 0 10px;
 }
 
 .q-description {
+    font-family: Source Sans Pro;
+    padding: 10px;
     color: #fff;
     outline: none;
     resize: none;

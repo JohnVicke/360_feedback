@@ -3,8 +3,9 @@ import { Box } from '@material-ui/core';
 import './Question.css';
 
 const Question = (props) => {
+    const [newTitle, setnewTitle] = useState('');
     const [likertSelected, setLikertSelected] = useState(true);
-
+    const [newDescription, setNewDescription] = useState('');
     const likertClassName = () => {
         return likertSelected ? 'selection selected' : 'selection';
     };
@@ -12,6 +13,17 @@ const Question = (props) => {
     const freeTextClassName = () => {
         return likertSelected ? 'selection' : 'selection selected';
     };
+
+    const handleTitleChange = (e) => {
+        setnewTitle(e.target.value);
+        props.handleTitleUpdate(newTitle);
+    };
+
+    const handleDescriptionChange = (e) => {
+        setNewDescription(e.target.value);
+        props.handleDescriptionUpdate(newDescription);
+    };
+
     return (
         <Box
             display='flex'
@@ -20,10 +32,18 @@ const Question = (props) => {
             alignItems='center'
             className='q'
         >
-            <input className='q-title' type='text' placeholder={props.title} />
+            <input
+                className='q-title'
+                type='text'
+                placeholder='Question title'
+                value={newTitle}
+                onChange={handleTitleChange}
+            />
             <textarea
+                value={newDescription}
+                onChange={handleDescriptionChange}
                 className='q-description'
-                placeholder={props.description}
+                placeholder='Question description(optional)'
             />
             <div>
                 <Box

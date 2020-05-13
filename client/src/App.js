@@ -8,6 +8,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import FillEvaluation from './components/FillEvaluation/FillEvaluation';
 import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
+import CreateTemplate from './components/CreateTemplate/CreateTemplate';
 
 function App() {
     const { loading, isAuthenticated } = useAuth0();
@@ -16,7 +17,7 @@ function App() {
     } else if (!isAuthenticated) {
         return (
             <div>
-                <LandingPage />
+                <CreateTemplate />
             </div>
         );
     }

@@ -22,6 +22,7 @@ class CreateTemplate extends React.Component {
             sections: [
                 {
                     title: 'Section 1: Section Name',
+                    questions: [{ title: 'title', description: 'description' }],
                 },
             ],
         };
@@ -58,16 +59,25 @@ class CreateTemplate extends React.Component {
             width: 200,
             transition: 'ease-in-out 0.2s',
             marginTop: '6rem',
+            marginBottom: '2rem',
         });
 
         const newSection = () => {
             const { sections } = this.state;
-            sections.push({
-                title: `Section ${
-                    this.state.sections.length + 1
-                }: Section Name`,
+
+            this.setState({
+                sections: [
+                    ...sections,
+                    {
+                        title: `Section ${
+                            this.state.sections.length + 1
+                        }: Section Name`,
+                        questions: [
+                            { title: 'title', description: 'description' },
+                        ],
+                    },
+                ],
             });
-            this.setState({ sections: sections });
         };
 
         const handleTemplateNameChange = (e) => {
@@ -150,7 +160,13 @@ class CreateTemplate extends React.Component {
                 <StyledCard>
                     {editableTemplateName()}
                     {this.state.sections.map((s) => (
-                        <CreateSection title={s.title} />
+                        <CreateSection
+                            questionUpdates={(sectionQuestions) => {
+                                s.questions = sectionQuestions;
+                            }}
+                            title={s.title}
+                            sectionQuestions={s.questions}
+                        />
                     ))}
                     <AddSection onClick={newSection}>
                         <Add style={{ marginRight: '1rem' }} />
