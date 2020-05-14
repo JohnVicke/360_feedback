@@ -36,9 +36,9 @@ const useStyles = makeStyles((theme) => ({
     MainMenu: {
         height: '100vh',
         width: '100%',
+        overflowY: 'hidden',
         background:
             'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
-        position: 'absolute',
     },
     tabs: {
         width: '50%',
@@ -91,6 +91,7 @@ const MainMenu = () => {
 
     return (
         <div className={classes.MainMenu}>
+            <NavBar />
             <Box style={{ margin: '10rem auto' }}>
                 <MyCard style={{ margin: '0 auto' }}>
                     <Paper className={classes.root}>
@@ -127,18 +128,6 @@ const MainMenu = () => {
                     {returnListing()}
                 </MyCard>
             </Box>
-
-            <Link
-                to={{
-                    pathname: '/admin/overviewboard',
-                    state: {
-                        surveyId: '5eba8593ff1b10be56b09465',
-                    },
-                }}
-                style={{ textDecoration: 'none' }}
-            >
-                TO OVERVIEW
-            </Link>
         </div>
     );
 };

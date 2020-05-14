@@ -19,8 +19,11 @@ import {
     Avatar,
     Grid,
     IconButton,
+    Button,
+    CircularProgress,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,19 +33,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function EmployeeList2(props) {
-    return (
-        <ul style={{ width: '100%', listStyleType: 'none' }}>
-            {props.users.map((user) => {
-                return (
-                    <li>
-                        <EmployeeBar user={user} />
-                    </li>
-                );
-            })}
-        </ul>
-    );
-}
 function EmployeeList(props) {
     return (
         <ul style={{ width: '100%', listStyleType: 'none' }}>
@@ -55,7 +45,10 @@ function EmployeeList(props) {
                         );
                         return (
                             <li>
-                                <EmployeeBar user={user} />
+                                <EmployeeBar
+                                    user={user}
+                                    evaluation={evaluation}
+                                />
                             </li>
                         );
                     }
@@ -65,6 +58,29 @@ function EmployeeList(props) {
 }
 
 function EmployeeBar(props) {
+    function getProgressValue(evaluation) {
+        const responses = evaluation.responses;
+        var nrOfAnswers = 0;
+        for (var i = 0; i < responses.length; i++) {
+            if (responses[i].answers.length > 0) {
+                nrOfAnswers++;
+            }
+        }
+        var percentage = (nrOfAnswers / responses.length) * 100;
+        console.log('HÄR HÄR HÄR');
+        console.log(percentage);
+        return percentage;
+    }
+    function getProgressString(evaluation) {
+        const responses = evaluation.responses;
+        var nrOfAnswers = 0;
+        for (var i = 0; i < responses.length; i++) {
+            if (responses[i].answers.length > 0) {
+                nrOfAnswers++;
+            }
+        }
+        return nrOfAnswers + ' / ' + responses.length;
+    }
     return (
         <Box
             className="employeeBar"
@@ -80,7 +96,7 @@ function EmployeeBar(props) {
             <div>
                 {console.log(props)}
                 <Grid container>
-                    <Grid item xs={6}>
+                    <Grid style={{ marginTop: '0.7rem' }} item xs>
                         <Avatar
                             src={props.user.picture}
                             style={{
@@ -114,28 +130,98 @@ function EmployeeBar(props) {
                             }}
                             color="#131313"
                         >
-                            {props.user.role}
+                            {props.user.given_name +
+                                ' ' +
+                                props.user.family_name}
                         </Typography>
                     </Grid>
-
-                    <Grid item xs={6}>
+                    <Grid item xs>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    margin: '0 auto',
+                                    textAlign: 'center',
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <CircularProgress
+                                    style={{
+                                        color: '#4392FE',
+                                        marginTop: '0.5rem',
+                                        marginLeft: '8rem',
+                                    }}
+                                    variant="static"
+                                    size={60}
+                                    value={getProgressValue(props.evaluation)}
+                                />
+                                <Typography
+                                    style={{
+                                        margin: 'auto 2rem',
+                                        fontSize: '30px',
+                                    }}
+                                >
+                                    {getProgressString(props.evaluation)}
+                                </Typography>
+                            </div>
+                            <Link
+                                to={{
+                                    pathname: '/admin/overviewboard',
+                                    state: {
+                                        surveyId: props.evaluation._id,
+                                    },
+                                }}
+                                style={{ textDecoration: 'none' }}
+                            >
+                                <Button
+                                    aria-label="add"
+                                    style={{
+                                        backgroundColor: '#4392FE',
+                                        color: 'white',
+                                        fontSize: '13px',
+                                        margin: '0.5rem auto',
+                                        width: '40%',
+                                    }}
+                                >
+                                    Overview Board
+                                </Button>
+                            </Link>
+                        </div>
+                    </Grid>
+                    <Grid style={{ marginTop: '0.7rem' }} item xs>
                         <div
                             style={{
                                 float: 'right',
-                                margin: '15px',
+                                margin: '5px 15px',
                                 paddingRight: '20px',
                                 paddingTop: '6px',
+                                textAlign: 'center',
                             }}
                         >
-                            <IconButton
+                            <Typography
+                                style={{ opacity: '0.5', fontSize: '10px' }}
+                            >
+                                CURRENTLY ACTIVE
+                            </Typography>
+                            <Button
                                 aria-label="add"
                                 style={{
                                     backgroundColor: '#4392FE',
                                     color: 'white',
+                                    fontSize: '13px',
+                                    marginTop: '0.5rem',
                                 }}
                             >
-                                <AddIcon />
-                            </IconButton>
+                                ARCHIVE
+                            </Button>
                         </div>
                     </Grid>
                 </Grid>
@@ -177,6 +263,7 @@ const ActiveListing = () => {
     if (users.length === 0) {
         return <div>Loading</div>;
     }
+
     return (
         <div>
             <EmployeeList evaluations={activeEvaluations} users={users} />

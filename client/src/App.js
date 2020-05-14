@@ -21,7 +21,7 @@ function App() {
         return (
             <div>
                 <Router history={history}>
-                    <MainMenu />
+                    <LandingPage />
                 </Router>
             </div>
         );
