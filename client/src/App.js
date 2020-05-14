@@ -6,11 +6,13 @@ import history from './utils/history';
 import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
 import FillEvaluation from './components/FillEvaluation/FillEvaluation';
-import MainMenuTabs from "./components/Admin/MainMenu/MainMenuTabs";
-import NavBar from "./components/NavBar/NavBar";
-import MainMenu from './components/Admin/MainMenu/MainMenu'
+import MainMenuTabs from './components/Admin/MainMenu/MainMenuTabs';
+import NavBar from './components/NavBar/NavBar';
+import MainMenu from './components/Admin/MainMenu/MainMenu';
 import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
+import AOverviewBoard from './components/AOverviewBoard/AOverviewBoard';
+
 function App() {
     const { loading, isAuthenticated } = useAuth0();
     if (loading) {
@@ -18,17 +20,23 @@ function App() {
     } else if (!isAuthenticated) {
         return (
             <div>
-                <MainMenu/>
+                <Router history={history}>
+                    <MainMenu />
+                </Router>
             </div>
         );
     }
     return (
-        <div className='App'>
+        <div className="App">
             <Router history={history}>
                 <Switch>
-                    <PrivateRoute exact path='/' component={Profile} />
-                    <PrivateRoute path='/profile' component={Profile} />
-                    <PrivateRoute path='/fillin' component={FillEvaluation} />
+                    <PrivateRoute exact path="/" component={MainMenu} />
+                    <PrivateRoute path="/profile" component={Profile} />
+                    <PrivateRoute path="/fillin" component={FillEvaluation} />
+                    <PrivateRoute
+                        path="/admin/overviewboard"
+                        component={AOverviewBoard}
+                    />
                 </Switch>
             </Router>
         </div>

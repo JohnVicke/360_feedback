@@ -110,10 +110,17 @@ class AOverviewBoard extends Component {
     }
 
     componentDidMount = async () => {
-        const res = await (await GetSurveyById(this.state.surveyId)).data;
+        const { surveyId } = this.props.location.state;
+        console.log(surveyId);
+        const res = await (await GetSurveyById(surveyId)).data;
         const user = await (await GetUserById(res.e_id)).data;
 
-        this.setState({ userId: res.e_id, survey: res, user: user });
+        this.setState({
+            userId: res.e_id,
+            survey: res,
+            user: user,
+            surveyId: surveyId,
+        });
     };
     Transition = React.forwardRef(function Transition(props, ref) {
         return <Slide direction="up" ref={ref} {...props} />;
