@@ -34,6 +34,7 @@ function App() {
                     <PrivateRoute exact path="/" component={MainMenu} />
                     <PrivateRoute path="/profile" component={Profile} />
                     <PrivateRoute path="/fillin" component={FillEvaluation} />
+                    <PrivateRoute path={"/createTemplate"} component={CreateTemplate}/>
                     <PrivateRoute
                         path="/admin/overviewboard"
                         component={AOverviewBoard}
