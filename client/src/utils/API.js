@@ -44,3 +44,7 @@ export async function GetAllUsers() {
     const res = await api.get(`/users/`);
     return res;
 }
+export async function UpdateSurveyActive(id, active) {
+    const res = await api.patch(`/surveys/${id}`, active);
+    return res;
+}

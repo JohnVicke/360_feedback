@@ -6,6 +6,8 @@ import {
     GetAllEvaluations,
     GetUserByID,
     GetAllUsers,
+    GetAllTemplates,
+    UpdateSurveyActive,
 } from '../../../utils/API';
 import {
     Box,
@@ -48,6 +50,8 @@ function EmployeeList(props) {
                                 <EmployeeBar
                                     user={user}
                                     evaluation={evaluation}
+                                    templates={props.templates}
+                                    updateFunction={props.updateFunction}
                                 />
                             </li>
                         );
@@ -81,6 +85,16 @@ function EmployeeBar(props) {
         }
         return nrOfAnswers + ' / ' + responses.length;
     }
+    function getTemplateName(templateId) {
+        console.log(templateId);
+        console.log(props.templates);
+
+        const template = props.templates.find(
+            (template) => template._id === templateId
+        );
+        return template.name;
+    }
+
     return (
         <Box
             className="employeeBar"
@@ -130,9 +144,7 @@ function EmployeeBar(props) {
                             }}
                             color="#131313"
                         >
-                            {props.user.given_name +
-                                ' ' +
-                                props.user.family_name}
+                            {getTemplateName(props.evaluation.template_id)}
                         </Typography>
                     </Grid>
                     <Grid item xs>
@@ -219,6 +231,12 @@ function EmployeeBar(props) {
                                     fontSize: '13px',
                                     marginTop: '0.5rem',
                                 }}
+                                onClick={() => {
+                                    props.updateFunction(
+                                        props.evaluation._id,
+                                        false
+                                    );
+                                }}
                             >
                                 ARCHIVE
                             </Button>
@@ -234,6 +252,8 @@ const ActiveListing = () => {
     const classes = useStyles();
     const [checked, setChecked] = React.useState([1]);
     const [activeEvaluations, setActiveEvaluations] = useState([]);
+    const [templates, setTemplates] = useState([]);
+
     const [users, setUsers] = useState([]);
     const { loggedInUser } = useAuth0();
 
@@ -260,13 +280,33 @@ const ActiveListing = () => {
         fetchUsers();
     }, [loggedInUser]);
 
-    if (users.length === 0) {
+    useEffect(() => {
+        const fetchTemplates = async () => {
+            const response = await (await GetAllTemplates()).data;
+            console.log('TEMPLATES');
+            console.log(response);
+            setTemplates(response.data);
+        };
+        fetchTemplates();
+    }, [loggedInUser]);
+
+    async function updateSurvey(id, active) {
+        const res = await UpdateSurveyActive(id, { active: active });
+        const response = await GetAllEvaluations();
+        setActiveEvaluations(response.data.data);
+    }
+    if (users.length === 0 || templates.length === 0) {
         return <div>Loading</div>;
     }
 
     return (
         <div>
-            <EmployeeList evaluations={activeEvaluations} users={users} />
+            <EmployeeList
+                evaluations={activeEvaluations}
+                users={users}
+                templates={templates}
+                updateFunction={updateSurvey}
+            />
         </div>
     );
 };
