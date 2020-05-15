@@ -38,7 +38,14 @@ const useStyles = makeStyles((theme) => ({
 
 function EmployeeList(props) {
     return (
-        <ul style={{ width: '100%', listStyleType: 'none' }}>
+        <ul
+            style={{
+                width: '100%',
+                listStyleType: 'none',
+                maxHeight: '50vh',
+                overflow: 'auto',
+            }}
+        >
             {props.evaluations &&
                 props.evaluations.map((evaluation, index) => {
                     if (evaluation.active) {
@@ -281,8 +288,8 @@ const ActiveListing = () => {
         };
         fetchUsers();
     }, [loggedInUser]);
-  
-   useEffect(() => {
+
+    useEffect(() => {
         const fetchTemplates = async () => {
             const response = await (await GetAllTemplates()).data;
             console.log('TEMPLATES');
@@ -291,19 +298,17 @@ const ActiveListing = () => {
         };
         fetchTemplates();
     }, [loggedInUser]);
-  
-  async function updateSurvey(id, active) {
+
+    async function updateSurvey(id, active) {
         const res = await UpdateSurveyActive(id, { active: active });
         const response = await GetAllEvaluations();
         setActiveEvaluations(response.data.data);
     }
 
     if (users.length === 0) {
-        return <Loading/>;
-    }
-    else if(activeEvaluations.length === 0  || templates.length === 0){
+        return <Loading />;
+    } else if (activeEvaluations.length === 0 || templates.length === 0) {
         return <div>No active evaluations found</div>;
-
     }
 
     return (

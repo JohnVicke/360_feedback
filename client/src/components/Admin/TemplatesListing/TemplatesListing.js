@@ -27,7 +27,7 @@ function EmployeeList(props) {
             style={{
                 width: '100%',
                 listStyleType: 'none',
-                maxHeight: 450,
+                maxHeight: '50vh',
                 overflow: 'auto',
             }}
         >
