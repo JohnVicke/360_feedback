@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from '../../../react-auth0-spa';
 import { GetAllTemplates, GetAllUsers } from '../../../utils/API';
-import { Box, Typography, Avatar, Grid, IconButton } from '@material-ui/core';
+import {
+    Box,
+    Typography,
+    Avatar,
+    Grid,
+    IconButton,
+    Button,
+} from '@material-ui/core';
 import ArchivedListing from '../EvaluationListings/ArchivedListing';
 import AddIcon from '@material-ui/icons/Add';
 import Loading from '../../Loading/Loading';
@@ -99,15 +106,29 @@ function EmployeeBar(props) {
                                 paddingTop: '6px',
                             }}
                         >
-                            <IconButton
-                                aria-label="add"
+                            <Button
+                                aria-label="edit"
                                 style={{
                                     backgroundColor: '#4392FE',
                                     color: 'white',
+                                    fontSize: '13px',
+                                    marginTop: '0.5rem',
                                 }}
                             >
-                                <AddIcon />
-                            </IconButton>
+                                PREVIEW
+                            </Button>
+                            <Button
+                                aria-label="edit"
+                                style={{
+                                    backgroundColor: '#472F80',
+                                    color: 'white',
+                                    fontSize: '13px',
+                                    marginTop: '0.5rem',
+                                    marginLeft: '1rem',
+                                }}
+                            >
+                                EDIT
+                            </Button>
                         </div>
                     </Grid>
                 </Grid>
