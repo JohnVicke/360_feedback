@@ -230,8 +230,8 @@ function EmployeeBar(props) {
 
 const ArchivedListing = () => {
     const classes = useStyles();
-    const [archivedEvaluations, setArchivedEvaluations] = useState([]);
     const [users, setUsers] = useState([]);
+    const [archivedEvaluations, setArchivedEvaluations] = useState([]);
     const { loggedInUser } = useAuth0();
 
     useEffect(() => {
@@ -252,7 +252,9 @@ const ArchivedListing = () => {
     }, [loggedInUser]);
 
     if (users.length === 0) {
-        return <div>;</div>;
+        return <Loading/>;
+    }else if(archivedEvaluations.length === 0){
+        return <div>No archived evaluations found</div>;
     }
     return (
         <div>

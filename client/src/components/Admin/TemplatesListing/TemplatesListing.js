@@ -5,6 +5,7 @@ import { GetAllTemplates, GetAllUsers } from '../../../utils/API';
 import { Box, Typography, Avatar, Grid, IconButton } from '@material-ui/core';
 import ArchivedListing from '../EvaluationListings/ArchivedListing';
 import AddIcon from '@material-ui/icons/Add';
+import Loading from '../../Loading/Loading'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -123,7 +124,7 @@ const TemplatesListing = () => {
     }, [loggedInUser]);
 
     if (templates.length === 0) {
-        return <div>Loading..</div>;
+        return <Loading/>
     }
     return (
         <div>

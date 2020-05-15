@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from '../../../react-auth0-spa';
+import Loading from '../../Loading/Loading';
 import {
     GetActiveEvaluations,
     GetAllEvaluations,
@@ -233,8 +234,8 @@ function EmployeeBar(props) {
 const ActiveListing = () => {
     const classes = useStyles();
     const [checked, setChecked] = React.useState([1]);
-    const [activeEvaluations, setActiveEvaluations] = useState([]);
     const [users, setUsers] = useState([]);
+    const [activeEvaluations, setActiveEvaluations] = useState([]);
     const { loggedInUser } = useAuth0();
 
     useEffect(() => {
@@ -261,7 +262,10 @@ const ActiveListing = () => {
     }, [loggedInUser]);
 
     if (users.length === 0) {
-        return <div>Loading</div>;
+        return <Loading/>;
+    }
+    else if(activeEvaluations.length === 0){
+        return <div>No active evaluations found</div>;
     }
 
     return (
