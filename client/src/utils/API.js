@@ -28,3 +28,8 @@ export async function UpdateUserResponses(id, responses) {
     const res = await api.patch(`/users/${id}`, responses);
     return res;
 }
+
+export async function putTemplate(template) {
+    const res = await api.post('/templates', template);
+    return res;
+}

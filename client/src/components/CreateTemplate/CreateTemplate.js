@@ -8,10 +8,31 @@ import {
     Tabs,
     Tab,
     Typography,
+    Dialog,
+    DialogActions,
+    DialogTitle,
+    DialogContentText,
+    DialogContent,
 } from '@material-ui/core';
-import { Assignment, SentimentVerySatisfiedOutlined } from '@material-ui/icons';
+import { putTemplate } from '../../utils/API';
+import {
+    Assignment,
+    FilterOutlined,
+    Filter1Outlined,
+    Filter2Outlined,
+    Filter3Outlined,
+    Filter4Outlined,
+    Filter5Outlined,
+    Filter6Outlined,
+    Filter7Outlined,
+    Filter8Outlined,
+    Filter9Outlined,
+    QuestionAnswerOutlined,
+} from '@material-ui/icons';
+import Submitted from '../FillEvaluation/Submit/Submitted';
+
 const CreateTemplate = (props) => {
-    const [templateName, setTemplateName] = useState('');
+    const [template, setTemplate] = useState({ name: '', description: '' });
     const [sections, setSections] = useState([]);
     const [createSections, setCreateSections] = useState(false);
     const [currentSectionName, setCurrentSectionname] = useState('');
@@ -20,15 +41,57 @@ const CreateTemplate = (props) => {
         name: '',
         description: '',
     });
+
     const [tabValue, setTabValue] = useState(0);
+    const [finishedTemplate, setFinishedTemplate] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpenDialog(true);
+    };
+
+    const handleClose = () => {
+        setOpenDialog(false);
+    };
+
+    const handleContinue = async () => {
+        setFinishedTemplate(true);
+        const date = new Date();
+        // Set creator to props.creator
+        const entry = {
+            sections: sections,
+            created: date,
+            last_used: date,
+            name: template.name,
+            description: template.description,
+            creator: '5e8c66fc1c9d4400007665da',
+        };
+        const res = await putTemplate(entry);
+        setOpenDialog(false);
+    };
+
     const addSection = () => {
         setSections([...sections, { name: currentSectionName, questions: [] }]);
         setCreateQuestion(true);
         setCreateSections(false);
     };
 
+    const newSection = () => {
+        setCreateSections(true);
+        setCreateQuestion(false);
+        setCurrentSectionname('');
+    };
+
     const handleTabChange = (e, newVal) => {
         setTabValue(newVal);
+    };
+
+    const newQuestion = () => {
+        const _sections = sections;
+        const s = _sections.find((s) => s.name == currentSectionName);
+        s.questions.push(currentQuestion);
+        setSections(_sections);
+        setCurrentQuestion({ name: '', description: '' });
     };
 
     function TabPanel(props) {
@@ -63,6 +126,30 @@ const CreateTemplate = (props) => {
         value: PropTypes.any.isRequired,
     };
 
+    const getFilterIcon = (i) => {
+        i++;
+        switch (i) {
+            case 1:
+                return <Filter1Outlined />;
+            case 2:
+                return <Filter2Outlined />;
+            case 3:
+                return <Filter3Outlined />;
+            case 4:
+                return <Filter4Outlined />;
+            case 5:
+                return <Filter5Outlined />;
+            case 6:
+                return <Filter6Outlined />;
+            case 7:
+                return <Filter7Outlined />;
+            case 8:
+                return <Filter8Outlined />;
+            case 9:
+                return <Filter9Outlined />;
+        }
+    };
+
     const sectionTabs = () => {
         return (
             <div>
@@ -71,19 +158,27 @@ const CreateTemplate = (props) => {
                     value={tabValue}
                     onChange={handleTabChange}
                     variant='scrollable'
+                    TabIndicatorProps={{ style: { background: '#4392fe' } }}
                 >
-                    {sections.map((s) => (
-                        <Tab label={s.name} />
+                    {sections.map((s, i) => (
+                        <Tab label={s.name} icon={getFilterIcon(i)} />
                     ))}
                 </Tabs>
                 {sections.map((s, i) => (
                     <TabPanel value={tabValue} index={i}>
                         {s.questions.map((q) => (
-                            <div>
+                            <Box
+                                display='flex'
+                                flexDirection='row'
+                                alignItems='center'
+                            >
+                                <QuestionAnswerOutlined
+                                    style={{ marginRight: '1rem' }}
+                                />
                                 {q.name.length > 39
                                     ? `${q.name.slice(0, 40)}...`
                                     : q.name}
-                            </div>
+                            </Box>
                         ))}
                     </TabPanel>
                 ))}
@@ -91,15 +186,30 @@ const CreateTemplate = (props) => {
         );
     };
 
+    const finishedComponent = () => {
+        return (
+            <div>
+                <Submitted
+                    header={`${template.name} was created!`}
+                    subHeader={`It containts ${sections.length} section(s)`}
+                    button={{
+                        name: 'Continue',
+                        func: () => console.log('done'),
+                    }}
+                />
+            </div>
+        );
+    };
+
     const getPreviewContent = () => {
-        if (templateName === '') {
+        if (template.name === '') {
             return (
                 <div className='headerText'>
                     <p>This is a preview window </p>
                 </div>
             );
         }
-        // TODO : Customize MATERIAL UI TABS for SECTIONS mapped :)
+
         return (
             <div>
                 <div className='headerText'>
@@ -110,7 +220,7 @@ const CreateTemplate = (props) => {
                         alignItems='center'
                     >
                         <Assignment style={{ marginRight: '0.2rem' }} />
-                        <p>{templateName}</p>
+                        <p>{template.name}</p>
                     </Box>
                     {sections.length > 0 && sectionTabs()}
                 </div>
@@ -126,16 +236,32 @@ const CreateTemplate = (props) => {
             return (
                 <div>
                     <div className='headerText'>
-                        <h1>{templateName}</h1>
-                        <h2>{currentSectionName}</h2>
+                        <Box
+                            style={{ margin: '2rem' }}
+                            display='flex'
+                            flexDirection='row'
+                            alignItems='top'
+                            justifyContent='center'
+                        >
+                            <QuestionAnswerOutlined
+                                style={{
+                                    height: 200,
+                                    width: 200,
+                                    marginRight: '2rem',
+                                }}
+                            />
+                            <h1 style={{ fontSize: '2.5rem' }}>
+                                Create a new <br /> Question!
+                            </h1>
+                        </Box>
                     </div>
 
                     <form className='templateForm'>
-                        <p>Add new question!</p>
+                        <p>{`Add new question to ${currentSectionName}`}</p>
                         <TextField
                             InputProps={{
                                 style: {
-                                    Color: 'white',
+                                    color: 'white',
                                     fontFamily: 'Source Sans Pro',
                                     borderColor: 'white',
                                 },
@@ -150,7 +276,10 @@ const CreateTemplate = (props) => {
                             variant='outlined'
                             value={currentQuestion.name}
                             onChange={(e) =>
-                                setCurrentQuestion({ name: e.target.value })
+                                setCurrentQuestion({
+                                    name: e.target.value,
+                                    description: currentQuestion.description,
+                                })
                             }
                         />
 
@@ -174,6 +303,7 @@ const CreateTemplate = (props) => {
                             value={currentQuestion.description}
                             onChange={(e) =>
                                 setCurrentQuestion({
+                                    name: currentQuestion.name,
                                     description: e.target.value,
                                 })
                             }
@@ -182,11 +312,39 @@ const CreateTemplate = (props) => {
                         <div>
                             <Button
                                 style={{ color: '#fff' }}
-                                onClick={() => setCreateQuestion(true)}
+                                onClick={() => newQuestion()}
                             >
-                                Continue
+                                New Question
+                            </Button>
+                            <Button
+                                style={{ color: '#fff', margin: '0 2rem' }}
+                                onClick={() => newSection()}
+                            >
+                                New Section
+                            </Button>
+                            <Button
+                                style={{ color: '#fff' }}
+                                onClick={handleClickOpen}
+                            >
+                                Finish Template
                             </Button>
                         </div>
+                        <Dialog open={openDialog} onClose={handleClose}>
+                            <DialogTitle>Save {template.name} ? </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Continue to save your new
+                                    evaluation-template!
+                                </DialogContentText>
+                            </DialogContent>
+
+                            <DialogActions>
+                                <Button onClick={handleClose}>Close</Button>
+                                <Button onClick={handleContinue}>
+                                    Continue
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
                     </form>
                 </div>
             );
@@ -195,10 +353,29 @@ const CreateTemplate = (props) => {
             return (
                 <div>
                     <div className='headerText'>
-                        <h1>{templateName}</h1>
+                        <Box
+                            style={{ margin: '2rem' }}
+                            display='flex'
+                            flexDirection='row'
+                            alignItems='top'
+                            justifyContent='center'
+                        >
+                            <FilterOutlined
+                                style={{
+                                    height: 200,
+                                    width: 200,
+                                    marginRight: '2rem',
+                                }}
+                            />
+                            <h1 style={{ fontSize: '2.5 rem' }}>
+                                Add a new <br /> section !
+                            </h1>
+                        </Box>
                     </div>
                     <form className='templateForm'>
-                        <p>Add your first section</p>
+                        <p>{`Add Section #${sections.length + 1} to ${
+                            template.name
+                        }`}</p>
                         <TextField
                             InputProps={{
                                 style: {
@@ -236,8 +413,24 @@ const CreateTemplate = (props) => {
             return (
                 <div>
                     <div className='headerText'>
-                        <h1>Create a new template!</h1>
-                        <Assignment style={{ height: 200, width: 200 }} />
+                        <Box
+                            style={{ margin: '2rem' }}
+                            display='flex'
+                            flexDirection='row'
+                            alignItems='top'
+                            justifyContent='center'
+                        >
+                            <Assignment
+                                style={{
+                                    height: 200,
+                                    width: 200,
+                                    marginRight: '2rem',
+                                }}
+                            />
+                            <h1 style={{ fontSize: '2.5rem' }}>
+                                Create a new <br /> Template!
+                            </h1>
+                        </Box>
                     </div>
                     <form className='templateForm'>
                         <p>Start by asigning it a name</p>
@@ -257,8 +450,38 @@ const CreateTemplate = (props) => {
                             }}
                             label='Template Name'
                             variant='outlined'
-                            value={templateName}
-                            onChange={(e) => setTemplateName(e.target.value)}
+                            value={template.name}
+                            onChange={(e) =>
+                                setTemplate({
+                                    name: e.target.value,
+                                    description: template.description,
+                                })
+                            }
+                        />
+                        <TextField
+                            style={{ marginTop: '2rem' }}
+                            InputProps={{
+                                style: {
+                                    color: 'white',
+                                    fontFamily: 'Source Sans Pro',
+                                    borderColor: 'white',
+                                },
+                            }}
+                            InputLabelProps={{
+                                style: {
+                                    color: '#fff',
+                                    opacity: '0.5',
+                                },
+                            }}
+                            label='Template Description'
+                            variant='outlined'
+                            value={template.description}
+                            onChange={(e) =>
+                                setTemplate({
+                                    name: template.name,
+                                    description: e.target.value,
+                                })
+                            }
                         />
                         <div>
                             <Button
@@ -273,12 +496,17 @@ const CreateTemplate = (props) => {
             );
         }
     };
+    // GetPreviewContent --> displays content on half its parent element??
     return (
         <div className='background'>
-            <div className='preview-container'>
-                <div className='createCard'>{getContent()}</div>
-                <div className='preview-window'>{getPreviewContent()}</div>
-            </div>
+            {finishedTemplate ? (
+                finishedComponent()
+            ) : (
+                <div className='preview-container'>
+                    <div className='createCard'>{getContent()}</div>
+                    <div className='preview-window'>{getPreviewContent()}</div>
+                </div>
+            )}
         </div>
     );
 };
