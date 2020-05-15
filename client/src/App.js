@@ -11,6 +11,7 @@ import NavBar from './components/NavBar/NavBar';
 import MainMenu from './components/Admin/MainMenu/MainMenu';
 import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
+import CreateTemplate from './components/CreateTemplate/CreateTemplate';
 import AOverviewBoard from './components/AOverviewBoard/AOverviewBoard';
 
 function App() {
