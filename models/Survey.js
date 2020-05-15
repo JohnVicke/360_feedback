@@ -9,14 +9,16 @@ const mongoose = require('mongoose');
  */
 const surveySchema = mongoose.Schema(
     {
-        e_id: { type: Number, required: true },
+        active: {type: Boolean, required: true},
+        e_id: { type: mongoose.Schema.ObjectId, required: true },
         end_date: { type: Date, required: true },
         template_id: { type: mongoose.Schema.ObjectId, required: true },
         responses: { type: Array, required: true },
         creator: { type: mongoose.Schema.ObjectId, required: true },
     },
     // needed because otherwise the collection wont be found.
-    { collection: 'survey' }
+    { collection: 'survey' },
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('survey', surveySchema);
