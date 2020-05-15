@@ -30,9 +30,14 @@ import {
     QuestionAnswerOutlined,
 } from '@material-ui/icons';
 import Submitted from '../FillEvaluation/Submit/Submitted';
+<<<<<<< HEAD
+=======
+import { useHistory } from 'react-router-dom';
+>>>>>>> 4dbd1b20c345c82a0d1fd32b85e3bca781c226a2
 import NavBar from '../NavBar/NavBar';
 
 const CreateTemplate = (props) => {
+    const history = useHistory();
     const [template, setTemplate] = useState({ name: '', description: '' });
     const [sections, setSections] = useState([]);
     const [createSections, setCreateSections] = useState(false);
@@ -189,13 +194,14 @@ const CreateTemplate = (props) => {
 
     const finishedComponent = () => {
         return (
-            <div>
+            <div className='submit'>
                 <Submitted
+                    style={{ marginTop: '2rem' }}
                     header={`${template.name} was created!`}
                     subHeader={`It containts ${sections.length} section(s)`}
                     button={{
                         name: 'Continue',
-                        func: () => console.log('done'),
+                        func: () => history.push('/'),
                     }}
                 />
             </div>

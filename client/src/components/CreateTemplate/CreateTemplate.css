@@ -67,3 +67,6 @@ p {
 .preview-window .headerText p {
     opacity: 0.3;
 }
+.submit {
+    margin-top: 10%;
+}
