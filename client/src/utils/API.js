@@ -32,3 +32,19 @@ export async function GetSurveyById(id) {
     const res = await api.get(`/surveys/${id}`);
     return res;
 }
+export async function GetAllEvaluations() {
+    const res = await api.get(`/surveys/`);
+    return res;
+}
+export async function GetAllTemplates() {
+    const res = await api.get(`/templates/`);
+    return res;
+}
+export async function GetAllUsers() {
+    const res = await api.get(`/users/`);
+    return res;
+}
+export async function UpdateSurveyActive(id, active) {
+    const res = await api.patch(`/surveys/${id}`, active);
+    return res;
+}
