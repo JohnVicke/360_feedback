@@ -26,7 +26,6 @@ getAllSurveys = async (req, res) => {
     }).catch((err) => console.log(err));
 };
 
-
 /**
  * Gets an id specified survey from collection.
  */
@@ -162,6 +161,18 @@ deleteSurvey = async (req, res) => {
     }).catch((err) => console.log(err));
 };
 
+patchSurveyActive = async (req, res) => {
+    try {
+        const updatedSurvey = await Survey.updateOne(
+            { _id: req.params.id },
+            { $set: { active: req.body.active } }
+        );
+        res.json(updatedSurvey);
+    } catch (err) {
+        res.json({ message: err });
+    }
+};
+
 module.exports = {
     getAllSurveys,
     getSurveyById,
@@ -169,4 +180,5 @@ module.exports = {
     createSurvey,
     updateSurvey,
     deleteSurvey,
+    patchSurveyActive,
 };
