@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import './CreateTemplate.css';
-import { TextField, Button } from '@material-ui/core';
-
+import {
+    TextField,
+    Button,
+    Box,
+    Tabs,
+    Tab,
+    Typography,
+} from '@material-ui/core';
+import { Assignment, SentimentVerySatisfiedOutlined } from '@material-ui/icons';
 const CreateTemplate = (props) => {
     const [templateName, setTemplateName] = useState('');
     const [sections, setSections] = useState([]);
@@ -12,11 +20,75 @@ const CreateTemplate = (props) => {
         name: '',
         description: '',
     });
-
+    const [tabValue, setTabValue] = useState(0);
     const addSection = () => {
         setSections([...sections, { name: currentSectionName, questions: [] }]);
         setCreateQuestion(true);
         setCreateSections(false);
+    };
+
+    const handleTabChange = (e, newVal) => {
+        setTabValue(newVal);
+    };
+
+    function TabPanel(props) {
+        const { children, value, index, ...other } = props;
+        return (
+            <div
+                role='tabpanel'
+                hidden={tabValue !== index}
+                id={`scrollable-auto-tabpanel-${index}`}
+                aria-labelledby={`scrollable-auto-tab-${index}`}
+                {...other}
+            >
+                {tabValue === index && (
+                    <Box p={2}>
+                        <Typography
+                            style={{
+                                fontFamily: 'Source Sans Pro',
+                                fontWeight: 400,
+                            }}
+                        >
+                            {children}
+                        </Typography>
+                    </Box>
+                )}
+            </div>
+        );
+    }
+
+    TabPanel.propTypes = {
+        children: PropTypes.node,
+        index: PropTypes.any.isRequired,
+        value: PropTypes.any.isRequired,
+    };
+
+    const sectionTabs = () => {
+        return (
+            <div>
+                <Tabs
+                    style={{ width: '400px' }}
+                    value={tabValue}
+                    onChange={handleTabChange}
+                    variant='scrollable'
+                >
+                    {sections.map((s) => (
+                        <Tab label={s.name} />
+                    ))}
+                </Tabs>
+                {sections.map((s, i) => (
+                    <TabPanel value={tabValue} index={i}>
+                        {s.questions.map((q) => (
+                            <div>
+                                {q.name.length > 39
+                                    ? `${q.name.slice(0, 40)}...`
+                                    : q.name}
+                            </div>
+                        ))}
+                    </TabPanel>
+                ))}
+            </div>
+        );
     };
 
     const getPreviewContent = () => {
@@ -27,16 +99,20 @@ const CreateTemplate = (props) => {
                 </div>
             );
         }
-
+        // TODO : Customize MATERIAL UI TABS for SECTIONS mapped :)
         return (
             <div>
                 <div className='headerText'>
-                    <p>Template name</p>
-                    <h1>{templateName}</h1>
-                    <p>Sections</p>
-                    {sections.map((s) => (
-                        <h2>{s.name}</h2>
-                    ))}
+                    <Box
+                        display='flex'
+                        flexDirection='row'
+                        justifyContent='center'
+                        alignItems='center'
+                    >
+                        <Assignment style={{ marginRight: '0.2rem' }} />
+                        <p>{templateName}</p>
+                    </Box>
+                    {sections.length > 0 && sectionTabs()}
                 </div>
             </div>
         );
@@ -53,6 +129,7 @@ const CreateTemplate = (props) => {
                         <h1>{templateName}</h1>
                         <h2>{currentSectionName}</h2>
                     </div>
+
                     <form className='templateForm'>
                         <p>Add new question!</p>
                         <TextField
@@ -101,6 +178,7 @@ const CreateTemplate = (props) => {
                                 })
                             }
                         />
+
                         <div>
                             <Button
                                 style={{ color: '#fff' }}
@@ -159,6 +237,7 @@ const CreateTemplate = (props) => {
                 <div>
                     <div className='headerText'>
                         <h1>Create a new template!</h1>
+                        <Assignment style={{ height: 200, width: 200 }} />
                     </div>
                     <form className='templateForm'>
                         <p>Start by asigning it a name</p>
