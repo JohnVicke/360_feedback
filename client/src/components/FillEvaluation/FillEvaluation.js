@@ -6,12 +6,11 @@ import Question from './Question';
 import Submitted from './Submit/Submitted';
 import Loading from '../Loading/Loading';
 import { GetUserEvals } from '../../utils/API';
-import { useHistory } from 'react-router-dom';
 import * as _ from 'lodash';
+import history from '../../utils/history';
 
 class FillEvaluation extends Component {
     constructor(props) {
-        const history = useHistory();
         super(props);
         this.state = {
             name: '',
@@ -137,7 +136,7 @@ class FillEvaluation extends Component {
                                 subHeader='Thank you for your answers'
                                 button={{
                                     name: 'Home',
-                                    func: () => this.history.push('/profile'),
+                                    func: () => history.push('/profile'),
                                 }}
                             />
                         </div>

@@ -32,7 +32,7 @@ const Profile = () => {
     const evalComponent = () => {
         if (userEvals !== 'null') {
             return (
-                <Box display="flex" flexDirection="row">
+                <Box display='flex' flexDirection='row'>
                     {userEvals.map((submissionUser) => (
                         <div style={{ paddingRight: '2rem' }}>
                             <Link
@@ -57,7 +57,7 @@ const Profile = () => {
             );
         } else {
             return (
-                <Box display="flex" flexDirection="row">
+                <Box display='flex' flexDirection='row'>
                     <img
                         src={happy}
                         style={{
@@ -118,15 +118,15 @@ const Profile = () => {
     }, [userInfo]);
 
     if (loading || userEvals.length === 0) {
-        return <Loading />;
+        return <Loading fullscreen={true} />;
     }
 
     return (
         <div className={classes.profile}>
             <NavBar />
             <Box
-                display="flex"
-                flexDirection="column"
+                display='flex'
+                flexDirection='column'
                 style={{ padding: '2rem 6rem' }}
             >
                 <Typography
@@ -140,16 +140,16 @@ const Profile = () => {
                 >
                     My profile
                 </Typography>
-                <Box display="flex" flexDirection="row" alignItems="center">
+                <Box display='flex' flexDirection='row' alignItems='center'>
                     <Avatar
                         src={user.picture}
                         className={classes.avatar}
-                        width="120px"
-                        height="120px"
+                        width='120px'
+                        height='120px'
                     />
                     <Box
-                        display="flex"
-                        flexDirection="row"
+                        display='flex'
+                        flexDirection='row'
                         style={{ margin: '0 2rem' }}
                     >
                         <Typography

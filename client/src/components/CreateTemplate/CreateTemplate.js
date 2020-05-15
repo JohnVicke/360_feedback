@@ -30,6 +30,7 @@ import {
     QuestionAnswerOutlined,
 } from '@material-ui/icons';
 import Submitted from '../FillEvaluation/Submit/Submitted';
+import NavBar from '../NavBar/NavBar';
 
 const CreateTemplate = (props) => {
     const [template, setTemplate] = useState({ name: '', description: '' });
@@ -499,6 +500,7 @@ const CreateTemplate = (props) => {
     // GetPreviewContent --> displays content on half its parent element??
     return (
         <div className='background'>
+            <NavBar />
             {finishedTemplate ? (
                 finishedComponent()
             ) : (
