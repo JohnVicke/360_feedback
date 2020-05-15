@@ -5,7 +5,7 @@ import { GetAllTemplates, GetAllUsers } from '../../../utils/API';
 import { Box, Typography, Avatar, Grid, IconButton } from '@material-ui/core';
 import ArchivedListing from '../EvaluationListings/ArchivedListing';
 import AddIcon from '@material-ui/icons/Add';
-import Loading from '../../Loading/Loading'
+import Loading from '../../Loading/Loading';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,7 +16,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 function EmployeeList(props) {
     return (
-        <ul style={{ width: '100%', listStyleType: 'none' }}>
+        <ul
+            style={{
+                width: '100%',
+                listStyleType: 'none',
+                maxHeight: 450,
+                overflow: 'auto',
+            }}
+        >
             {props.templates &&
                 props.templates.map((template, index) => {
                     return (
@@ -124,7 +131,7 @@ const TemplatesListing = () => {
     }, [loggedInUser]);
 
     if (templates.length === 0) {
-        return <Loading/>
+        return <Loading />;
     }
     return (
         <div>
