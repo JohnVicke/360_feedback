@@ -10,6 +10,8 @@ import {
     styled,
     Grid,
     IconButton,
+    Button,
+    spacing,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import NavBar from '../../NavBar/NavBar';
@@ -24,6 +26,7 @@ import Tabs from '@material-ui/core/Tabs';
 import { Link } from 'react-router-dom';
 
 import Tab from '@material-ui/core/Tab';
+import EvaluationWaiting from "../../Profile/EvaluationWaiting/EvaluationWaiting";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,20 +82,29 @@ const MainMenu = () => {
 
     function returnListing() {
         if (value === 0) {
-            return <ActiveListing />;
+            return <ActiveListing />
         }
         if (value === 1) {
             return <ArchivedListing />;
         }
         if (value === 2) {
-            return <TemplatesListing />;
+            return (
+                <div>
+                    <TemplatesListing />
+                    <Link to={{ pathname: '/createTemplate',}}>
+                        <Button variant="contained" color="primary" href="#contained-buttons" className={'mx-3'} >
+                            Create new template
+                        </Button>
+                    </Link>
+                </div>);
         }
     }
+
 
     return (
         <div className={classes.MainMenu}>
             <NavBar />
-            <Box style={{ margin: '10rem auto' }}>
+            <Box m={'10rem auto'}>
                 <MyCard style={{ margin: '0 auto' }}>
                     <Paper className={classes.root}>
                         <Tabs
@@ -126,6 +138,13 @@ const MainMenu = () => {
                         </Tabs>
                     </Paper>
                     {returnListing()}
+                    <Grid container alignItems="flex-start" justify="flex-end" direction="row" >
+                        <Link to={{ pathname: '/createEvaluation',}}>
+                            <Button variant="contained" color="primary" href="#contained-buttons" className={'mx-3'} >
+                                Create new evaluation
+                            </Button>
+                        </Link>
+                    </Grid>
                 </MyCard>
             </Box>
         </div>

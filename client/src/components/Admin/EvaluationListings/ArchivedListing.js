@@ -249,8 +249,8 @@ function EmployeeBar(props) {
 
 const ArchivedListing = () => {
     const classes = useStyles();
-    const [archivedEvaluations, setArchivedEvaluations] = useState([]);
     const [users, setUsers] = useState([]);
+    const [archivedEvaluations, setArchivedEvaluations] = useState([]);
     const [templates, setTemplates] = useState([]);
 
     const { loggedInUser } = useAuth0();
@@ -271,8 +271,8 @@ const ArchivedListing = () => {
         };
         fetchUsers();
     }, [loggedInUser]);
-
-    useEffect(() => {
+  
+  useEffect(() => {
         const fetchTemplates = async () => {
             const response = await (await GetAllTemplates()).data;
             console.log('TEMPLATES');
@@ -281,14 +281,18 @@ const ArchivedListing = () => {
         };
         fetchTemplates();
     }, [loggedInUser]);
-
-    async function updateSurvey(id, active) {
+  
+   async function updateSurvey(id, active) {
         const res = await UpdateSurveyActive(id, { active: active });
         const response = await GetAllEvaluations();
         setArchivedEvaluations(response.data.data);
     }
-    if (users.length === 0 || templates.length === 0) {
-        return <div>;</div>;
+
+    if (users.length === 0) {
+        return <Loading/>;
+    }else if(archivedEvaluations.length === 0 || templates.length === 0){
+        return <div>No archived evaluations found</div>;
+
     }
     return (
         <div>

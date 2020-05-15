@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from '../../../react-auth0-spa';
+import Loading from '../../Loading/Loading';
 import {
     GetActiveEvaluations,
     GetAllEvaluations,
@@ -255,6 +256,7 @@ const ActiveListing = () => {
     const [templates, setTemplates] = useState([]);
 
     const [users, setUsers] = useState([]);
+
     const { loggedInUser } = useAuth0();
 
     useEffect(() => {
@@ -279,8 +281,8 @@ const ActiveListing = () => {
         };
         fetchUsers();
     }, [loggedInUser]);
-
-    useEffect(() => {
+  
+   useEffect(() => {
         const fetchTemplates = async () => {
             const response = await (await GetAllTemplates()).data;
             console.log('TEMPLATES');
@@ -289,14 +291,19 @@ const ActiveListing = () => {
         };
         fetchTemplates();
     }, [loggedInUser]);
-
-    async function updateSurvey(id, active) {
+  
+  async function updateSurvey(id, active) {
         const res = await UpdateSurveyActive(id, { active: active });
         const response = await GetAllEvaluations();
         setActiveEvaluations(response.data.data);
     }
-    if (users.length === 0 || templates.length === 0) {
-        return <div>Loading</div>;
+
+    if (users.length === 0) {
+        return <Loading/>;
+    }
+    else if(activeEvaluations.length === 0  || templates.length === 0){
+        return <div>No active evaluations found</div>;
+
     }
 
     return (
