@@ -14,9 +14,10 @@ import NavBar from '../../NavBar/NavBar';
 import { Assignment } from '@material-ui/icons';
 import history from '../../../utils/history';
 import Submitted from '../../FillEvaluation/Submit/Submitted';
+import { CreateEmptySurvey, UpdateSurvey } from '../../../utils/API';
 
 const DoubleCheck = (props) => {
-    const users = props.location.state;
+    const { user, template, users } = props.location.state;
     const [send, setSend] = useState(false);
     function EmployeeList(props) {
         return (
@@ -32,6 +33,40 @@ const DoubleCheck = (props) => {
         );
     }
 
+    const handleSend = async () => {
+        // create empty survey first
+        const res = await CreateEmptySurvey({
+            active: true,
+            end_date: new Date(),
+            responses: [],
+        });
+
+        const {
+            data: { id },
+        } = res;
+        // fill survey with this info ==>
+
+        let survey = {
+            creator: user._id, // Set creator to auth0 userid in database
+            active: true,
+            e_id: user._id,
+            end_date: '2020-04-06T22:00:00.000Z',
+            template_id: template._id,
+            responses: users.map((u) => {
+                return {
+                    user_id: u._id,
+                    survey_id: id,
+                    answers: [],
+                };
+            }),
+        };
+        const updatedSurvey = await UpdateSurvey(id, survey);
+        console.log('SURVEY BEING PUTTED');
+        console.log(survey);
+
+        setSend(true);
+    };
+
     function EmployeeBar(props) {
         return (
             <Box
@@ -46,7 +81,6 @@ const DoubleCheck = (props) => {
                 }}
             >
                 <div>
-                    {/*console.log(props)*/}
                     <Grid container>
                         <Grid item xs={8}>
                             <Avatar
@@ -108,8 +142,8 @@ const DoubleCheck = (props) => {
             {send && (
                 <div className='submitted-margin'>
                     <Submitted
-                        header='Evaluation sent!'
-                        subHeader={`Sent evaluation to ${users.length} evaluators`}
+                        header={`${template.name} evaluation for ${user.given_name} ${user.family_name}`}
+                        subHeader={`The evaluation was sent to ${users.length} evaluators`}
                         button={{
                             name: 'Home',
                             func: () => history.push('/'),
@@ -206,14 +240,13 @@ const DoubleCheck = (props) => {
                                                         color: '#fff',
                                                     }}
                                                 >
-                                                    {/* props.template.name*/}
-                                                    360 feedback
+                                                    {template.name}
                                                 </Typography>
                                             </Box>
                                             <div style={{ marginLeft: '1rem' }}>
                                                 <EmployeeBar
                                                     reviewed={true}
-                                                    user={users[0]}
+                                                    user={user}
                                                     container
                                                     direction='row'
                                                     justify='center'
@@ -284,7 +317,7 @@ const DoubleCheck = (props) => {
                                     >
                                         <Typography
                                             variant='button'
-                                            onClick={() => setSend(true)}
+                                            onClick={() => handleSend()}
                                         >
                                             Send
                                         </Typography>

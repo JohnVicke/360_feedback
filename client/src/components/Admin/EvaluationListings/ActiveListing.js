@@ -105,9 +105,9 @@ function EmployeeBar(props) {
 
     return (
         <Box
-            className="employeeBar"
-            bgcolor="#F6F6F6"
-            width="0.95"
+            className='employeeBar'
+            bgcolor='#F6F6F6'
+            width='0.95'
             style={{
                 borderRadius: '15px',
                 marginTop: '15px',
@@ -130,27 +130,27 @@ function EmployeeBar(props) {
                         />
 
                         <Typography
-                            variant="h5"
+                            variant='h5'
                             style={{
                                 paddingTop: '10px',
                                 fontFamily: 'Source Sans Pro',
                                 fontWeight: 'bold',
                             }}
-                            color="#000000"
+                            color='#000000'
                         >
                             {props.user.given_name +
                                 ' ' +
                                 props.user.family_name}
                         </Typography>
                         <Typography
-                            variant="h6"
+                            variant='h6'
                             style={{
                                 opacity: '0.7',
                                 marginTop: '2px',
                                 fontFamily: 'Source Sans Pro',
                                 fontWeight: 'bold',
                             }}
-                            color="#131313"
+                            color='#131313'
                         >
                             {getTemplateName(props.evaluation.template_id)}
                         </Typography>
@@ -179,7 +179,7 @@ function EmployeeBar(props) {
                                         marginTop: '0.5rem',
                                         marginLeft: '8rem',
                                     }}
-                                    variant="static"
+                                    variant='static'
                                     size={60}
                                     value={getProgressValue(props.evaluation)}
                                 />
@@ -202,7 +202,7 @@ function EmployeeBar(props) {
                                 style={{ textDecoration: 'none' }}
                             >
                                 <Button
-                                    aria-label="add"
+                                    aria-label='add'
                                     style={{
                                         backgroundColor: '#4392FE',
                                         color: 'white',
@@ -232,7 +232,7 @@ function EmployeeBar(props) {
                                 CURRENTLY ACTIVE
                             </Typography>
                             <Button
-                                aria-label="add"
+                                aria-label='add'
                                 style={{
                                     backgroundColor: '#4392FE',
                                     color: 'white',

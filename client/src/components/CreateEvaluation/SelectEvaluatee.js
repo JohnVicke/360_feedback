@@ -12,10 +12,10 @@ import {
     IconButton,
     Button,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import { getAllUsers } from '../../utils/API';
+import history from '../../utils/history';
 
 export default class CreateEvaluation extends React.Component {
     constructor(props) {
@@ -58,13 +58,11 @@ export default class CreateEvaluation extends React.Component {
         const comp = this;
 
         function AddButton(props) {
-
             if (
                 comp.state.addedUsers.findIndex(
                     (x) => x._id == props.user._id
                 ) !== -1
             ) {
-
                 return (
                     <IconButton
                         onClick={() => {
@@ -75,10 +73,8 @@ export default class CreateEvaluation extends React.Component {
                     >
                         <CheckIcon />
                     </IconButton>
-
                 );
             } else {
-
                 return (
                     <IconButton
                         onClick={() => {
@@ -91,7 +87,6 @@ export default class CreateEvaluation extends React.Component {
                     </IconButton>
                 );
             }
-
         }
 
         function EmployeeList(props) {
@@ -262,6 +257,7 @@ export default class CreateEvaluation extends React.Component {
                             >
                                 <Grid item xs={6}>
                                     <Button
+                                        onClick={() => history.goBack()}
                                         variant='outlined'
                                         style={{
                                             borderRadius: '20px',
@@ -275,30 +271,28 @@ export default class CreateEvaluation extends React.Component {
                                     </Button>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Link
-                                        to={{
-                                            pathname: '/selectTemplate',
-                                            state: {
-                                                user: this.state.addedUsers[0]
-                                            },
+                                    <Button
+                                        onClick={() =>
+                                            history.push({
+                                                pathname: '/selectTemplate',
+                                                state: {
+                                                    user: this.state
+                                                        .addedUsers[0],
+                                                },
+                                            })
+                                        }
+                                        variant='contained'
+                                        style={{
+                                            float: 'right',
+                                            backgroundColor: '#4392FE',
+                                            color: '#FFFFFF',
+                                            borderRadius: '20px',
                                         }}
-                                        style={{ textDecoration: 'none' }}
                                     >
-                                        <Button
-                                            variant='contained'
-                                            style={{
-                                                float: 'right',
-                                                backgroundColor: '#4392FE',
-                                                color: '#FFFFFF',
-                                                borderRadius: '20px',
-                                            }}
-                                        >
-
-                                            <Typography variant='button'>
-                                                CONTINUE
-                                            </Typography>
-                                        </Button>
-                                    </Link>
+                                        <Typography variant='button'>
+                                            CONTINUE
+                                        </Typography>
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Box>

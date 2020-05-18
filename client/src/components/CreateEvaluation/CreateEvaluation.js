@@ -27,17 +27,14 @@ export default class CreateEvaluation extends React.Component {
             addedUsers: [],
             tabValue: 'Active',
             template: {},
-            user: {}
+            user: {},
         };
     }
 
     componentDidMount = () => {
-        const {
-            user,
-            template
-        } = this.props.location.state;
-        console.log(user)
-        console.log(template)
+        const { user, template } = this.props.location.state;
+        console.log(user);
+        console.log(template);
 
         getAllUsers().then((res) => {
             this.setState({
@@ -50,7 +47,6 @@ export default class CreateEvaluation extends React.Component {
             });
         });
     };
-
 
     onClickTest = (user) => {
         if (this.state.addedUsers.findIndex((x) => x._id == user._id) !== -1) {
@@ -66,8 +62,6 @@ export default class CreateEvaluation extends React.Component {
         }
         console.log(this.state.addedUsers);
     };
-
-
 
     render() {
         const comp = this;
@@ -103,7 +97,6 @@ export default class CreateEvaluation extends React.Component {
                 );
             }
         }
-
 
         function EmployeeList(props) {
             return (
@@ -289,31 +282,31 @@ export default class CreateEvaluation extends React.Component {
                                     </Button>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Link
-                                        to={{
-                                            pathname: '/double_check',
-                                            state: {
-                                                user: this.state.user,
-                                                template: this.state.template,
-                                                addedUsers: this.state.addedUsers,
-                                            },
+                                    <Button
+                                        variant='contained'
+                                        style={{
+                                            float: 'right',
+                                            backgroundColor: '#4392FE',
+                                            color: '#FFFFFF',
+                                            borderRadius: '20px',
                                         }}
-                                        style={{ textDecoration: 'none' }}
+                                        onClick={() =>
+                                            history.push({
+                                                pathname: '/double_check',
+                                                state: {
+                                                    user: this.state.user,
+                                                    template: this.state
+                                                        .template,
+                                                    users: this.state
+                                                        .addedUsers,
+                                                },
+                                            })
+                                        }
                                     >
-                                        <Button
-                                            variant='contained'
-                                            style={{
-                                                float: 'right',
-                                                backgroundColor: '#4392FE',
-                                                color: '#FFFFFF',
-                                                borderRadius: '20px',
-                                            }}
-                                        >
-                                            <Typography variant='button'>
-                                                CONTINUE
-                                            </Typography>
-                                        </Button>
-                                    </Link>
+                                        <Typography variant='button'>
+                                            CONTINUE
+                                        </Typography>
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </Box>
