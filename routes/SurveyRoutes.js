@@ -14,6 +14,7 @@ const {
     createSurvey,
     updateSurvey,
     deleteSurvey,
+    patchSurveyActive,
 } = controller;
 
 // Sets up the routes.
@@ -23,5 +24,6 @@ router.get('/e/:id', getSurveyByEmployeeId);
 router.post('/', createSurvey);
 router.put('/:id', updateSurvey);
 router.delete('/:id', deleteSurvey);
+router.patch('/:id', patchSurveyActive);
 
 module.exports = router;

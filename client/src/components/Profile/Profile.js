@@ -11,7 +11,8 @@ import Loading from '../Loading/Loading';
 
 const useStyles = makeStyles({
     profile: {
-        height: '100vh',
+        height: '100%',
+        minHeight: '100vh',
         background: 'rgb(126,231,119)',
         background:
             'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
@@ -40,6 +41,7 @@ const Profile = () => {
                                     pathname: '/fillin',
                                     state: {
                                         fromProfile: submissionUser,
+                                        myId: userInfo.data._id,
                                     },
                                 }}
                                 style={{ textDecoration: 'none' }}
@@ -97,7 +99,7 @@ const Profile = () => {
                 const template = await getTemplate(response.survey_id);
                 resArray.push({
                     template: template.data,
-                    answers: response.answers,
+                    answers: response,
                     user_data: res.data,
                 });
             });
@@ -117,7 +119,7 @@ const Profile = () => {
     }, [userInfo]);
 
     if (loading || userEvals.length === 0) {
-        return <Loading />;
+        return <Loading fullscreen={true} />;
     }
 
     return (

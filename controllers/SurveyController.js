@@ -110,6 +110,7 @@ updateSurvey = async (req, res) => {
         }
 
         // Updates the fields for the survey and saves it in the database.
+        survey.active = body.active;
         survey.e_id = body.e_id;
         survey.end_date = body.end_date;
         survey.template_id = body.template_id;
@@ -160,6 +161,18 @@ deleteSurvey = async (req, res) => {
     }).catch((err) => console.log(err));
 };
 
+patchSurveyActive = async (req, res) => {
+    try {
+        const updatedSurvey = await Survey.updateOne(
+            { _id: req.params.id },
+            { $set: { active: req.body.active } }
+        );
+        res.json(updatedSurvey);
+    } catch (err) {
+        res.json({ message: err });
+    }
+};
+
 module.exports = {
     getAllSurveys,
     getSurveyById,
@@ -167,4 +180,5 @@ module.exports = {
     createSurvey,
     updateSurvey,
     deleteSurvey,
+    patchSurveyActive,
 };

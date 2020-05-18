@@ -4,19 +4,26 @@ import './loading.css';
 import logo from '../../assets/logos/notextlogo.svg';
 
 const useStyles = makeStyles({
-    home: {
+    fullscreen: {
         overflow: 'hidden',
         height: '100vh',
         background: 'rgb(126,231,119)',
         background:
             'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
     },
+    only_icon: {
+        background: 'transparent',
+    },
 });
 
 const Loading = (props) => {
     const classes = useStyles();
     return (
-        <div className={classes.home}>
+        <div
+            className={
+                props.fullscreen ? classes.fullscreen : classes.only_icon
+            }
+        >
             <div className='platypus-container'>
                 <svg
                     className='platypus'

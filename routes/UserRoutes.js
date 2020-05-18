@@ -13,6 +13,7 @@ const {
     createUser,
     updateUser,
     deleteUser,
+    patchUserResponse,
 } = controller;
 
 // Sets up the routes.
@@ -22,5 +23,6 @@ router.get('/email/:id', getUserByEmail);
 router.post('/', createUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
+router.patch('/:id', patchUserResponse);
 
 module.exports = router;
