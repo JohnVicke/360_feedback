@@ -13,6 +13,7 @@ import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
 import CreateTemplate from './components/CreateTemplate/CreateTemplate';
 import AOverviewBoard from './components/AOverviewBoard/AOverviewBoard';
+import ContributionPoints from './components/Profile/ContributionPoints/ContributionPoints';
 
 function App() {
     const { loading, isAuthenticated } = useAuth0();
@@ -28,15 +29,18 @@ function App() {
         );
     }
     return (
-        <div className="App">
+        <div className='App'>
             <Router history={history}>
                 <Switch>
-                    <PrivateRoute exact path="/" component={MainMenu} />
-                    <PrivateRoute path="/profile" component={Profile} />
-                    <PrivateRoute path="/fillin" component={FillEvaluation} />
-                    <PrivateRoute path={"/createTemplate"} component={CreateTemplate}/>
+                    <PrivateRoute exact path='/' component={MainMenu} />
+                    <PrivateRoute path='/profile' component={Profile} />
+                    <PrivateRoute path='/fillin' component={FillEvaluation} />
                     <PrivateRoute
-                        path="/admin/overviewboard"
+                        path={'/createTemplate'}
+                        component={CreateTemplate}
+                    />
+                    <PrivateRoute
+                        path='/admin/overviewboard'
                         component={AOverviewBoard}
                     />
                 </Switch>

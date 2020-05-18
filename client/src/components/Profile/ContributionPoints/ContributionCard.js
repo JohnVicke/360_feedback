@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Paper, Box } from '@material-ui/core';
 
 const ContributionCard = (props) => {
     const cardInfo = props.cardInfo;
     const section = props.section;
-
     const getOverall = () => {
         var sum = 0;
         var n = 0;
@@ -29,12 +28,14 @@ const ContributionCard = (props) => {
             marginRight: '2rem',
             height: '122px',
         },
+
         box: {
             p: {
                 fontFamily: 'Source Sans pro',
                 fontSize: '18px',
                 fontWeight: '700',
                 textTransform: 'uppercase',
+                color: '#262E3F',
             },
 
             h1: {
@@ -54,6 +55,7 @@ const ContributionCard = (props) => {
         },
         box: {
             p: {
+                color: '#262E3F',
                 fontFamily: 'Source Sans Pro',
                 fontSize: '14px',
                 fontWeight: '400',
@@ -97,7 +99,6 @@ const ContributionCard = (props) => {
                             border: '1px solid #CECECE',
                         }}
                     />
-
                     {Object.keys(cardInfo).map((x) => (
                         <Box key={x} style={{ marginRight: '2rem' }}>
                             <p

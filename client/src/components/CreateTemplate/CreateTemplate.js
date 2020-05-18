@@ -30,10 +30,7 @@ import {
     QuestionAnswerOutlined,
 } from '@material-ui/icons';
 import Submitted from '../FillEvaluation/Submit/Submitted';
-<<<<<<< HEAD
-=======
 import { useHistory } from 'react-router-dom';
->>>>>>> 4dbd1b20c345c82a0d1fd32b85e3bca781c226a2
 import NavBar from '../NavBar/NavBar';
 
 const CreateTemplate = (props) => {

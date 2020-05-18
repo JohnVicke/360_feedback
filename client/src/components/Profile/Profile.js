@@ -11,7 +11,8 @@ import Loading from '../Loading/Loading';
 
 const useStyles = makeStyles({
     profile: {
-        height: '100vh',
+        height: '100%',
+        minHeight: '100vh',
         background: 'rgb(126,231,119)',
         background:
             'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
