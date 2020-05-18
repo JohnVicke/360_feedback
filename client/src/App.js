@@ -24,26 +24,28 @@ function App() {
         return (
             <div>
                 <Router history={history}>
-                    <AOverviewBoard />
+                    <LandingPage />
                 </Router>
             </div>
         );
     }
     return (
-        <div className='App'>
+        <div className="App">
             <Router history={history}>
                 <Switch>
-
-                    <PrivateRoute exact path='/' component={MainMenu} />
-                    <PrivateRoute path='/profile' component={Profile} />
-                    <PrivateRoute path='/fillin' component={FillEvaluation} />
-                    <PrivateRoute path="/createEvaluation" component={CreateEvaluation} />
+                    <PrivateRoute exact path="/" component={MainMenu} />
+                    <PrivateRoute path="/profile" component={Profile} />
+                    <PrivateRoute path="/fillin" component={FillEvaluation} />
+                    <PrivateRoute
+                        path="/createEvaluation"
+                        component={CreateEvaluation}
+                    />
                     <PrivateRoute
                         path={'/createTemplate'}
                         component={CreateTemplate}
                     />
                     <PrivateRoute
-                        path='/admin/overviewboard'
+                        path="/admin/overviewboard"
                         component={AOverviewBoard}
                     />
                 </Switch>

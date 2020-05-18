@@ -117,8 +117,8 @@ class AOverviewBoard extends Component {
     }
 
     componentDidMount = async () => {
-        //const { surveyId } = this.props.location.state;
-        const surveyId = '5eba8593ff1b10be56b09465';
+        const { surveyId } = this.props.location.state;
+        //const surveyId = '5eba8593ff1b10be56b09465';
 
         console.log(surveyId);
         const res = await (await GetSurveyById(surveyId)).data;
@@ -216,6 +216,7 @@ class AOverviewBoard extends Component {
         } else {
             return (
                 <div>
+                    <NavBar />
                     <div className="background">
                         <Typography
                             style={{
