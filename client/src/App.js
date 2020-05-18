@@ -14,6 +14,8 @@ import Loading from './components/Loading/Loading';
 import CreateEvaluation from './components/CreateEvaluation/CreateEvaluation';
 import CreateTemplate from './components/CreateTemplate/CreateTemplate';
 import AOverviewBoard from './components/AOverviewBoard/AOverviewBoard';
+import SelectEvaluatee from './components/CreateEvaluation/SelectEvaluatee';
+import SelectTemplate from './components/SelectTemplate/SelectTemplate';
 
 function App() {
     const { loading, isAuthenticated } = useAuth0();
@@ -36,7 +38,9 @@ function App() {
                     <PrivateRoute exact path='/' component={MainMenu} />
                     <PrivateRoute path='/profile' component={Profile} />
                     <PrivateRoute path='/fillin' component={FillEvaluation} />
-                    <PrivateRoute path="/createEvaluation" component={CreateEvaluation} />
+                    <PrivateRoute path="/selectEvaluators" component={CreateEvaluation} />
+                    <PrivateRoute path="/selectEvaluatee" component={SelectEvaluatee} />
+                    <PrivateRoute path="/selectTemplate" component={SelectTemplate} />
                     <PrivateRoute
                         path={'/createTemplate'}
                         component={CreateTemplate}

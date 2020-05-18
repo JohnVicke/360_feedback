@@ -25,24 +25,13 @@ export default class CreateEvaluation extends React.Component {
             users: [],
             addedUsers: [],
             tabValue: 'Active',
-            template: {},
-            user: {}
         };
     }
 
     componentDidMount = () => {
-        const {
-            user,
-            template
-        } = this.props.location.state;
-        console.log(user)
-        console.log(template)
-
         getAllUsers().then((res) => {
             this.setState({
                 users: res.data,
-                template: template,
-                user: user,
             });
             this.state.users.map((user) => {
                 console.log(user.given_name + ' ' + user.family_name);
@@ -50,33 +39,32 @@ export default class CreateEvaluation extends React.Component {
         });
     };
 
-
     onClickTest = (user) => {
-        if (this.state.addedUsers.findIndex((x) => x._id == user._id) !== -1) {
+        if (this.state.addedUsers.length >= 1) {
             this.setState({
-                addedUsers: this.state.addedUsers.filter(
-                    (currentUser) => currentUser._id !== user._id
-                ),
+                addedUsers: this.state.addedUsers.splice(0, 1),
+            });
+            this.setState({
+                addedUsers: this.state.addedUsers.concat(user),
             });
         } else {
             this.setState({
                 addedUsers: this.state.addedUsers.concat(user),
             });
         }
-        console.log(this.state.addedUsers);
     };
-
-
 
     render() {
         const comp = this;
 
         function AddButton(props) {
+
             if (
                 comp.state.addedUsers.findIndex(
                     (x) => x._id == props.user._id
                 ) !== -1
             ) {
+
                 return (
                     <IconButton
                         onClick={() => {
@@ -87,8 +75,10 @@ export default class CreateEvaluation extends React.Component {
                     >
                         <CheckIcon />
                     </IconButton>
+
                 );
             } else {
+
                 return (
                     <IconButton
                         onClick={() => {
@@ -101,8 +91,8 @@ export default class CreateEvaluation extends React.Component {
                     </IconButton>
                 );
             }
-        }
 
+        }
 
         function EmployeeList(props) {
             return (
@@ -231,7 +221,7 @@ export default class CreateEvaluation extends React.Component {
                                             fontWeight: 'bolder',
                                         }}
                                     >
-                                        Select Evaluators
+                                        Who is getting evaluated?
                                     </Typography>
 
                                     <hr />
@@ -287,11 +277,9 @@ export default class CreateEvaluation extends React.Component {
                                 <Grid item xs={6}>
                                     <Link
                                         to={{
-                                            pathname: '/double_check',
+                                            pathname: '/selectTemplate',
                                             state: {
-                                                user: this.state.user,
-                                                template: this.state.template,
-                                                addedUsers: this.state.addedUsers,
+                                                user: this.state.addedUsers[0]
                                             },
                                         }}
                                         style={{ textDecoration: 'none' }}
@@ -305,6 +293,7 @@ export default class CreateEvaluation extends React.Component {
                                                 borderRadius: '20px',
                                             }}
                                         >
+
                                             <Typography variant='button'>
                                                 CONTINUE
                                             </Typography>
