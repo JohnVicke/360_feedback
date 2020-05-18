@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar';
 import './CreateEvaluation.css';
+import history from '../../utils/history';
 import {
     Container,
     Typography,
@@ -263,7 +264,10 @@ export default class CreateEvaluation extends React.Component {
                                             borderColor: '#4392FE',
                                         }}
                                     >
-                                        <Typography variant='button'>
+                                        <Typography
+                                            variant='button'
+                                            onClick={() => history.goBack()}
+                                        >
                                             BACK
                                         </Typography>
                                     </Button>
@@ -278,7 +282,16 @@ export default class CreateEvaluation extends React.Component {
                                             borderRadius: '20px',
                                         }}
                                     >
-                                        <Typography variant='button'>
+                                        <Typography
+                                            variant='button'
+                                            onClick={() =>
+                                                history.push({
+                                                    pathname: '/double_check',
+                                                    state: this.state
+                                                        .addedUsers,
+                                                })
+                                            }
+                                        >
                                             CONTINUE
                                         </Typography>
                                     </Button>
