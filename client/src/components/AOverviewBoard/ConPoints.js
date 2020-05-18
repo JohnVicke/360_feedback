@@ -119,6 +119,7 @@ class ConPoints extends Component {
                                     style={{
                                         margin: '0',
                                         fontFamily: 'Source Sans Pro',
+                                        color: '#262E3F',
                                     }}
                                 >
                                     Colleagues
@@ -141,6 +142,7 @@ class ConPoints extends Component {
                                     style={{
                                         margin: '0',
                                         fontFamily: 'Source Sans Pro',
+                                        color: '#262E3F',
                                     }}
                                 >
                                     You
@@ -163,6 +165,7 @@ class ConPoints extends Component {
                                     style={{
                                         margin: '0',
                                         fontFamily: 'Source Sans Pro',
+                                        color: '#262E3F',
                                     }}
                                 >
                                     Difference

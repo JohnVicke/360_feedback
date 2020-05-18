@@ -345,7 +345,7 @@ class AOverviewBoard extends Component {
                                             >
                                                 {question.content.replace(
                                                     /#name/,
-                                                    this.state.name
+                                                    this.state.user.given_name
                                                 )}
                                             </Typography>
 
