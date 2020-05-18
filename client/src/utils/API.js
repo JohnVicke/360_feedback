@@ -25,6 +25,11 @@ export async function getTemplate(id) {
     return res;
 }
 
+export async function getAllUsers() {
+    const res = await api.get('/users');
+    return res;
+}
+
 export async function UpdateUserResponses(id, responses) {
     const res = await api.patch(`/users/${id}`, responses);
     return res;
