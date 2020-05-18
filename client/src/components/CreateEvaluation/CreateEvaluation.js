@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar';
 import './CreateEvaluation.css';
+import history from '../../utils/history';
 import {
     Container,
     Typography,
@@ -279,7 +280,10 @@ export default class CreateEvaluation extends React.Component {
                                             borderColor: '#4392FE',
                                         }}
                                     >
-                                        <Typography variant='button'>
+                                        <Typography
+                                            variant='button'
+                                            onClick={() => history.goBack()}
+                                        >
                                             BACK
                                         </Typography>
                                     </Button>
