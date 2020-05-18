@@ -8,9 +8,11 @@ import LandingPage from './components/LandingPage/LandingPage';
 import FillEvaluation from './components/FillEvaluation/FillEvaluation';
 import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
+import CreateEvaluation from './components/CreateEvaluation/CreateEvaluation';
 
 function App() {
     const { loading, isAuthenticated } = useAuth0();
+
     if (loading) {
         return <Loading />;
     } else if (!isAuthenticated) {
@@ -27,6 +29,7 @@ function App() {
                     <PrivateRoute exact path='/' component={Profile} />
                     <PrivateRoute path='/profile' component={Profile} />
                     <PrivateRoute path='/fillin' component={FillEvaluation} />
+                    <PrivateRoute path="/createEvaluation" component={CreateEvaluation} />
                 </Switch>
             </Router>
         </div>

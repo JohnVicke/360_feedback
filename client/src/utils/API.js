@@ -19,3 +19,9 @@ export async function getTemplate(id) {
     const res = await api.get(`/questionare/${id}`);
     return res;
 }
+
+export default async function getAllUsers() {
+    const res = await api.get('/users');
+    return res;
+}
+
