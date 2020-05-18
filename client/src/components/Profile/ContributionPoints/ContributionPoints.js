@@ -47,11 +47,12 @@ const totalScore = {
 // TODO: Fixa ghetto lösning
 const ContributionPoints = (props) => {
     return (
-        <Box display='flex' flexDirection='row' flexWrap='wrap' justifyContent='space-around' >
+        <Box display='flex' flexDirection='row' flexWrap='wrap'>
             <ContributionCard
                 cardInfo={totalScore.overall}
                 section={'Overall'}
             />
+
             {Object.keys(summary).map((section) => (
                 <ContributionCard
                     cardInfo={summary[section]}

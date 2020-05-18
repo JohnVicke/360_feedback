@@ -1,0 +1,54 @@
+.background {
+    height: 100vh;
+    background: rgb(126, 231, 119);
+    background: linear-gradient(
+        45deg,
+        rgba(126, 231, 119, 1) 0,
+        rgba(14, 17, 24, 1) 0%,
+        rgba(38, 46, 63, 1) 100%
+    );
+    overflow-x: hidden;
+}
+
+.mainBox{
+    border-radius: 10px;
+    height: 85vh;
+    box-shadow: 3px 3px 7px #111111;
+}
+
+.innerGrid{
+    padding-right: 60px;
+    padding-left: 60px;
+    padding-top: 30px;
+
+}
+
+.employees{
+    border-radius: 15px;
+    height: 620px;
+}
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background:rgba(246, 246, 246, 0.671);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #4392FE; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(65, 132, 226); 
+
+}
