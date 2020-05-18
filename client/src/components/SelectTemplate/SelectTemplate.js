@@ -11,7 +11,9 @@ import {
     Radio,
     Button,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';
+import { GetAllTemplates } from '../../utils/API';
 
 const MyCard = styled(Card)({
     background: '#222222',
@@ -54,7 +56,10 @@ class SelectTemplate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'Isak Larsson',
+            user: {
+                given_name: "",
+                family_name: "",
+            },
             templates: [
                 {
                     _id: 1,
@@ -70,14 +75,39 @@ class SelectTemplate extends Component {
             radioValue: '',
         };
     }
-    componentDidMount() {
+
+
+    componentDidMount = async () => {
+        console.log(this.props.location.state);
+        const {
+            user
+        } = this.props.location.state;
+        console.log(user);
+        const response = await (await GetAllTemplates()).data;
+        console.log(response.data)
+        this.setState({
+            user: user,
+            templates: response.data,
+            radioValue: response.data[0].name,
+        });
+
         if (this.state.templates.length !== 0) {
             this.setState({ radioValue: this.state.templates[0].name });
         }
     }
+
+
     handleChange = async (event) => {
         this.setState({ radioValue: event.target.value });
     };
+
+
+    getTemplateByName = (name) => {
+        const template = this.state.templates.find(template => template.name == name);
+        return template;
+    }
+
+
     render() {
         function Sections(props) {
             if (props.value !== '') {
@@ -128,7 +158,7 @@ class SelectTemplate extends Component {
                         marginTop: '2rem',
                     }}
                 >
-                    CREATING EVALUATION FOR: {this.state.name}
+                    CREATING EVALUATION FOR: {this.state.user.given_name + " " + this.state.user.family_name}
                 </Typography>
                 <hr style={{ width: '1200px' }} />
 
@@ -198,7 +228,18 @@ class SelectTemplate extends Component {
                             value={this.state.radioValue}
                             templates={this.state.templates}
                         ></Sections>
-                        <ContinueButton>Continue</ContinueButton>
+                        <Link
+                            to={{
+                                pathname: '/selectEvaluators',
+                                state: {
+                                    user: this.state.user,
+                                    template: this.getTemplateByName(this.state.radioValue)
+                                },
+                            }}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <ContinueButton>Continue</ContinueButton>
+                        </Link>
                         <BackButton style={{ float: 'left' }}>Back</BackButton>
                     </MyCard>
                 </Box>
