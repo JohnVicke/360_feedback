@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
+import SelectedQuestion from './SelectedQuestion';
 import {
     Box,
     Typography,
@@ -175,7 +176,7 @@ class AOverviewBoard extends Component {
     getColor = (x) => {
         var color = '';
         if (x >= 4) color = '#5ABE41';
-        else if (x === 3) color = '#FFB400';
+        else if (x == 3) color = '#FFB400';
         else color = '#FE0642';
         return color;
     };
@@ -516,6 +517,25 @@ class AOverviewBoard extends Component {
                                 onClick={this.handleSelectedOpen}
                             />
                         </Typography>
+                        <Box
+                            display="flex"
+                            flexWrap="wrap"
+                            alignContent="flex-start"
+                            margin="0 4rem"
+                        >
+                            {comp.state.selectedQuestions.map((question) => {
+                                return (
+                                    <SelectedQuestion
+                                        score={question.score}
+                                        title={question.content}
+                                        backgroundcolor={comp.getColor(
+                                            question.score
+                                        )}
+                                        answer={question.comment}
+                                    />
+                                );
+                            })}
+                        </Box>
                         <Dialog
                             open={this.state.showSelect}
                             TransitionComponent={this.Transition}
