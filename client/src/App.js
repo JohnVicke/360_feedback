@@ -13,7 +13,6 @@ import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
 import CreateTemplate from './components/CreateTemplate/CreateTemplate';
 import AOverviewBoard from './components/AOverviewBoard/AOverviewBoard';
-import ContributionPoints from './components/Profile/ContributionPoints/ContributionPoints';
 
 function App() {
     const { loading, isAuthenticated } = useAuth0();
