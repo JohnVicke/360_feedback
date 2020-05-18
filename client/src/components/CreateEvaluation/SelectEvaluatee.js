@@ -1,7 +1,6 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar';
 import './CreateEvaluation.css';
-import history from '../../utils/history';
 import {
     Container,
     Typography,
@@ -13,10 +12,10 @@ import {
     IconButton,
     Button,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import { getAllUsers } from '../../utils/API';
+import history from '../../utils/history';
 
 export default class CreateEvaluation extends React.Component {
     constructor(props) {
@@ -26,21 +25,13 @@ export default class CreateEvaluation extends React.Component {
             users: [],
             addedUsers: [],
             tabValue: 'Active',
-            template: {},
-            user: {},
         };
     }
 
     componentDidMount = () => {
-        const { user, template } = this.props.location.state;
-        console.log(user);
-        console.log(template);
-
         getAllUsers().then((res) => {
             this.setState({
                 users: res.data,
-                template: template,
-                user: user,
             });
             this.state.users.map((user) => {
                 console.log(user.given_name + ' ' + user.family_name);
@@ -49,18 +40,18 @@ export default class CreateEvaluation extends React.Component {
     };
 
     onClickTest = (user) => {
-        if (this.state.addedUsers.findIndex((x) => x._id == user._id) !== -1) {
+        if (this.state.addedUsers.length >= 1) {
             this.setState({
-                addedUsers: this.state.addedUsers.filter(
-                    (currentUser) => currentUser._id !== user._id
-                ),
+                addedUsers: this.state.addedUsers.splice(0, 1),
+            });
+            this.setState({
+                addedUsers: this.state.addedUsers.concat(user),
             });
         } else {
             this.setState({
                 addedUsers: this.state.addedUsers.concat(user),
             });
         }
-        console.log(this.state.addedUsers);
     };
 
     render() {
@@ -225,7 +216,7 @@ export default class CreateEvaluation extends React.Component {
                                             fontWeight: 'bolder',
                                         }}
                                     >
-                                        Select Evaluators
+                                        Who is getting evaluated?
                                     </Typography>
 
                                     <hr />
@@ -266,6 +257,7 @@ export default class CreateEvaluation extends React.Component {
                             >
                                 <Grid item xs={6}>
                                     <Button
+                                        onClick={() => history.goBack()}
                                         variant='outlined'
                                         style={{
                                             borderRadius: '20px',
@@ -273,16 +265,22 @@ export default class CreateEvaluation extends React.Component {
                                             borderColor: '#4392FE',
                                         }}
                                     >
-                                        <Typography
-                                            variant='button'
-                                            onClick={() => history.goBack()}
-                                        >
+                                        <Typography variant='button'>
                                             BACK
                                         </Typography>
                                     </Button>
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Button
+                                        onClick={() =>
+                                            history.push({
+                                                pathname: '/selectTemplate',
+                                                state: {
+                                                    user: this.state
+                                                        .addedUsers[0],
+                                                },
+                                            })
+                                        }
                                         variant='contained'
                                         style={{
                                             float: 'right',
@@ -290,18 +288,6 @@ export default class CreateEvaluation extends React.Component {
                                             color: '#FFFFFF',
                                             borderRadius: '20px',
                                         }}
-                                        onClick={() =>
-                                            history.push({
-                                                pathname: '/double_check',
-                                                state: {
-                                                    user: this.state.user,
-                                                    template: this.state
-                                                        .template,
-                                                    users: this.state
-                                                        .addedUsers,
-                                                },
-                                            })
-                                        }
                                     >
                                         <Typography variant='button'>
                                             CONTINUE
