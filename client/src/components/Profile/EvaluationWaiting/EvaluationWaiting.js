@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-    Button,
-    ThemeProvider,
-    Typography,
-    createMuiTheme,
-    Box,
-    Avatar,
-    makeStyles,
-    SvgIcon,
-} from '@material-ui/core';
+import { Button, Avatar, makeStyles, SvgIcon } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { GetUserEvals } from '../../../utils/API';

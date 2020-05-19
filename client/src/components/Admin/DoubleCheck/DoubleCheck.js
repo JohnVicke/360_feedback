@@ -5,9 +5,7 @@ import {
     Grid,
     Box,
     Avatar,
-    TextField,
     Grow,
-    IconButton,
     Button,
 } from '@material-ui/core';
 import NavBar from '../../NavBar/NavBar';
@@ -86,8 +84,8 @@ const DoubleCheck = (props) => {
     function EmployeeBar(props) {
         return (
             <Box
-                className="employeeBar"
-                bgcolor="#F6F6F6"
+                className='employeeBar'
+                bgcolor='#F6F6F6'
                 width={props.reviewed ? '500px' : '0.95'}
                 style={{
                     borderRadius: '15px',
@@ -110,27 +108,27 @@ const DoubleCheck = (props) => {
                             />
 
                             <Typography
-                                variant="h5"
+                                variant='h5'
                                 style={{
                                     paddingTop: '10px',
                                     fontFamily: 'Source Sans Pro',
                                     fontWeight: 'bold',
                                 }}
-                                color="#000000"
+                                color='#000000'
                             >
                                 {props.user.given_name +
                                     ' ' +
                                     props.user.family_name}
                             </Typography>
                             <Typography
-                                variant="h6"
+                                variant='h6'
                                 style={{
                                     opacity: '0.7',
                                     marginTop: '2px',
                                     fontFamily: 'Source Sans Pro',
                                     fontWeight: 'bold',
                                 }}
-                                color="#131313"
+                                color='#131313'
                             >
                                 {props.user.role}
                             </Typography>
@@ -153,10 +151,10 @@ const DoubleCheck = (props) => {
     }
 
     return (
-        <div className="background">
+        <div className='background'>
             <NavBar />
             {send && (
-                <div className="submitted-margin">
+                <div className='submitted-margin'>
                     <Submitted
                         header={`${template.name} evaluation for ${user.given_name} ${user.family_name}`}
                         subHeader={`The evaluation was sent to ${users.length} evaluators`}
@@ -172,29 +170,29 @@ const DoubleCheck = (props) => {
                 <Grow in={true}>
                     <Container>
                         <Grid
-                            direction="row"
+                            direction='row'
                             container
-                            justify="center"
-                            alignItems="center"
+                            justify='center'
+                            alignItems='center'
                         >
-                            <Box color="#FFFFFF">
-                                <Typography variant="h6" color="#FFFFFF">
+                            <Box color='#FFFFFF'>
+                                <Typography variant='h6' color='#FFFFFF'>
                                     CREATING EVALUATION
                                 </Typography>
                             </Box>
                         </Grid>
-                        <Box className="mainBox" bgcolor="#222222">
+                        <Box className='mainBox' bgcolor='#222222'>
                             <Grid
-                                className="innerGrid"
+                                className='innerGrid'
                                 container
-                                direction="column"
-                                justify="flex-start"
-                                height="100vh"
+                                direction='column'
+                                justify='flex-start'
+                                height='100vh'
                             >
-                                <Box color="#FFFFFF">
+                                <Box color='#FFFFFF'>
                                     <Typography
-                                        variant="h6"
-                                        color="#FFFFFF"
+                                        variant='h6'
+                                        color='#FFFFFF'
                                         style={{
                                             fontFamily: 'Source Sans Pro',
                                             fontWeight: 'bolder',
@@ -207,12 +205,12 @@ const DoubleCheck = (props) => {
                                 </Box>
 
                                 <Box
-                                    className="employees"
-                                    bgcolor="#0F121F"
-                                    overflow="auto"
+                                    className='employees'
+                                    bgcolor='#0F121F'
+                                    overflow='auto'
                                 >
                                     <Typography
-                                        variant="h6"
+                                        variant='h6'
                                         style={{
                                             textAlign: 'center',
                                             fontFamily: 'Source Sans Pro',
@@ -223,22 +221,22 @@ const DoubleCheck = (props) => {
                                         Getting Reviewed
                                     </Typography>
                                     <Box
-                                        display="flex"
-                                        flexDirection="column"
-                                        justifyItems="center"
-                                        alignItems="center"
+                                        display='flex'
+                                        flexDirection='column'
+                                        justifyItems='center'
+                                        alignItems='center'
                                     >
                                         <Box
-                                            display="flex"
-                                            flexDirection="row"
-                                            justifyItems="bottom"
+                                            display='flex'
+                                            flexDirection='row'
+                                            justifyItems='bottom'
                                         >
                                             <Box
                                                 style={{ margin: '1rem' }}
-                                                display="flex"
-                                                flexDirection="column"
-                                                alignItems="top"
-                                                justifyContent="center"
+                                                display='flex'
+                                                flexDirection='column'
+                                                alignItems='top'
+                                                justifyContent='center'
                                             >
                                                 <Assignment
                                                     style={{
@@ -249,7 +247,7 @@ const DoubleCheck = (props) => {
                                                     }}
                                                 />
                                                 <Typography
-                                                    variant="h6"
+                                                    variant='h6'
                                                     style={{
                                                         fontFamily:
                                                             'Source Sans Pro',
@@ -264,21 +262,21 @@ const DoubleCheck = (props) => {
                                                     reviewed={true}
                                                     user={user}
                                                     container
-                                                    direction="row"
-                                                    justify="center"
-                                                    alignItems="flex-start"
+                                                    direction='row'
+                                                    justify='center'
+                                                    alignItems='flex-start'
                                                 />
                                             </div>
                                         </Box>
                                     </Box>
                                     <Box
-                                        display="flex"
-                                        flexDirection="column"
-                                        justifyItems="center"
-                                        alignItems="center"
+                                        display='flex'
+                                        flexDirection='column'
+                                        justifyItems='center'
+                                        alignItems='center'
                                     >
                                         <Typography
-                                            variant="h6"
+                                            variant='h6'
                                             style={{
                                                 marginTop: '1rem ',
                                                 fontFamily: 'Source Sans Pro',
@@ -306,7 +304,7 @@ const DoubleCheck = (props) => {
                             >
                                 <Grid item xs={6}>
                                     <Button
-                                        variant="outlined"
+                                        variant='outlined'
                                         style={{
                                             borderRadius: '20px',
                                             color: '#F5F5F5',
@@ -314,7 +312,7 @@ const DoubleCheck = (props) => {
                                         }}
                                     >
                                         <Typography
-                                            variant="button"
+                                            variant='button'
                                             onClick={() => history.goBack()}
                                         >
                                             BACK
@@ -323,7 +321,7 @@ const DoubleCheck = (props) => {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Button
-                                        variant="contained"
+                                        variant='contained'
                                         style={{
                                             float: 'right',
                                             backgroundColor: '#4392FE',
@@ -332,7 +330,7 @@ const DoubleCheck = (props) => {
                                         }}
                                     >
                                         <Typography
-                                            variant="button"
+                                            variant='button'
                                             onClick={() => handleSend()}
                                         >
                                             Send

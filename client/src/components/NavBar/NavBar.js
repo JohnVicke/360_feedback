@@ -18,7 +18,6 @@ import {
 import logo from '../../assets/logos/notextlogo.svg';
 import AvatarDefault from '../../assets/misc/default.jpeg';
 
-
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
@@ -78,28 +77,17 @@ const NavBar = () => {
     };
 
     function ProfilePic(props) {
-        if (props.user.picture != undefined) {
+        if (props.user.picture !== undefined || props.user.picture !== null) {
             return (
-                <Avatar
-                    src={props.user.picture}
-                    className={classes.avatar}
-                />
-            )
+                <Avatar src={props.user.picture} className={classes.avatar} />
+            );
         } else {
-            return (
-                <Avatar
-                    src={AvatarDefault}
-                    className={classes.avatar}
-                />
-            )
+            return <Avatar src={AvatarDefault} className={classes.avatar} />;
         }
     }
 
     return (
-
-
-
-        < div >
+        <div>
             <ThemeProvider theme={theme}>
                 <AppBar
                     position='static'
@@ -167,7 +155,7 @@ const NavBar = () => {
                     </Toolbar>
                 </AppBar>
             </ThemeProvider>
-        </div >
+        </div>
     );
 };
 

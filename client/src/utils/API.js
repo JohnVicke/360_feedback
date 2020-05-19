@@ -37,6 +37,7 @@ export async function UpdateUserResponses(id, responses) {
 
 export async function putTemplate(template) {
     const res = await api.post('/templates', template);
+    return res;
 }
 
 export async function GetSurveyById(id) {

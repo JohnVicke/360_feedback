@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import './loading.css';
-import logo from '../../assets/logos/notextlogo.svg';
 
 const useStyles = makeStyles({
     fullscreen: {

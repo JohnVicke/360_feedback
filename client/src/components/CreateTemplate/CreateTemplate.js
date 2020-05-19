@@ -70,7 +70,7 @@ const CreateTemplate = (props) => {
             description: template.description,
             creator: '5e8c66fc1c9d4400007665da',
         };
-        const res = await putTemplate(entry);
+        await putTemplate(entry);
         setOpenDialog(false);
     };
 
@@ -92,7 +92,7 @@ const CreateTemplate = (props) => {
 
     const newQuestion = () => {
         const _sections = sections;
-        const s = _sections.find((s) => s.name == currentSectionName);
+        const s = _sections.find((s) => s.name === currentSectionName);
         s.questions.push(currentQuestion);
         setSections(_sections);
         setCurrentQuestion({ content: '', description: '' });

@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Box,
-    Card,
-    Typography,
-    FormControl,
-    FormLabel,
-    RadioGroup,
-    FormControlLabel,
-    Radio,
-    Button,
-} from '@material-ui/core';
+import { Box, Card, Typography } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 
 const MyCard = styled(Card)({
@@ -106,10 +96,10 @@ class ConPoints extends Component {
                             }}
                         ></hr>
                         <Box
-                            display="flex"
-                            flexDirection="row"
-                            justifyContent="space-between"
-                            margin="0 1rem 0 1rem"
+                            display='flex'
+                            flexDirection='row'
+                            justifyContent='space-between'
+                            margin='0 1rem 0 1rem'
                             onClick={() => {
                                 this.props.click(index);
                             }}

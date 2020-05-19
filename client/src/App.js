@@ -1,13 +1,11 @@
 import React from 'react';
 import { useAuth0 } from './react-auth0-spa';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Switch } from 'react-router-dom';
 import Profile from './components/Profile/Profile';
 import history from './utils/history';
 import PrivateRoute from './components/PricateRoutes/PrivateRoute';
 import LandingPage from './components/LandingPage/LandingPage';
 import FillEvaluation from './components/FillEvaluation/FillEvaluation';
-import MainMenuTabs from './components/Admin/MainMenu/MainMenuTabs';
-import NavBar from './components/NavBar/NavBar';
 import MainMenu from './components/Admin/MainMenu/MainMenu';
 import './assets/fonts/fonts.css';
 import Loading from './components/Loading/Loading';
@@ -33,15 +31,24 @@ function App() {
         );
     }
     return (
-        <div className="App">
+        <div className='App'>
             <Router history={history}>
                 <Switch>
                     <PrivateRoute exact path='/' component={MainMenu} />
                     <PrivateRoute path='/profile' component={Profile} />
                     <PrivateRoute path='/fillin' component={FillEvaluation} />
-                    <PrivateRoute path="/selectEvaluators" component={CreateEvaluation} />
-                    <PrivateRoute path="/selectEvaluatee" component={SelectEvaluatee} />
-                    <PrivateRoute path="/selectTemplate" component={SelectTemplate} />
+                    <PrivateRoute
+                        path='/selectEvaluators'
+                        component={CreateEvaluation}
+                    />
+                    <PrivateRoute
+                        path='/selectEvaluatee'
+                        component={SelectEvaluatee}
+                    />
+                    <PrivateRoute
+                        path='/selectTemplate'
+                        component={SelectTemplate}
+                    />
                     <PrivateRoute
                         path='/createEvaluation'
                         component={CreateEvaluation}
@@ -50,11 +57,11 @@ function App() {
                         path='/double_check'
                         component={DoubleCheck}
                     />
-                    <PrivateRoute exact path="/" component={MainMenu} />
-                    <PrivateRoute path="/profile" component={Profile} />
-                    <PrivateRoute path="/fillin" component={FillEvaluation} />
+                    <PrivateRoute exact path='/' component={MainMenu} />
+                    <PrivateRoute path='/profile' component={Profile} />
+                    <PrivateRoute path='/fillin' component={FillEvaluation} />
                     <PrivateRoute
-                        path="/createEvaluation"
+                        path='/createEvaluation'
                         component={CreateEvaluation}
                     />
                     <PrivateRoute
@@ -62,7 +69,7 @@ function App() {
                         component={CreateTemplate}
                     />
                     <PrivateRoute
-                        path="/admin/overviewboard"
+                        path='/admin/overviewboard'
                         component={AOverviewBoard}
                     />
                 </Switch>

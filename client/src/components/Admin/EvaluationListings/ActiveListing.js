@@ -185,7 +185,7 @@ function EmployeeBar(props) {
                                 />
                                 <Typography
                                     style={{
-                                        color: "#000000",
+                                        color: '#000000',
                                         margin: 'auto 2rem',
                                         fontSize: '30px',
                                     }}
