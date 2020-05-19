@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import { getAllUsers } from '../../utils/API';
+import ComboBox from '../AutoComplete/ComboBox';
 
 export default class CreateEvaluation extends React.Component {
     constructor(props) {
@@ -61,6 +62,10 @@ export default class CreateEvaluation extends React.Component {
             });
         }
         console.log(this.state.addedUsers);
+    };
+
+    onComboChange = (user) => {
+        if (user) this.onClickTest(user);
     };
 
     render() {
@@ -202,9 +207,9 @@ export default class CreateEvaluation extends React.Component {
                             justify='center'
                             alignItems='center'
                         >
-                            <Box color='#FFFFFF'>
+                            <Box color='#FFFFFF' style={{ margin: '2rem 0' }}>
                                 <Typography variant='h6' color='#FFFFFF'>
-                                    CREATING EVALUATION
+                                    Creating evaluation
                                 </Typography>
                             </Box>
                         </Grid>
@@ -236,12 +241,14 @@ export default class CreateEvaluation extends React.Component {
                                     bgcolor='#0F121F'
                                     overflow='auto'
                                 >
-                                    <Box>
-                                        <TextField
-                                            id='filled-search'
-                                            label='Search field'
-                                            type='search'
-                                            variant='filled'
+                                    <Box
+                                        display='flex'
+                                        justifyContent='center'
+                                        style={{ margin: '1rem 0' }}
+                                    >
+                                        <ComboBox
+                                            users={this.state.users}
+                                            handleOnChange={this.onComboChange}
                                         />
                                     </Box>
                                     <Grid
