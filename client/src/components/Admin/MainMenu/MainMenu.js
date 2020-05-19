@@ -12,6 +12,7 @@ import {
     IconButton,
     Button,
     spacing,
+    List,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import NavBar from '../../NavBar/NavBar';
@@ -38,13 +39,20 @@ const useStyles = makeStyles((theme) => ({
     },
     MainMenu: {
         height: '100vh',
-        width: '100%',
         overflowY: 'auto',
-        background:
-            'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
+        background: 'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
+    },
+    MenuBox: {
+        background: '#222222',
+        border: 0,
+        borderRadius: 15,
+        margin: '10rem',
+        [theme.breakpoints.down('sm')]: {
+            margin: 0,
+        },
+        maxHeight: "100vh",
     },
     tabs: {
-        width: '50%',
         margin: '0 auto',
     },
     tab: {
@@ -56,16 +64,11 @@ const useStyles = makeStyles((theme) => ({
             fontWeight: '500',
         },
     },
+    BottomRow:{
+
+    },
     selected: {},
 }));
-
-const MyCard = styled(Card)({
-    background: '#222222',
-    border: 0,
-    borderRadius: 15,
-
-    margin: '10rem 0',
-});
 
 const MainMenu = () => {
     const classes = useStyles();
@@ -90,12 +93,12 @@ const MainMenu = () => {
             return (
                 <div>
                     <TemplatesListing />
-                    <Link to={{ pathname: '/createTemplate' }}>
+                    <Link to={{ pathname: '/createTemplate' }} style={{ textDecoration: 'none' }}>
                         <Button
                             variant="contained"
                             color="primary"
                             href="#contained-buttons"
-                            className={'mx-3'}
+                            m={'5rem'}
                         >
                             Create new template
                         </Button>
@@ -108,8 +111,7 @@ const MainMenu = () => {
     return (
         <div className={classes.MainMenu}>
             <NavBar />
-            <Box m={'5rem auto'}>
-                <MyCard style={{ margin: '0 20rem' }}>
+            <Box className={classes.MenuBox} justifyContent={"center"}>
                     <Paper className={classes.root}>
                         <Tabs
                             value={value}
@@ -142,24 +144,22 @@ const MainMenu = () => {
                         </Tabs>
                     </Paper>
                     {returnListing()}
-                    <Grid
-                        container
-                        alignItems="flex-start"
-                        justify="flex-end"
+                    <Box className={classes.BottomRow}
+                        display={'flex'}
+                        flexDirection={'row'}
                         direction="row"
+                        justifyContent={"center"}
                     >
-                        <Link to={{ pathname: '/createEvaluation' }}>
+                        <Link to={{ pathname: '/createEvaluation' }} style={{ textDecoration: 'none' }}>
                             <Button
                                 variant="contained"
                                 color="primary"
                                 href="#contained-buttons"
-                                className={'mx-3'}
                             >
                                 Create new evaluation
                             </Button>
                         </Link>
-                    </Grid>
-                </MyCard>
+                    </Box>
             </Box>
         </div>
     );

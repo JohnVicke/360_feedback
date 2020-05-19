@@ -23,6 +23,7 @@ import {
     IconButton,
     Button,
     CircularProgress,
+    Hidden,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Loading from '../../Loading/Loading';
@@ -31,20 +32,75 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
     },
+
+    EmployeeList: {
+        width: "90%",
+        maxHeight: '50vh',
+        margin: "auto",
+        listStyleType: 'none',
+        overflow: 'auto',
+    },
+
+    EmployeeBar: {
+        borderRadius: '15px',
+        margin: "15px auto",
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        backgroundColor: '#F6F6F6',
+        width: "95%",
+        maxHeight: "20%",
+    },
+
+    EmployeeBarGridItem: {
+        margin: '0 auto',
+        textAlign: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+
+    Avatar: {
+        width: '5rem',
+        height: '5rem',
+        margin: '2rem'
+    },
+    UserNameText: {
+        fontFamily: 'Source Sans Pro',
+        fontWeight: 'bold',
+    },
+
+    ResumeButton: {
+        backgroundColor: '#472F80',
+        color: 'white',
+        fontSize: '13px',
+    },
+
+    OverviewBoardButton: {
+        backgroundColor: '#4392FE',
+        color: 'white',
+        fontSize: '13px',
+    },
+
+    TextMuted: {
+        opacity: '0.7',
+        fontFamily: 'Source Sans Pro',
+    },
+
+    ProgressCircle: {
+        color: '#FBCA53',
+    },
+
+    ProgressText: {
+        color: "#000000",
+        fontSize: '1rem',
+    },
+
 }));
+
 function EmployeeList(props) {
+    const classes = useStyles();
     return (
-        <ul
-            style={{
-                width: '100%',
-                listStyleType: 'none',
-                maxHeight: '50vh',
-                overflow: 'auto',
-            }}
-        >
+        <List className={classes.EmployeeList} m={"0 0"} alignItems={"center"}>
             {props.evaluations &&
                 props.evaluations.map((evaluation, index) => {
                     if (!evaluation.active) {
@@ -53,22 +109,25 @@ function EmployeeList(props) {
                             (user) => user._id === evaluation.e_id
                         );
                         return (
-                            <li>
+                            <ListItem>
                                 <EmployeeBar
                                     user={user}
                                     evaluation={evaluation}
                                     templates={props.templates}
                                     updateFunction={props.updateFunction}
                                 />
-                            </li>
+                            </ListItem>
                         );
                     }
                 })}
-        </ul>
+        </List>
     );
 }
 
 function EmployeeBar(props) {
+    const classes = useStyles();
+    const username = props.user.given_name + " " + props.user.family_name;
+
     function getProgressValue(evaluation) {
         const responses = evaluation.responses;
         var nrOfAnswers = 0;
@@ -78,10 +137,10 @@ function EmployeeBar(props) {
             }
         }
         var percentage = (nrOfAnswers / responses.length) * 100;
-        console.log('HÄR HÄR HÄR');
         console.log(percentage);
         return percentage;
     }
+
     function getProgressString(evaluation) {
         const responses = evaluation.responses;
         var nrOfAnswers = 0;
@@ -92,6 +151,7 @@ function EmployeeBar(props) {
         }
         return nrOfAnswers + ' / ' + responses.length;
     }
+
     function getTemplateName(templateId) {
         console.log(templateId);
         console.log(props.templates);
@@ -101,156 +161,108 @@ function EmployeeBar(props) {
         );
         return template.name;
     }
-    return (
-        <Box
-            className="employeeBar"
-            bgcolor="#F6F6F6"
-            width="0.95"
-            style={{
-                borderRadius: '15px',
-                marginTop: '15px',
-                paddingTop: '10px',
-                paddingBottom: '10px',
-            }}
-        >
-            <div>
-                {console.log(props)}
-                <Grid container>
-                    <Grid style={{ marginTop: '0.7rem' }} item xs>
-                        <Avatar
-                            src={props.user.picture}
-                            style={{
-                                float: 'left',
-                                margin: '15px',
-                                width: '60px',
-                                height: '60px',
-                            }}
-                        />
 
-                        <Typography
-                            variant="h5"
-                            style={{
-                                paddingTop: '10px',
-                                fontFamily: 'Source Sans Pro',
-                                fontWeight: 'bold',
-                            }}
-                            color="#000000"
-                        >
-                            {props.user.given_name +
-                                ' ' +
-                                props.user.family_name}
-                        </Typography>
-                        <Typography
-                            variant="h6"
-                            style={{
-                                opacity: '0.7',
-                                marginTop: '2px',
-                                fontFamily: 'Source Sans Pro',
-                                fontWeight: 'bold',
-                            }}
-                            color="#131313"
-                        >
-                            {getTemplateName(props.evaluation.template_id)}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs>
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                textAlign: 'center',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    margin: '0 auto',
-                                    textAlign: 'center',
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                }}
+    return (
+        <Box className={classes.EmployeeBar}
+            bgcolor="#F6F6F6"
+        >
+            <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+            >
+                <Grid className={classes.EmployeeBarGridItem} item xs
+                >
+                    <Grid container
+                          alignItems="center"
+                          justify="flex-start"
+                          direction="row"
+                    >
+                        <Hidden mdDown>
+                            <Grid item xs={6}
+                                  justify="flex-start"
                             >
-                                <CircularProgress
-                                    style={{
-                                        color: '#4392FE',
-                                        marginTop: '0.5rem',
-                                        marginLeft: '8rem',
-                                    }}
-                                    variant="static"
-                                    size={60}
-                                    value={getProgressValue(props.evaluation)}
+                                <Avatar className={classes.Avatar}
+                                        src={props.user.picture}
                                 />
-                                <Typography
-                                    style={{
-                                        color: "#000000",
-                                        margin: 'auto 2rem',
-                                        fontSize: '30px',
-                                    }}
-                                >
-                                    {getProgressString(props.evaluation)}
-                                </Typography>
-                            </div>
-                            <Link
-                                to={{
-                                    pathname: '/admin/overviewboard',
-                                    state: {
-                                        surveyId: props.evaluation._id,
-                                    },
-                                }}
-                                style={{ textDecoration: 'none' }}
-                            >
-                                <Button
-                                    aria-label="add"
-                                    style={{
-                                        backgroundColor: '#4392FE',
-                                        color: 'white',
-                                        fontSize: '13px',
-                                        margin: '0.5rem auto',
-                                        width: '40%',
-                                    }}
-                                >
-                                    Overview Board
-                                </Button>
-                            </Link>
-                        </div>
-                    </Grid>
-                    <Grid style={{ marginTop: '0.7rem' }} item xs>
-                        <div
-                            style={{
-                                float: 'right',
-                                margin: '5px 15px',
-                                paddingRight: '20px',
-                                paddingTop: '6px',
-                                textAlign: 'center',
-                            }}
-                        >
+                            </Grid>
+                        </Hidden>
+                        <Grid item xs={6}
+                              direction="column"
+                              alignItems="center"
+                              textAlign={"left"}>
                             <Typography
-                                style={{ opacity: '0.5', fontSize: '10px' }}
-                            >
-                                CURRENTLY ACTIVE
-                            </Typography>
-                            <Button
-                                aria-label="add"
+                                variant="h5"
                                 style={{
-                                    backgroundColor: '#472F80',
-                                    color: 'white',
-                                    fontSize: '13px',
-                                    marginTop: '0.5rem',
+                                    fontFamily: 'Source Sans Pro',
+                                    fontWeight: 'bold',
                                 }}
-                                onClick={() => {
-                                    props.updateFunction(
-                                        props.evaluation._id,
-                                        true
-                                    );
-                                }}
+                                color="#000000"
                             >
-                                Resume
-                            </Button>
-                        </div>
+                                {username}
+                            </Typography>
+                            <Typography
+                                variant="h6"
+                                classname={classes.TextMuted}
+                                color="#131313"
+                            >
+                                {props.user.role}
+                            </Typography>
+                        </Grid>
                     </Grid>
+                    <Grid/>
                 </Grid>
-            </div>
+                <Grid className={classes.EmployeeBarGridItem} item xs>
+                    <Typography
+                        variant="h6"
+                        classname={classes.TextMuted}
+                        color="#131313"
+                    >
+                        {getTemplateName(props.evaluation.template_id)}
+                    </Typography>
+
+                        <CircularProgress
+                            className={classes.ProgressCircle}
+                            variant="static"
+                            size={"3rem"}
+                            value={getProgressValue(props.evaluation)}
+                        />
+                            <Typography className={classes.ProgressText}
+                            >
+                                {getProgressString(props.evaluation)}
+                            </Typography>
+
+                    <Link
+                        to={{
+                            pathname: '/admin/overviewboard',
+                            state: {
+                                surveyId: props.evaluation._id,
+                            },
+                        }}
+                    >
+                        Overview Board
+                    </Link>
+                </Grid>
+                <Grid className={classes.EmployeeBarGridItem} item xs>
+                    <Typography
+                        style={{opacity: '0.5', fontSize: '10px', color: "#000000"}}
+                    >
+                        CURRENTLY ARCHIVED
+                    </Typography>
+                    <Button className={classes.ResumeButton}
+                            aria-label="add"
+                            onClick={() => {
+                                props.updateFunction(
+                                    props.evaluation._id,
+                                    true
+                                );
+                            }}
+                    >
+                        RESUME
+                    </Button>
+                </Grid>
+            </Grid>
         </Box>
     );
 }
