@@ -91,16 +91,19 @@ const MainMenu = () => {
             return (
                 <div>
                     <TemplatesListing />
-                    <Link to={{ pathname: '/createTemplate' }}>
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            href='#contained-buttons'
-                            className={'mx-3'}
-                        >
-                            Create new template
-                        </Button>
-                    </Link>
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() =>
+                            history.push({
+                                pathname: '/createTemplate',
+                            })
+                        }
+                        className={'mx-3'}
+                    >
+                        Create new template
+                    </Button>
                 </div>
             );
         }
@@ -115,8 +118,8 @@ const MainMenu = () => {
                         <Tabs
                             value={value}
                             onChange={handleChange}
-                            indicatorColor='primary'
-                            textColor='primary'
+                            indicatorColor="primary"
+                            textColor="primary"
                             centered
                         >
                             <Tab
@@ -124,35 +127,34 @@ const MainMenu = () => {
                                     root: classes.tab,
                                     selected: classes.selected,
                                 }}
-                                label='Active'
+                                label="Active"
                             />
                             <Tab
                                 classes={{
                                     root: classes.tab,
                                     selected: classes.selected,
                                 }}
-                                label='Archived'
+                                label="Archived"
                             />
                             <Tab
                                 classes={{
                                     root: classes.tab,
                                     selected: classes.selected,
                                 }}
-                                label='Templates'
+                                label="Templates"
                             />
                         </Tabs>
                     </Paper>
                     {returnListing()}
                     <Grid
                         container
-                        alignItems='flex-start'
-                        justify='flex-end'
-                        direction='row'
+                        alignItems="flex-start"
+                        justify="flex-end"
+                        direction="row"
                     >
                         <Button
-                            variant='contained'
-                            color='primary'
-                            href='#contained-buttons'
+                            variant="contained"
+                            color="primary"
                             className={'mx-3'}
                             onClick={() => history.push('/selectEvaluatee')}
                         >
