@@ -55,6 +55,7 @@ const ContributionPoints = (props) => {
 
             {Object.keys(summary).map((section) => (
                 <ContributionCard
+                    key={section}
                     cardInfo={summary[section]}
                     section={section}
                 />
