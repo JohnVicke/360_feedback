@@ -42,7 +42,7 @@ const CreateTemplate = (props) => {
     const [currentSectionName, setCurrentSectionname] = useState('');
     const [createQuestion, setCreateQuestion] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState({
-        name: '',
+        content: '',
         description: '',
     });
 
@@ -95,7 +95,7 @@ const CreateTemplate = (props) => {
         const s = _sections.find((s) => s.name == currentSectionName);
         s.questions.push(currentQuestion);
         setSections(_sections);
-        setCurrentQuestion({ name: '', description: '' });
+        setCurrentQuestion({ content: '', description: '' });
     };
 
     function TabPanel(props) {
@@ -179,9 +179,9 @@ const CreateTemplate = (props) => {
                                 <QuestionAnswerOutlined
                                     style={{ marginRight: '1rem' }}
                                 />
-                                {q.name.length > 39
-                                    ? `${q.name.slice(0, 40)}...`
-                                    : q.name}
+                                {q.content.length > 39
+                                    ? `${q.content.slice(0, 40)}...`
+                                    : q.content}
                             </Box>
                         ))}
                     </TabPanel>
@@ -279,10 +279,10 @@ const CreateTemplate = (props) => {
                             }}
                             label='Qustion name'
                             variant='outlined'
-                            value={currentQuestion.name}
+                            value={currentQuestion.content}
                             onChange={(e) =>
                                 setCurrentQuestion({
-                                    name: e.target.value,
+                                    content: e.target.value,
                                     description: currentQuestion.description,
                                 })
                             }
@@ -308,7 +308,7 @@ const CreateTemplate = (props) => {
                             value={currentQuestion.description}
                             onChange={(e) =>
                                 setCurrentQuestion({
-                                    name: currentQuestion.name,
+                                    content: currentQuestion.content,
                                     description: e.target.value,
                                 })
                             }
