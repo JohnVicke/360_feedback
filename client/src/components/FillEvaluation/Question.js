@@ -15,7 +15,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Scale from './Scale';
 import './Question.css';
 import { GetUserById, UpdateUserResponses } from '../../utils/API';
-
+import history from '../../utils/history';
 
 const MyCard = styled(Card)({
     background: '#222222',
@@ -191,6 +191,7 @@ class Question extends React.Component {
             }
         }
     };
+
     handleBack = async (event) => {
         var currentSection = this.state.component.state.currentSection;
         var currentQuestion = this.state.component.state.currentQuestion;
@@ -202,6 +203,7 @@ class Question extends React.Component {
 
         if (currentSection === 1) {
             if (currentQuestion === 1) {
+                history.goBack();
             } else {
                 currentQuestion--;
                 this.state.component.setState({ currentQuestion });
@@ -283,20 +285,20 @@ class Question extends React.Component {
                 );
             } else {
                 return (
-                    <Box alignItems="center" style={{ marginTop: '2rem' }}>
+                    <Box alignItems='center' style={{ marginTop: '2rem' }}>
                         <MyButton2 onClick={comp.handleRemoveComment}>
                             <RemoveCircleIcon></RemoveCircleIcon>
                         </MyButton2>
                         <TextField
-                            id="filled-basic"
-                            label="Comment"
-                            variant="filled"
+                            id='filled-basic'
+                            label='Comment'
+                            variant='filled'
                             style={{
                                 width: '580px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                             }}
-                            autoFocus="true"
+                            autoFocus='true'
                             value={comp.state.commentText}
                             InputProps={{
                                 style: {
@@ -327,7 +329,6 @@ class Question extends React.Component {
         }
         return (
             <Box display='flex' flexDirection='row' className='q-slide'>
-
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
                     <Typography
                         style={{
