@@ -35,7 +35,10 @@ const Profile = () => {
             return (
                 <Box display='flex' flexDirection='row'>
                     {userEvals.map((submissionUser) => (
-                        <div style={{ paddingRight: '2rem' }}>
+                        <div
+                            key={submissionUser.user_data.given_name}
+                            style={{ paddingRight: '2rem' }}
+                        >
                             <Link
                                 to={{
                                     pathname: '/fillin',
