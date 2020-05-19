@@ -50,6 +50,9 @@ const CreateTemplate = (props) => {
     const [finishedTemplate, setFinishedTemplate] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
 
+    const [error1, setError1] = useState(false);
+    const [error2, setError2] = useState(false);
+
     const handleClickOpen = () => {
         setOpenDialog(true);
     };
@@ -280,15 +283,19 @@ const CreateTemplate = (props) => {
                             label='Qustion name'
                             variant='outlined'
                             value={currentQuestion.content}
-                            onChange={(e) =>
+                            error={error1}
+                            onChange={(e) => {
+                                if (e.target.value !== '') setError1(false);
+                                setError1(false);
                                 setCurrentQuestion({
                                     content: e.target.value,
                                     description: currentQuestion.description,
-                                })
-                            }
+                                });
+                            }}
                         />
 
                         <TextField
+                            error={error2}
                             style={{ marginTop: '2rem' }}
                             InputProps={{
                                 style: {
@@ -306,18 +313,25 @@ const CreateTemplate = (props) => {
                             label='Question description'
                             variant='outlined'
                             value={currentQuestion.description}
-                            onChange={(e) =>
+                            onChange={(e) => {
+                                if (e.target.value !== '') setError2(false);
                                 setCurrentQuestion({
                                     content: currentQuestion.content,
                                     description: e.target.value,
-                                })
-                            }
+                                });
+                            }}
                         />
 
                         <div>
                             <Button
                                 style={{ color: '#fff' }}
-                                onClick={() => newQuestion()}
+                                onClick={() => {
+                                    if (currentQuestion.content === '')
+                                        setError1(true);
+                                    else if (currentQuestion.description === '')
+                                        setError2(true);
+                                    else newQuestion();
+                                }}
                             >
                                 Add Question
                             </Button>
@@ -397,15 +411,21 @@ const CreateTemplate = (props) => {
                             }}
                             label='Section Name'
                             variant='outlined'
+                            error={error1}
                             value={currentSectionName}
-                            onChange={(e) =>
-                                setCurrentSectionname(e.target.value)
-                            }
+                            onChange={(e) => {
+                                if (e.target.value !== '') setError1(false);
+                                setCurrentSectionname(e.target.value);
+                            }}
                         />
                         <div>
                             <Button
                                 style={{ color: '#fff' }}
-                                onClick={() => addSection()}
+                                onClick={() => {
+                                    if (currentSectionName === '')
+                                        setError1(true);
+                                    else addSection();
+                                }}
                             >
                                 Continue
                             </Button>
@@ -456,12 +476,14 @@ const CreateTemplate = (props) => {
                             label='Template Name'
                             variant='outlined'
                             value={template.name}
-                            onChange={(e) =>
+                            error={error1}
+                            onChange={(e) => {
+                                if (template.name !== '') setError1(false);
                                 setTemplate({
                                     name: e.target.value,
                                     description: template.description,
-                                })
-                            }
+                                });
+                            }}
                         />
                         <TextField
                             style={{ marginTop: '2rem' }}
@@ -481,17 +503,25 @@ const CreateTemplate = (props) => {
                             label='Template Description'
                             variant='outlined'
                             value={template.description}
-                            onChange={(e) =>
+                            error={error2}
+                            onChange={(e) => {
+                                if (template.description !== '')
+                                    setError2(false);
                                 setTemplate({
                                     name: template.name,
                                     description: e.target.value,
-                                })
-                            }
+                                });
+                            }}
                         />
                         <div>
                             <Button
                                 style={{ color: '#fff' }}
-                                onClick={() => setCreateSections(true)}
+                                onClick={() => {
+                                    if (template.name === '') setError1(true);
+                                    else if (template.description === '')
+                                        setError2(true);
+                                    else setCreateSections(true);
+                                }}
                             >
                                 Continue
                             </Button>
