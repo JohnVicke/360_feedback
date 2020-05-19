@@ -125,7 +125,6 @@ class Question extends React.Component {
         if (this.state.answer === '') {
             window.alert('Fill in answer!');
         } else {
-            window.alert('Good answer!' + this.state.answer);
             const res = await (
                 await GetUserById(this.state.component.state.userId)
             ).data;
