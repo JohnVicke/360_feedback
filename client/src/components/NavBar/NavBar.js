@@ -15,8 +15,9 @@ import {
     Menu,
     MenuItem,
 } from '@material-ui/core';
-
 import logo from '../../assets/logos/notextlogo.svg';
+import AvatarDefault from '../../assets/misc/default.jpeg';
+
 
 const theme = createMuiTheme({
     palette: {
@@ -76,8 +77,29 @@ const NavBar = () => {
         history.push('/');
     };
 
+    function ProfilePic(props) {
+        if (props.user.picture != undefined) {
+            return (
+                <Avatar
+                    src={props.user.picture}
+                    className={classes.avatar}
+                />
+            )
+        } else {
+            return (
+                <Avatar
+                    src={AvatarDefault}
+                    className={classes.avatar}
+                />
+            )
+        }
+    }
+
     return (
-        <div>
+
+
+
+        < div >
             <ThemeProvider theme={theme}>
                 <AppBar
                     position='static'
@@ -103,10 +125,8 @@ const NavBar = () => {
                             aria-haspopup='true'
                             aria-controls='custom-menu'
                         >
-                            <Avatar
-                                src={user.picture}
-                                className={classes.avatar}
-                            />
+                            <ProfilePic user={user} />
+
                             <Typography
                                 variant='h6'
                                 className={classes.header}
@@ -147,7 +167,7 @@ const NavBar = () => {
                     </Toolbar>
                 </AppBar>
             </ThemeProvider>
-        </div>
+        </div >
     );
 };
 
