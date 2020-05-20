@@ -38,15 +38,20 @@ export default class CreateEvaluation extends React.Component {
         console.log(template);
 
         getAllUsers().then((res) => {
+            let startUsers = [];
+            startUsers.push(user);
             this.setState({
                 users: res.data,
                 template: template,
                 user: user,
+                addedUsers: startUsers,
             });
             this.state.users.map((user) => {
                 console.log(user.given_name + ' ' + user.family_name);
             });
         });
+
+
     };
 
     onClickTest = (user) => {
@@ -67,6 +72,10 @@ export default class CreateEvaluation extends React.Component {
     onComboChange = (user) => {
         if (user) this.onClickTest(user);
     };
+
+    getButtonEnabled() {
+        return this.state.addedUsers.length === 0;
+    }
 
     render() {
         const comp = this;
@@ -306,6 +315,7 @@ export default class CreateEvaluation extends React.Component {
                                                 },
                                             })
                                         }
+                                        disabled={this.getButtonEnabled()}
                                     >
                                         <Typography variant='button'>
                                             CONTINUE

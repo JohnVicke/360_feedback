@@ -59,6 +59,10 @@ export default class CreateEvaluation extends React.Component {
         if (user) this.onClickTest(user);
     };
 
+    getButtonEnabled() {
+        return this.state.addedUsers.length === 0;
+    }
+
     render() {
         const comp = this;
 
@@ -287,6 +291,7 @@ export default class CreateEvaluation extends React.Component {
                                                 },
                                             })
                                         }
+                                        disabled={this.getButtonEnabled()}
                                         variant='contained'
                                         style={{
                                             float: 'right',
