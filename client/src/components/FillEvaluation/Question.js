@@ -14,8 +14,13 @@ import { styled } from '@material-ui/core/styles';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Scale from './Scale';
 import './Question.css';
-import { GetUserById, UpdateUserResponses } from '../../utils/API';
-
+import {
+    GetUserById,
+    UpdateUserResponses,
+    GetSurveyById,
+    UpdateSurvey,
+} from '../../utils/API';
+import history from '../../utils/history';
 
 const MyCard = styled(Card)({
     background: '#222222',
@@ -120,7 +125,6 @@ class Question extends React.Component {
         if (this.state.answer === '') {
             window.alert('Fill in answer!');
         } else {
-            window.alert('Good answer!' + this.state.answer);
             const res = await (
                 await GetUserById(this.state.component.state.userId)
             ).data;
@@ -169,6 +173,49 @@ class Question extends React.Component {
             }
             if (currentSection === nrOfSections) {
                 if (currentQuestion === currentSectionLength) {
+                    const res = await (
+                        await GetUserById(this.state.component.state.userId)
+                    ).data;
+                    let responseInsert = '';
+                    let index = '';
+                    let responses = res.responses;
+                    for (var i = 0; i < responses.length; i++) {
+                        if (
+                            responses[i].survey_id ===
+                            this.state.component.state.response.survey_id
+                        ) {
+                            responseInsert = responses[i];
+                            index = i;
+                        }
+                    }
+
+                    responses.splice(index, 1);
+
+                    await UpdateUserResponses(
+                        this.state.component.state.userId,
+                        { responses: responses }
+                    );
+
+                    let survey = await (
+                        await GetSurveyById(responseInsert.survey_id)
+                    ).data;
+                    let surveyResponses = survey.responses;
+                    let survIndex = '';
+                    for (var j = 0; j < surveyResponses.length; j++) {
+                        if (
+                            surveyResponses[j].user_id ===
+                            this.state.component.state.userId
+                        ) {
+                            survey.responses.splice(j, 1);
+                            j = surveyResponses.length;
+                        }
+                    }
+                    responseInsert.user_id = this.state.component.state.userId;
+                    survey.responses.push(responseInsert);
+                    const resSurvey = await UpdateSurvey(survey._id, survey);
+                    console.log('SURVEY');
+                    console.log(resSurvey);
+
                     this.state.component.setState({ finished: true });
                 } else {
                     currentQuestion++;
@@ -191,6 +238,7 @@ class Question extends React.Component {
             }
         }
     };
+
     handleBack = async (event) => {
         var currentSection = this.state.component.state.currentSection;
         var currentQuestion = this.state.component.state.currentQuestion;
@@ -202,6 +250,7 @@ class Question extends React.Component {
 
         if (currentSection === 1) {
             if (currentQuestion === 1) {
+                history.goBack();
             } else {
                 currentQuestion--;
                 this.state.component.setState({ currentQuestion });
@@ -244,10 +293,7 @@ class Question extends React.Component {
 
     componentDidUpdate = async () => {
         const answers = this.state.component.state.response.answers;
-        console.log('ANSWERS: ');
-        console.log(answers);
         if (this.state.answers !== answers) {
-            console.log('OLIKA MÅSTE UPPDATERA');
             const currentQuestion = this.state.component.state.currentQuestion;
             const currentSection = this.state.component.state.currentSection;
             for (var i = 0; i < answers.length; i++) {
@@ -255,8 +301,6 @@ class Question extends React.Component {
                     answers[i].q_id === currentQuestion &&
                     answers[i].s_id === currentSection
                 ) {
-                    console.log('JAG KÖRS');
-
                     this.setState({
                         commentText: answers[i].comment,
                         answer: answers[i].content,
@@ -326,8 +370,7 @@ class Question extends React.Component {
             }
         }
         return (
-            <Box display='flex' flexDirection='row' className='q-slide'>
-
+            <Box display="flex" flexDirection="row" className="q-slide">
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
                     <Typography
                         style={{

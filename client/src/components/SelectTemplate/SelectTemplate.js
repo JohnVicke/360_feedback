@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import {
+    Grow,
     Box,
     Card,
     Typography,
@@ -12,6 +13,8 @@ import {
     Button,
 } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
+import { GetAllTemplates } from '../../utils/API';
+import history from '../../utils/history';
 
 const MyCard = styled(Card)({
     background: '#222222',
@@ -54,7 +57,10 @@ class SelectTemplate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'Isak Larsson',
+            user: {
+                given_name: '',
+                family_name: '',
+            },
             templates: [
                 {
                     _id: 1,
@@ -70,14 +76,35 @@ class SelectTemplate extends Component {
             radioValue: '',
         };
     }
-    componentDidMount() {
+
+    componentDidMount = async () => {
+        console.log(this.props.location.state);
+        const { user } = this.props.location.state;
+        console.log(user);
+        const response = await (await GetAllTemplates()).data;
+        console.log(response.data);
+        this.setState({
+            user: user,
+            templates: response.data,
+            radioValue: response.data[0].name,
+        });
+
         if (this.state.templates.length !== 0) {
             this.setState({ radioValue: this.state.templates[0].name });
         }
-    }
+    };
+
     handleChange = async (event) => {
         this.setState({ radioValue: event.target.value });
     };
+
+    getTemplateByName = (name) => {
+        const template = this.state.templates.find(
+            (template) => template.name == name
+        );
+        return template;
+    };
+
     render() {
         function Sections(props) {
             if (props.value !== '') {
@@ -85,8 +112,8 @@ class SelectTemplate extends Component {
                     if (props.templates[i].name === props.value) {
                         return (
                             <Box
-                                display="flex"
-                                flexDirection="row"
+                                display='flex'
+                                flexDirection='row'
                                 style={{ marginLeft: '4rem' }}
                             >
                                 {props.templates[i].sections.map(function (
@@ -115,7 +142,7 @@ class SelectTemplate extends Component {
             }
         }
         return (
-            <div className="background">
+            <div className='background'>
                 <NavBar />
                 <Typography
                     style={{
@@ -128,80 +155,104 @@ class SelectTemplate extends Component {
                         marginTop: '2rem',
                     }}
                 >
-                    CREATING EVALUATION FOR: {this.state.name}
+                    CREATING EVALUATION FOR:{' '}
+                    {this.state.user.given_name +
+                        ' ' +
+                        this.state.user.family_name}
                 </Typography>
                 <hr style={{ width: '1200px' }} />
 
-                <Box display="flex" flexDirection="row" className="q-slide">
-                    <MyCard
-                        style={{
-                            marginRight: 'auto',
-                            marginLeft: 'auto',
-                            marginTop: '2rem',
-                        }}
-                    >
-                        <Typography
+                <Grow in={true}>
+                    <Box display='flex' flexDirection='row'>
+                        <MyCard
                             style={{
-                                color: '#fff',
-                                fontSize: '24px',
-                                fontFamily: 'Source Sans Pro',
-                                fontWeight: '500',
+                                marginRight: 'auto',
+                                marginLeft: 'auto',
                                 marginTop: '2rem',
-                                textAlign: 'left',
-                                marginLeft: '4rem',
                             }}
                         >
-                            Select template
-                        </Typography>
-                        <FormControl
-                            component="fieldset"
-                            style={{
-                                float: 'left',
-                                marginLeft: '4rem',
-                            }}
-                        >
-                            <FormLabel component="legend"></FormLabel>
-                            <RadioGroup
-                                row
-                                value={this.state.radioValue}
-                                onChange={this.handleChange}
+                            <Typography
+                                style={{
+                                    color: '#fff',
+                                    fontSize: '24px',
+                                    fontFamily: 'Source Sans Pro',
+                                    fontWeight: '500',
+                                    marginTop: '2rem',
+                                    textAlign: 'left',
+                                    marginLeft: '4rem',
+                                }}
                             >
-                                {this.state.templates.map(function (
-                                    template,
-                                    index
-                                ) {
-                                    return (
-                                        <FormControlLabel
-                                            value={template.name}
-                                            control={<Radio />}
-                                            label={template.name}
-                                        />
-                                    );
-                                })}
-                            </RadioGroup>
-                        </FormControl>
-                        <hr style={{ display: 'none' }}></hr>
-                        <Typography
-                            style={{
-                                color: '#fff',
-                                fontSize: '20px',
-                                fontFamily: 'Source Sans Pro',
-                                fontWeight: '500',
-                                marginTop: '4rem',
-                                textAlign: 'left',
-                                marginLeft: '4rem',
-                            }}
-                        >
-                            Sections
-                        </Typography>
-                        <Sections
-                            value={this.state.radioValue}
-                            templates={this.state.templates}
-                        ></Sections>
-                        <ContinueButton>Continue</ContinueButton>
-                        <BackButton style={{ float: 'left' }}>Back</BackButton>
-                    </MyCard>
-                </Box>
+                                Select template
+                            </Typography>
+                            <FormControl
+                                component='fieldset'
+                                style={{
+                                    float: 'left',
+                                    marginLeft: '4rem',
+                                }}
+                            >
+                                <FormLabel component='legend'></FormLabel>
+                                <RadioGroup
+                                    row
+                                    value={this.state.radioValue}
+                                    onChange={this.handleChange}
+                                >
+                                    {this.state.templates.map(function (
+                                        template,
+                                        index
+                                    ) {
+                                        return (
+                                            <FormControlLabel
+                                                value={template.name}
+                                                control={<Radio />}
+                                                label={template.name}
+                                            />
+                                        );
+                                    })}
+                                </RadioGroup>
+                            </FormControl>
+                            <hr style={{ display: 'none' }}></hr>
+                            <Typography
+                                style={{
+                                    color: '#fff',
+                                    fontSize: '20px',
+                                    fontFamily: 'Source Sans Pro',
+                                    fontWeight: '500',
+                                    marginTop: '4rem',
+                                    textAlign: 'left',
+                                    marginLeft: '4rem',
+                                }}
+                            >
+                                Sections
+                            </Typography>
+                            <Sections
+                                value={this.state.radioValue}
+                                templates={this.state.templates}
+                            ></Sections>
+                            <ContinueButton
+                                onClick={() =>
+                                    history.push({
+                                        pathname: '/selectEvaluators',
+                                        state: {
+                                            user: this.state.user,
+                                            template: this.getTemplateByName(
+                                                this.state.radioValue
+                                            ),
+                                        },
+                                    })
+                                }
+                            >
+                                Continue
+                            </ContinueButton>
+                            <BackButton
+                                onClick={() => history.goBack()}
+                                style={{ float: 'left' }}
+                            >
+                                Back
+                            </BackButton>
+                        </MyCard>
+                    </Box>
+                </Grow>
             </div>
         );
     }

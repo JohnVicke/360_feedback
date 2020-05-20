@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import ConPoints from './ConPoints';
-import { GetSurveyById, GetUserById } from '../../utils/API';
+import { GetSurveyById, GetUserById, getTemplate } from '../../utils/API';
 import Loading from '../Loading/Loading';
 import './AOverviewBoard.css';
 
@@ -120,8 +120,9 @@ class AOverviewBoard extends Component {
         const { surveyId } = this.props.location.state;
         //const surveyId = '5eba8593ff1b10be56b09465';
 
-        console.log(surveyId);
         const res = await (await GetSurveyById(surveyId)).data;
+        console.log(res);
+        const template = await (await getTemplate(res._id)).data;
         const user = await (await GetUserById(res.e_id)).data;
 
         this.setState({
@@ -129,6 +130,7 @@ class AOverviewBoard extends Component {
             survey: res,
             user: user,
             surveyId: surveyId,
+            template: template,
         });
     };
     Transition = React.forwardRef(function Transition(props, ref) {
@@ -192,6 +194,7 @@ class AOverviewBoard extends Component {
                 }
             }
         }
+        return { q_id: 0, s_id: 0, content: 0, comment: '' };
     };
     getAnswers = (index, questionId) => {
         var answers = [];
@@ -329,8 +332,10 @@ class AOverviewBoard extends Component {
                                 ].questions.map((question) => {
                                     return (
                                         <Box
-                                            maxWidth="400px"
-                                            style={{ margin: '0 3rem 0 3rem' }}
+                                            style={{
+                                                margin: '0 3rem 0 3rem',
+                                                width: '25%',
+                                            }}
                                         >
                                             <Typography
                                                 style={{
@@ -345,7 +350,7 @@ class AOverviewBoard extends Component {
                                             >
                                                 {question.content.replace(
                                                     /#name/,
-                                                    this.state.name
+                                                    this.state.user.given_name
                                                 )}
                                             </Typography>
 
@@ -572,10 +577,10 @@ class AOverviewBoard extends Component {
                                                 console.log(index);
                                                 return (
                                                     <Box
-                                                        maxWidth="400px"
                                                         style={{
                                                             margin:
                                                                 '0 3rem 0 3rem',
+                                                            width: '25%',
                                                         }}
                                                     >
                                                         <Typography

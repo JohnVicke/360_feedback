@@ -51,6 +51,8 @@ p {
 }
 
 .preview-container > div:nth-child(2) {
+    vertical-align: top;
+    padding-top: 2rem;
     text-align: right;
     width: 400px;
     border-left: 2px rgba(255, 255, 255, 0.2) solid;

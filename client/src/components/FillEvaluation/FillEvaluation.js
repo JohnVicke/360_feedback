@@ -47,9 +47,6 @@ class FillEvaluation extends Component {
     }
     componentDidUpdate = async () => {
         const res = await (await GetUserEvals(this.state.userId)).data;
-        console.log('--------------');
-        console.log(res);
-        console.log('--------------');
         const responses = res.responses;
         var response = '';
         for (var i = 0; i < responses.length; i++) {
@@ -77,7 +74,7 @@ class FillEvaluation extends Component {
         function Finished(props) {
             if (props.component.state.finished === false) {
                 return (
-                    <div className='background'>
+                    <div className="background">
                         <NavBar />
                         <Typography
                             style={{
@@ -128,12 +125,12 @@ class FillEvaluation extends Component {
                 );
             } else {
                 return (
-                    <div className='background'>
+                    <div className="background">
                         <NavBar />
-                        <div className='submitted-margin'>
+                        <div className="submitted-margin">
                             <Submitted
-                                header='Your answer was submitted!'
-                                subHeader='Thank you for your answers'
+                                header="Your answer was submitted!"
+                                subHeader="Thank you for your answers"
                                 button={{
                                     name: 'Home',
                                     func: () => history.push('/profile'),

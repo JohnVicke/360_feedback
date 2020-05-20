@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useAuth0 } from '../../react-auth0-spa';
 
 import { useHistory } from 'react-router-dom';
@@ -12,11 +12,15 @@ import {
     Box,
     Avatar,
     makeStyles,
-    Menu,
     MenuItem,
+    Popper,
+    Grow,
+    Paper,
+    ClickAwayListener,
+    MenuList,
 } from '@material-ui/core';
-
 import logo from '../../assets/logos/notextlogo.svg';
+import AvatarDefault from '../../assets/misc/default.jpeg';
 
 const theme = createMuiTheme({
     palette: {
@@ -53,28 +57,54 @@ const NavBar = () => {
     const { logout, user } = useAuth0();
     const history = useHistory();
     const classes = useStyles();
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef(null);
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
+    const handleToggle = () => {
+        setOpen((prevOpen) => !prevOpen);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    function handleListKeyDown(event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            setOpen(false);
+        }
+    }
+
+    // return focus to the button when we transitioned from !open -> open
+    const prevOpen = React.useRef(open);
+    React.useEffect(() => {
+        if (prevOpen.current === true && open === false) {
+            anchorRef.current.focus();
+        }
+
+        prevOpen.current = open;
+    }, [open]);
+
+    const handleClose = (event) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target))
+            return;
+
+        setOpen(false);
     };
 
     const toProfile = () => {
-        handleClose();
         history.push('/profile');
     };
 
     const handleLogout = () => {
         logout();
-        handleClose();
-        history.push('/');
     };
+
+    function ProfilePic(props) {
+        if (props.user.picture != undefined) {
+            return (
+                <Avatar src={props.user.picture} className={classes.avatar} />
+            );
+        } else {
+            return <Avatar src={AvatarDefault} className={classes.avatar} />;
+        }
+    }
 
     return (
         <div>
@@ -98,15 +128,13 @@ const NavBar = () => {
                             </Button>
                         </Box>
                         <Button
-                            edge='end'
-                            onClick={handleMenu}
+                            onClick={handleToggle}
+                            ref={anchorRef}
                             aria-haspopup='true'
-                            aria-controls='custom-menu'
+                            aria-controls={open ? 'menu-list-grow' : undefined}
                         >
-                            <Avatar
-                                src={user.picture}
-                                className={classes.avatar}
-                            />
+                            <ProfilePic user={user} />
+
                             <Typography
                                 variant='h6'
                                 className={classes.header}
@@ -115,35 +143,46 @@ const NavBar = () => {
                                 {user.name}
                             </Typography>
                         </Button>
-                        <Menu
-                            className={classes.menu}
-                            id='custom-menu'
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
+                        <Popper
                             open={open}
-                            onClose={handleClose}
+                            anchorEl={anchorRef.current}
+                            role={undefined}
+                            transition
+                            disablePortal
                         >
-                            <MenuItem
-                                onClick={toProfile}
-                                className={classes.menuitem}
-                            >
-                                Profile
-                            </MenuItem>
-                            <MenuItem
-                                onClick={handleLogout}
-                                className={classes.menuitem}
-                            >
-                                Log out
-                            </MenuItem>
-                        </Menu>
+                            {({ TransitionProps, placement }) => (
+                                <Grow
+                                    {...TransitionProps}
+                                    style={{
+                                        transformOrigin:
+                                            placement === 'bottom'
+                                                ? 'center top'
+                                                : 'center bottom',
+                                    }}
+                                >
+                                    <Paper>
+                                        <ClickAwayListener
+                                            onClickAway={handleClose}
+                                        >
+                                            <MenuList
+                                                autoFocusItem={open}
+                                                id='menu-list-grow'
+                                                onKeyDown={handleListKeyDown}
+                                            >
+                                                <MenuItem onClick={toProfile}>
+                                                    Profile
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={handleLogout}
+                                                >
+                                                    Logout
+                                                </MenuItem>
+                                            </MenuList>
+                                        </ClickAwayListener>
+                                    </Paper>
+                                </Grow>
+                            )}
+                        </Popper>{' '}
                     </Toolbar>
                 </AppBar>
             </ThemeProvider>

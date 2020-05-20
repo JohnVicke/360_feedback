@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import ArchivedListing from '../EvaluationListings/ArchivedListing';
 import AddIcon from '@material-ui/icons/Add';
+import { Assignment } from '@material-ui/icons';
 import Loading from '../../Loading/Loading';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,9 +47,9 @@ function EmployeeList(props) {
 function EmployeeBar(props) {
     return (
         <Box
-            className="employeeBar"
-            bgcolor="#F6F6F6"
-            width="0.95"
+            className='employeeBar'
+            bgcolor='#F6F6F6'
+            width='0.95'
             style={{
                 borderRadius: '15px',
                 marginTop: '15px',
@@ -60,38 +61,38 @@ function EmployeeBar(props) {
                 {console.log(props)}
                 <Grid container>
                     <Grid item xs={6}>
-                        <Avatar
-                            src={
-                                'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/document-app-icon-or-logo-icon-design-template-7b6cac8de4b9abdd949f7643fe00924e_screen.jpg?ts=1576967977'
-                            }
+                        <Assignment
                             style={{
+                                color: '#fff',
                                 float: 'left',
-                                margin: '15px',
+                                mergin: '15px',
                                 width: '60px',
                                 height: '60px',
+                                marginTop: '10px',
+                                marginRight: '10px',
                             }}
                         />
 
                         <Typography
-                            variant="h5"
+                            variant='h5'
                             style={{
                                 paddingTop: '10px',
                                 fontFamily: 'Source Sans Pro',
                                 fontWeight: 'bold',
                             }}
-                            color="#000000"
+                            color='#000000'
                         >
                             {props.template.name}
                         </Typography>
                         <Typography
-                            variant="h6"
+                            variant='h6'
                             style={{
                                 opacity: '0.7',
                                 marginTop: '2px',
                                 fontFamily: 'Source Sans Pro',
                                 fontWeight: 'bold',
                             }}
-                            color="#131313"
+                            color='#131313'
                         >
                             {props.template.description}
                         </Typography>
@@ -107,7 +108,7 @@ function EmployeeBar(props) {
                             }}
                         >
                             <Button
-                                aria-label="edit"
+                                aria-label='edit'
                                 style={{
                                     backgroundColor: '#4392FE',
                                     color: 'white',
@@ -118,7 +119,7 @@ function EmployeeBar(props) {
                                 PREVIEW
                             </Button>
                             <Button
-                                aria-label="edit"
+                                aria-label='edit'
                                 style={{
                                     backgroundColor: '#472F80',
                                     color: 'white',
@@ -156,7 +157,7 @@ const TemplatesListing = () => {
     }
     return (
         <div>
-            <div className="templates">
+            <div className='templates'>
                 <EmployeeList templates={templates} />
             </div>
         </div>

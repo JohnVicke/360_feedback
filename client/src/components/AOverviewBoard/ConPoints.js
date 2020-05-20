@@ -11,6 +11,7 @@ import {
     Button,
 } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
+import './AOverviewBoard.css';
 
 const MyCard = styled(Card)({
     background: '#EEEEEE',
@@ -20,6 +21,9 @@ const MyCard = styled(Card)({
     height: 100,
     width: 325,
     textAlign: 'center',
+    '&:hover': {
+        cursor: 'pointer',
+    },
 });
 class ConPoints extends Component {
     getColor = (x) => {
@@ -51,8 +55,12 @@ class ConPoints extends Component {
                 }
             }
         }
-        score = score / nrOfAnswers;
-        return score;
+        if (nrOfAnswers === 0) {
+            return 0;
+        } else {
+            score = score / nrOfAnswers;
+            return Math.round(score * 10) / 10;
+        }
     };
     getYourScore = (index) => {
         var score = 0;
@@ -70,120 +78,137 @@ class ConPoints extends Component {
                 }
             }
         }
-        score = score / nrOfAnswers;
-        return score;
+        if (nrOfAnswers === 0) {
+            return 0;
+        } else {
+            score = score / nrOfAnswers;
+            return Math.round(score * 10) / 10;
+        }
     };
     getScoreDifference = (index) => {
         return this.getColleaguesScore(index) - this.getYourScore(index);
     };
     render() {
-        return this.props.component.state.template.sections.map(
-            (section, index) => {
-                return (
-                    <MyCard
-                        style={{
-                            marginLeft: '5rem',
-                        }}
-                    >
-                        <Typography
-                            style={{
-                                fontFamily: 'Source Sans Pro',
-                                fontSize: '18px',
-                                fontWeight: '700',
-                                color: '#262E3F',
-                                lineHeight: '15px',
-                                marginTop: '0.3rem',
-                                marginBottom: '0',
-                            }}
-                        >
-                            {section.name}
-                        </Typography>
-                        <hr
-                            style={{
-                                width: '50%',
-                                color: '#CECECE',
-                                margin: '5px auto 0 auto',
-                            }}
-                        ></hr>
-                        <Box
-                            display="flex"
-                            flexDirection="row"
-                            justifyContent="space-between"
-                            margin="0 1rem 0 1rem"
-                            onClick={() => {
-                                this.props.click(index);
-                            }}
-                        >
-                            <Box>
-                                <p
+        return (
+            <div className="cards-container">
+                {' '}
+                {this.props.component.state.template.sections.map(
+                    (section, index) => {
+                        return (
+                            <MyCard
+                                style={{
+                                    marginLeft: '5rem',
+                                }}
+                            >
+                                <Typography
                                     style={{
-                                        margin: '0',
                                         fontFamily: 'Source Sans Pro',
+                                        fontSize: '18px',
+                                        fontWeight: '700',
+                                        color: '#262E3F',
+                                        lineHeight: '15px',
+                                        marginTop: '0.3rem',
+                                        marginBottom: '0',
                                     }}
                                 >
-                                    Colleagues
-                                </p>
-                                <h1
+                                    {section.name}
+                                </Typography>
+                                <hr
                                     style={{
-                                        fontSize: '30px',
+                                        width: '50%',
+                                        color: '#CECECE',
+                                        margin: '5px auto 0 auto',
+                                    }}
+                                ></hr>
+                                <Box
+                                    display="flex"
+                                    flexDirection="row"
+                                    justifyContent="space-between"
+                                    margin="0 1rem 0 1rem"
+                                    onClick={() => {
+                                        this.props.click(index);
+                                    }}
+                                >
+                                    <Box>
+                                        <p
+                                            style={{
+                                                margin: '0',
+                                                fontFamily: 'Source Sans Pro',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            Colleagues
+                                        </p>
+                                        <h1
+                                            style={{
+                                                fontSize: '30px',
 
-                                        margin: '0',
-                                        color: this.getColor(
-                                            this.getColleaguesScore(index)
-                                        ),
-                                    }}
-                                >
-                                    {this.getColleaguesScore(index)}
-                                </h1>
-                            </Box>
-                            <Box>
-                                <p
-                                    style={{
-                                        margin: '0',
-                                        fontFamily: 'Source Sans Pro',
-                                    }}
-                                >
-                                    You
-                                </p>
-                                <h1
-                                    style={{
-                                        fontSize: '30px',
+                                                margin: '0',
+                                                color: this.getColor(
+                                                    this.getColleaguesScore(
+                                                        index
+                                                    )
+                                                ),
+                                            }}
+                                        >
+                                            {this.getColleaguesScore(index)}
+                                        </h1>
+                                    </Box>
+                                    <Box>
+                                        <p
+                                            style={{
+                                                margin: '0',
+                                                fontFamily: 'Source Sans Pro',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            You
+                                        </p>
+                                        <h1
+                                            style={{
+                                                fontSize: '30px',
 
-                                        margin: '0',
-                                        color: this.getColor(
-                                            this.getYourScore(index)
-                                        ),
-                                    }}
-                                >
-                                    {this.getYourScore(index)}
-                                </h1>
-                            </Box>
-                            <Box>
-                                <p
-                                    style={{
-                                        margin: '0',
-                                        fontFamily: 'Source Sans Pro',
-                                    }}
-                                >
-                                    Difference
-                                </p>
-                                <h1
-                                    style={{
-                                        fontSize: '30px',
+                                                margin: '0',
 
-                                        margin: '0',
-                                        color: this.getDiffColor(
-                                            this.getScoreDifference(index)
-                                        ),
-                                    }}
-                                >
-                                    {this.getScoreDifference(index)}
-                                </h1>
-                            </Box>
-                        </Box>
-                    </MyCard>
-                );
-            }
+                                                color: this.getColor(
+                                                    this.getYourScore(index)
+                                                ),
+                                            }}
+                                        >
+                                            {this.getYourScore(index)}
+                                        </h1>
+                                    </Box>
+                                    <Box>
+                                        <p
+                                            style={{
+                                                margin: '0',
+                                                fontFamily: 'Source Sans Pro',
+                                                color: '#262E3F',
+                                            }}
+                                        >
+                                            Difference
+                                        </p>
+                                        <h1
+                                            style={{
+                                                fontSize: '30px',
+
+                                                margin: '0',
+                                                color: this.getDiffColor(
+                                                    this.getScoreDifference(
+                                                        index
+                                                    )
+                                                ),
+                                            }}
+                                        >
+                                            {this.getScoreDifference(index)}
+                                        </h1>
+                                    </Box>
+                                </Box>
+                            </MyCard>
+                        );
+                    }
+                )}
+            </div>
         );
     }
 }
