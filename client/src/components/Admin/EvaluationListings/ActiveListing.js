@@ -23,6 +23,7 @@ import {
     Button,
     CircularProgress,
     Hidden,
+    Divider,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import {Link} from 'react-router-dom';
@@ -66,10 +67,17 @@ const useStyles = makeStyles((theme) => ({
     UserNameText: {
         fontFamily: 'Source Sans Pro',
         fontWeight: 'bold',
+        display: "flex",
+        whiteSpace: "nowrap",
+    },
+
+    UserRoleText: {
+        color: "#131313",
+        opacity: '0.7',
+        fontFamily: 'Source Sans Pro',
     },
 
     ArchiveButton: {
-        backgroundColor: '#4392FE',
         color: 'white',
         fontSize: '13px',
     },
@@ -84,9 +92,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Source Sans Pro',
     },
 
-    ProgressCircle: {
-
-    },
+    ProgressCircle: {},
 
 
     ProgressText: {
@@ -126,7 +132,6 @@ function EmployeeList(props) {
 function EmployeeBar(props) {
     const classes = useStyles();
     const username = props.user.given_name + " " + props.user.family_name;
-    let progressColor = '#4392FE'; //Unless complete
 
     function getProgressValue(evaluation) {
         const responses = evaluation.responses;
@@ -137,10 +142,23 @@ function EmployeeBar(props) {
             }
         }
         var percentage = (nrOfAnswers / responses.length) * 100;
-        if(percentage === 100){
+        return percentage;
+    }
+
+    function getProgressColor(evaluation) {
+        let progressColor = "#4392FE";
+        const responses = evaluation.responses;
+        var nrOfAnswers = 0;
+        for (var i = 0; i < responses.length; i++) {
+            if (responses[i].answers.length > 0) {
+                nrOfAnswers++;
+            }
+        }
+        var percentage = (nrOfAnswers / responses.length) * 100;
+        if (percentage === 100) {
             progressColor = "#5ABE41";
         }
-        return percentage;
+        return progressColor;
     }
 
     function getProgressString(evaluation) {
@@ -177,12 +195,14 @@ function EmployeeBar(props) {
                 >
                     <Grid container
                           alignItems="center"
-                          justify="center"
+                          justify="flex-start"
                           direction="row"
                     >
                         <Hidden mdDown>
                             <Grid item xs={6}
                                   justify="flex-start"
+                                  alignItems="center"
+
                             >
                                 <Avatar className={classes.Avatar}
                                         src={props.user.picture}
@@ -194,20 +214,16 @@ function EmployeeBar(props) {
                               alignItems="center"
                               textAlign={"left"}>
                             <Typography
-                                variant="h5"
-                                style={{
-                                    fontFamily: 'Source Sans Pro',
-                                    fontWeight: 'bold',
-                                }}
+                                className={classes.UserNameText}
+                                variant="h6"
                                 color="#000000"
+                                align="left"
                             >
                                 {username}
                             </Typography>
                             <Typography
-                                variant="h6"
-                                align={"left"}
-                                classname={classes.TextMuted}
-                                color="#131313"
+                                variant="h7"
+                                classname={classes.UserRoleText}
                             >
                                 {props.user.role}
                             </Typography>
@@ -215,26 +231,29 @@ function EmployeeBar(props) {
                     </Grid>
                     <Grid/>
                 </Grid>
-                <Grid className={classes.EmployeeBarGridItem} item xs>
+                <Grid className={classes.EmployeeBarGridItem} direction={'column'} item xs
+                      alignContent={"center"}>
                     <Typography
-                        variant="h6"
+                        variant="h7"
                         classname={classes.TextMuted}
                         color="#131313"
                     >
                         {getTemplateName(props.evaluation.template_id)}
                     </Typography>
 
-                    <CircularProgress
-                        className={classes.ProgressCircle}
-                        variant="static"
-                        size={"3rem"}
-                        color={progressColor}
-                        value={getProgressValue(props.evaluation)}
-                    />
-                    <Typography className={classes.ProgressText}
-                    >
-                        {getProgressString(props.evaluation)}
-                    </Typography>
+                    <Box flexDirection="row">
+                        <CircularProgress
+                            className={classes.ProgressCircle}
+                            variant="static"
+                            size={"3rem"}
+                            style={{color: getProgressColor(props.evaluation)}}
+                            value={getProgressValue(props.evaluation)}
+                        />
+                        <Typography className={classes.ProgressText}
+                        >
+                            {getProgressString(props.evaluation)}
+                        </Typography>
+                    </Box>
 
                     <Link
                         to={{
@@ -243,19 +262,23 @@ function EmployeeBar(props) {
                                 surveyId: props.evaluation._id,
                             },
                         }}
+                        style={{textDecoration: 'none'}}
                     >
                         Overview Board
                     </Link>
                 </Grid>
+                <Divider orientation="vertical" flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
                     <Typography
+                        my={"2rem"}
                         style={{opacity: '0.5', fontSize: '10px', color: "#000000"}}
                     >
                         CURRENTLY ACTIVE
                     </Typography>
                     <Button className={classes.ArchiveButton}
                             aria-label="add"
-                            style={{backgroundColor: {progressColor}}}
+
+                            style={{backgroundColor: getProgressColor(props.evaluation)}}
                             onClick={() => {
                                 props.updateFunction(
                                     props.evaluation._id,
