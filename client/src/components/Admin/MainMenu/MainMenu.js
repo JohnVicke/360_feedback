@@ -24,7 +24,7 @@ import Profile from '../../Profile/Profile';
 import MainMenuTabs from './MainMenuTabs';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
-import { Link } from 'react-router-dom';
+import history from '../../../utils/history';
 
 import Tab from '@material-ui/core/Tab';
 import EvaluationWaiting from '../../Profile/EvaluationWaiting/EvaluationWaiting';
@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     MainMenu: {
         height: '100vh',
         overflowY: 'auto',
-        background: 'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
+        background:
+            'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
     },
     MenuBox: {
         background: '#222222',
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             margin: 0,
         },
-        maxHeight: "100vh",
+        maxHeight: '100vh',
     },
     tabs: {
         margin: '0 auto',
@@ -64,9 +65,7 @@ const useStyles = makeStyles((theme) => ({
             fontWeight: '500',
         },
     },
-    BottomRow:{
-
-    },
+    BottomRow: {},
     selected: {},
 }));
 
@@ -93,16 +92,19 @@ const MainMenu = () => {
             return (
                 <div>
                     <TemplatesListing />
-                    <Link to={{ pathname: '/createTemplate' }} style={{ textDecoration: 'none' }}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            href="#contained-buttons"
-                            m={'5rem'}
-                        >
-                            Create new template
-                        </Button>
-                    </Link>
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        m={'5rem'}
+                        onClick={() =>
+                            history.push({
+                                pathname: '/createTemplate',
+                            })
+                        }
+                    >
+                        Create new template
+                    </Button>
                 </div>
             );
         }
@@ -111,55 +113,54 @@ const MainMenu = () => {
     return (
         <div className={classes.MainMenu}>
             <NavBar />
-            <Box className={classes.MenuBox} justifyContent={"center"}>
-                    <Paper className={classes.root}>
-                        <Tabs
-                            value={value}
-                            onChange={handleChange}
-                            indicatorColor="primary"
-                            textColor="primary"
-                            centered
-                        >
-                            <Tab
-                                classes={{
-                                    root: classes.tab,
-                                    selected: classes.selected,
-                                }}
-                                label="Active"
-                            />
-                            <Tab
-                                classes={{
-                                    root: classes.tab,
-                                    selected: classes.selected,
-                                }}
-                                label="Archived"
-                            />
-                            <Tab
-                                classes={{
-                                    root: classes.tab,
-                                    selected: classes.selected,
-                                }}
-                                label="Templates"
-                            />
-                        </Tabs>
-                    </Paper>
-                    {returnListing()}
-                    <Box className={classes.BottomRow}
-                        display={'flex'}
-                        flexDirection={'row'}
-                        direction="row"
-                        justifyContent={"center"}
+            <Box className={classes.MenuBox} justifyContent={'center'}>
+                <Paper className={classes.root}>
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        centered
                     >
-                        <Link to={{ pathname: '/createEvaluation' }} style={{ textDecoration: 'none' }}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                href="#contained-buttons"
-                            >
-                                Create new evaluation
-                            </Button>
-                        </Link>
-                    </Box>
+                        <Tab
+                            classes={{
+                                root: classes.tab,
+                                selected: classes.selected,
+                            }}
+                            label="Active"
+                        />
+                        <Tab
+                            classes={{
+                                root: classes.tab,
+                                selected: classes.selected,
+                            }}
+                            label="Archived"
+                        />
+                        <Tab
+                            classes={{
+                                root: classes.tab,
+                                selected: classes.selected,
+                            }}
+                            label="Templates"
+                        />
+                    </Tabs>
+                </Paper>
+                {returnListing()}
+                <Box
+                    className={classes.BottomRow}
+                    display={'flex'}
+                    flexDirection={'row'}
+                    direction="row"
+                    justifyContent={'center'}
+                >
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => history.push('/selectEvaluatee')}
+                    >
+                        Create new evaluation
+                    </Button>
+                </Box>
             </Box>
         </div>
     );
