@@ -99,7 +99,7 @@ export default class CreateEvaluation extends React.Component {
                 <ul style={{ width: '100%', listStyleType: 'none' }}>
                     {props.users.map((user) => {
                         return (
-                            <li key={user._id}>
+                            <li key={user._id} >
                                 <EmployeeBar user={user} />
                             </li>
                         );
@@ -113,7 +113,7 @@ export default class CreateEvaluation extends React.Component {
                 <Box
                     className='employeeBar'
                     bgcolor='#F6F6F6'
-                    width='0.95'
+                    width='0.97'
                     style={{
                         borderRadius: '15px',
                         marginTop: '15px',
@@ -198,14 +198,23 @@ export default class CreateEvaluation extends React.Component {
                             justify='center'
                             alignItems='center'
                         >
-                            <Box color='#FFFFFF'>
+                            <Box color='#FFFFFF' width={1} alignItems="center" textAlign="center">
                                 <Typography
-                                    variant='h6'
-                                    color='#FFFFFF'
-                                    style={{ margin: '2rem 0' }}
+                                    style={{
+                                        color: '#fff',
+                                        textAlign: 'center',
+                                        fontSize: '24px',
+                                        fontFamily: 'Source Sans Pro',
+                                        fontWeight: '400',
+                                        textTransform: 'uppercase',
+                                        marginTop: '0.5rem',
+                                    }}
                                 >
-                                    CREATING EVALUATION
+                                    <strong>CREATING EVALUATION:</strong> Who is being evaluated?
+                                    <hr />
                                 </Typography>
+
+
                             </Box>
                         </Grid>
                         <Box className='mainBox' bgcolor='#222222'>
@@ -216,36 +225,22 @@ export default class CreateEvaluation extends React.Component {
                                 justify='flex-start'
                                 height='100vh'
                             >
-                                <Box color='#FFFFFF'>
-                                    <Typography
-                                        variant='h6'
-                                        color='#FFFFFF'
-                                        style={{
-                                            fontFamily: 'Source Sans Pro',
-                                            fontWeight: 'bolder',
-                                        }}
-                                    >
-                                        Who is getting evaluated?
-                                    </Typography>
-
-                                    <hr />
+                                <Box
+                                    display='flex'
+                                    justifyContent='center'
+                                    style={{ margin: '1rem 0' }}
+                                >
+                                    <ComboBox
+                                        users={this.state.users}
+                                        handleOnChange={this.onComboChange}
+                                    />
                                 </Box>
-
                                 <Box
                                     className='employees'
-                                    bgcolor='#0F121F'
+                                    bgcolor='#222222'
                                     overflow='auto'
                                 >
-                                    <Box
-                                        display='flex'
-                                        justifyContent='center'
-                                        style={{ margin: '1rem 0' }}
-                                    >
-                                        <ComboBox
-                                            users={this.state.users}
-                                            handleOnChange={this.onComboChange}
-                                        />
-                                    </Box>
+
                                     <Grid
                                         container
                                         direction='row'
@@ -261,7 +256,7 @@ export default class CreateEvaluation extends React.Component {
                             <Grid
                                 container
                                 style={{
-                                    marginTop: '40px',
+                                    marginTop: '20px',
                                     paddingLeft: '50px',
                                     paddingRight: '50px',
                                 }}

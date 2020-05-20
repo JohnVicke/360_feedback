@@ -12,20 +12,20 @@
 
 .mainBox{
     border-radius: 10px;
-    height: 85vh;
+    height: 80vh;
     box-shadow: 3px 3px 7px #111111;
 }
 
 .innerGrid{
-    padding-right: 60px;
-    padding-left: 60px;
-    padding-top: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
 
 }
 
 .employees{
     border-radius: 15px;
-    height: 620px;
+    height: 580px;
 }
 
 

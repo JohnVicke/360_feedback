@@ -11,6 +11,7 @@ import {
     FormControlLabel,
     Radio,
     Button,
+    Container,
 } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import { GetAllTemplates } from '../../utils/API';
@@ -26,20 +27,17 @@ const MyCard = styled(Card)({
     textAlign: 'center',
 });
 const ContinueButton = styled(Button)({
-    backgroundColor: '#4392FE',
-    border: 0,
-    color: 'white',
-    marginTop: '18rem',
-    borderRadius: 30,
-    height: '40px',
-    width: '125px',
-    float: 'right',
-    transition: 'ease-in-out 0.2s',
-    marginRight: '4rem',
-    '& :hover': {
-        backgroundColor: '#4392FE',
-        transform: 'scale(1,1)',
-    },
+    // backgroundColor: '#4392FE',
+    // border: 0,
+    // color: 'white',
+    // marginTop: '18rem',
+    // borderRadius: 30,
+    // height: '40px',
+    // width: '125px',
+    // float: 'right',
+    // transition: 'ease-in-out 0.2s',
+    // marginRight: '4rem'
+
 });
 const BackButton = styled(Button)({
     backgroundColor: 'transparent',
@@ -144,6 +142,7 @@ class SelectTemplate extends Component {
         return (
             <div className='background'>
                 <NavBar />
+
                 <Typography
                     style={{
                         color: '#fff',
@@ -152,10 +151,10 @@ class SelectTemplate extends Component {
                         fontFamily: 'Source Sans Pro',
                         fontWeight: '400',
                         textTransform: 'uppercase',
-                        marginTop: '2rem',
+                        marginTop: '0.5rem',
                     }}
                 >
-                    CREATING EVALUATION FOR:{' '}
+                    <strong>CREATING EVALUATION FOR:</strong>{' '}
                     {this.state.user.given_name +
                         ' ' +
                         this.state.user.family_name}
@@ -229,7 +228,16 @@ class SelectTemplate extends Component {
                                 value={this.state.radioValue}
                                 templates={this.state.templates}
                             ></Sections>
-                            <ContinueButton
+                            <Button
+                                variant='contained'
+                                style={{
+                                    float: 'right',
+                                    backgroundColor: '#4392FE',
+                                    color: '#FFFFFF',
+                                    borderRadius: '20px',
+                                    marginTop: '18rem',
+                                    marginRight: '4rem'
+                                }}
                                 onClick={() =>
                                     history.push({
                                         pathname: '/selectEvaluators',
@@ -243,7 +251,7 @@ class SelectTemplate extends Component {
                                 }
                             >
                                 Continue
-                            </ContinueButton>
+                            </Button>
                             <BackButton
                                 onClick={() => history.goBack()}
                                 style={{ float: 'left' }}
@@ -252,6 +260,7 @@ class SelectTemplate extends Component {
                             </BackButton>
                         </MyCard>
                     </Box>
+
                 </Grow>
             </div>
         );

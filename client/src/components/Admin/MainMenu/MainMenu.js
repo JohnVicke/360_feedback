@@ -26,6 +26,8 @@ import Tabs from '@material-ui/core/Tabs';
 import { Link } from 'react-router-dom';
 import history from '../../../utils/history';
 
+import CreateIcon from '@material-ui/icons/Create';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import Tab from '@material-ui/core/Tab';
 import EvaluationWaiting from '../../Profile/EvaluationWaiting/EvaluationWaiting';
 
@@ -91,18 +93,29 @@ const MainMenu = () => {
             return (
                 <div>
                     <TemplatesListing />
-                    <Link to={{ pathname: '/createTemplate' }}>
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            href='#contained-buttons'
-                            className={'mx-3'}
-                        >
-                            Create new template
-                        </Button>
-                    </Link>
+
                 </div>
             );
+        }
+    }
+
+    function backButton() {
+        if (value === 2) {
+            return (
+                <Link to={{ pathname: '/createTemplate' }}>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        href='#contained-buttons'
+                        className={'mx-3'}
+                        style={{ float: "left", margin: "25px", backgroundColor: "#4392FE", borderRadius: "20px" }}
+                        onClick={() => history.push('/selectEvaluatee')}
+                    >
+                        <CreateIcon style={{ marginRight: "5px" }} />
+                                Create new template
+                        </Button>
+                </Link>
+            )
         }
     }
 
@@ -149,15 +162,23 @@ const MainMenu = () => {
                         justify='flex-end'
                         direction='row'
                     >
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            href='#contained-buttons'
-                            className={'mx-3'}
-                            onClick={() => history.push('/selectEvaluatee')}
-                        >
-                            Create new evaluation
-                        </Button>
+                        <Grid item xs={6} >
+                            {backButton()}
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                href='#contained-buttons'
+                                className={'mx-3'}
+                                style={{ float: "right", margin: "25px", backgroundColor: "#4392FE", borderRadius: "20px" }}
+                                onClick={() => history.push('/selectEvaluatee')}
+                            >
+                                <PostAddIcon style={{ marginRight: "5px" }} />
+                                Create new evaluation
+                            </Button>
+                        </Grid>
+
                     </Grid>
                 </MyCard>
             </Box>

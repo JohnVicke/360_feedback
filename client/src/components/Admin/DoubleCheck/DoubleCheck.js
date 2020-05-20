@@ -88,7 +88,7 @@ const DoubleCheck = (props) => {
             <Box
                 className="employeeBar"
                 bgcolor="#F6F6F6"
-                width={props.reviewed ? '500px' : '0.95'}
+                width={props.reviewed ? '500px' : '0.97'}
                 style={{
                     borderRadius: '15px',
                     marginTop: '15px',
@@ -177,9 +177,20 @@ const DoubleCheck = (props) => {
                             justify="center"
                             alignItems="center"
                         >
-                            <Box color="#FFFFFF">
-                                <Typography variant="h6" color="#FFFFFF">
-                                    CREATING EVALUATION
+                            <Box color='#FFFFFF' width={1} style={{ margin: '1rem 0' }} textAlign="center">
+                                <Typography
+                                    style={{
+                                        color: '#fff',
+                                        textAlign: 'center',
+                                        fontSize: '24px',
+                                        fontFamily: 'Source Sans Pro',
+                                        fontWeight: '400',
+                                        textTransform: 'uppercase',
+                                        marginTop: '0.5rem',
+                                    }}
+                                >
+                                    <strong>CREATING EVALUATION:</strong> Double check
+                                    <hr />
                                 </Typography>
                             </Box>
                         </Grid>
@@ -191,25 +202,13 @@ const DoubleCheck = (props) => {
                                 justify="flex-start"
                                 height="100vh"
                             >
-                                <Box color="#FFFFFF">
-                                    <Typography
-                                        variant="h6"
-                                        color="#FFFFFF"
-                                        style={{
-                                            fontFamily: 'Source Sans Pro',
-                                            fontWeight: 'bolder',
-                                        }}
-                                    >
-                                        Doublecheck
-                                    </Typography>
 
-                                    <hr />
-                                </Box>
 
                                 <Box
                                     className="employees"
-                                    bgcolor="#0F121F"
+                                    bgcolor="#222222"
                                     overflow="auto"
+                                    height="70vh"
                                 >
                                     <Typography
                                         variant="h6"
@@ -299,7 +298,7 @@ const DoubleCheck = (props) => {
                             <Grid
                                 container
                                 style={{
-                                    marginTop: '40px',
+                                    marginTop: '20px',
                                     paddingLeft: '50px',
                                     paddingRight: '50px',
                                 }}
