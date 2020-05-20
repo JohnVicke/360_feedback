@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useAuth0} from '../../../react-auth0-spa';
+import React, { useState, useEffect } from 'react';
+import { useAuth0 } from '../../../react-auth0-spa';
 import {
     makeStyles,
     Box,
@@ -22,10 +22,10 @@ import TemplatesListing from '../TemplatesListing/TemplatesListing';
 import happy from '../../../assets/misc/emoji-happy.svg';
 import Profile from '../../Profile/Profile';
 import MainMenuTabs from './MainMenuTabs';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
+import history from '../../../utils/history';
 import {Link} from 'react-router-dom';
-
 import Tab from '@material-ui/core/Tab';
 import EvaluationWaiting from '../../Profile/EvaluationWaiting/EvaluationWaiting';
 
@@ -64,7 +64,9 @@ const useStyles = makeStyles((theme) => ({
             fontWeight: '500',
         },
     },
-    BottomRow: {},
+    BottomRow:{
+
+    },
     selected: {},
 }));
 
@@ -72,7 +74,7 @@ const MainMenu = () => {
     const classes = useStyles();
     const [userInfo, setUserInfo] = useState([]);
     const [userEvals, setUserEvals] = useState([]);
-    const {loading, user} = useAuth0();
+    const { loading, user } = useAuth0();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -82,25 +84,37 @@ const MainMenu = () => {
 
     function returnListing() {
         if (value === 0) {
-            return (
-                <ActiveListing/>
-            );
-
+            return <ActiveListing />;
         }
         if (value === 1) {
-            return <ArchivedListing/>;
+            return <ArchivedListing />;
         }
         if (value === 2) {
             return (
-                <TemplatesListing/>
+                <div>
+                    <TemplatesListing />
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        m={'5rem'}
+                        onClick={() =>
+                            history.push({
+                                pathname: '/createTemplate',
+                            })
+                        }
+                    >
+                        Create new template
+                    </Button>
+                </div>
             );
         }
     }
 
     return (
         <div className={classes.MainMenu}>
-            <NavBar/>
-            <Box className={classes.MenuBox} justifyContent={"center"}>
+            <NavBar />
+            <Box className={classes.MenuBox} justifyContent={'center'}>
                 <Paper className={classes.root}>
                     <Tabs
                         value={value}
@@ -132,38 +146,21 @@ const MainMenu = () => {
                         />
                     </Tabs>
                 </Paper>
-
                 {returnListing()}
-
-
-                <Box className={classes.BottomRow}
-                     display={'flex'}
-                     flexDirection={'row'}
-                     direction="row"
-                     justifyContent={"space-between"}
-                     my={"1rem"}
-                     mx={"2rem"}
+                <Box
+                    className={classes.BottomRow}
+                    display={'flex'}
+                    flexDirection={'row'}
+                    direction="row"
+                    justifyContent={'center'}
                 >
-                    <Link to={{pathname: '/createTemplate'}} style={{textDecoration: 'none'}}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            href="#contained-buttons"
-                            m={'5rem'}
-                        >
-                            Create new template
-                        </Button>
-                    </Link>
-
-                    <Link to={{pathname: '/createEvaluation'}} style={{textDecoration: 'none'}}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            href="#contained-buttons"
-                        >
-                            Create new evaluation
-                        </Button>
-                    </Link>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => history.push('/selectEvaluatee')}
+                    >
+                        Create new evaluation
+                    </Button>
                 </Box>
             </Box>
         </div>
