@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     TextMuted: {
-        opacity: '0.5',
+        opacity: '0.7',
         fontFamily: 'Source Sans Pro',
     },
 
@@ -211,7 +211,6 @@ function EmployeeBar(props) {
                         </Hidden>
                         <Grid item xs={6}
                               direction="column"
-                              justifyContent="center"
                               alignItems="center"
                               textAlign={"left"}>
                             <Typography
@@ -225,7 +224,6 @@ function EmployeeBar(props) {
                             <Typography
                                 variant="h7"
                                 classname={classes.UserRoleText}
-                                align="left"
                             >
                                 {props.user.role}
                             </Typography>
@@ -273,7 +271,7 @@ function EmployeeBar(props) {
                 <Grid className={classes.EmployeeBarGridItem} item xs>
                     <Typography
                         my={"2rem"}
-                        style={{opacity: '0.5', fontSize: '0.7rem', color: "#000000"}}
+                        style={{opacity: '0.5', fontSize: '10px', color: "#000000"}}
                     >
                         CURRENTLY ACTIVE
                     </Typography>
