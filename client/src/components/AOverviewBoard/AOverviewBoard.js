@@ -20,6 +20,8 @@ import ConPoints from './ConPoints';
 import { GetSurveyById, GetUserById, getTemplate } from '../../utils/API';
 import Loading from '../Loading/Loading';
 import './AOverviewBoard.css';
+import history from '../../utils/history';
+import { UpdateSurveyActive } from '../../utils/API';
 
 const useStyles = makeStyles({
     avatar: {
@@ -211,6 +213,9 @@ class AOverviewBoard extends Component {
         }
         return answers;
     };
+    async updateSurvey(id, active) {
+        const res = await UpdateSurveyActive(id, { active: active });
+    }
 
     render() {
         const comp = this;
@@ -219,8 +224,9 @@ class AOverviewBoard extends Component {
         } else {
             return (
                 <div>
-                    <NavBar />
                     <div className="background">
+                        <NavBar />
+
                         <Typography
                             style={{
                                 color: '#fff',
@@ -822,6 +828,48 @@ class AOverviewBoard extends Component {
                                 </Button>
                             </DialogActions>
                         </Dialog>
+                        <Box
+                            display="flex"
+                            flexWrap="wrap"
+                            justifyContent="flex-end"
+                            style={{
+                                position: 'absolute',
+                                bottom: 50,
+                                right: 50,
+                            }}
+                        >
+                            <Button
+                                onClick={() => history.goBack()}
+                                variant="outlined"
+                                style={{
+                                    borderRadius: '20px',
+                                    color: '#F5F5F5',
+                                    borderColor: '#4392FE',
+                                    marginRight: '2em',
+                                }}
+                            >
+                                <Typography variant="button">BACK</Typography>
+                            </Button>
+                            <Button
+                                variant="contained"
+                                style={{
+                                    backgroundColor: '#4392FE',
+                                    color: '#FFFFFF',
+                                    borderRadius: '20px',
+                                }}
+                                onClick={() => {
+                                    this.updateSurvey(
+                                        this.state.surveyId,
+                                        false
+                                    );
+                                    history.push('/');
+                                }}
+                            >
+                                <Typography variant="button">
+                                    MARKED AS COMPLETE
+                                </Typography>
+                            </Button>
+                        </Box>
                     </div>
                 </div>
             );
