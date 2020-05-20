@@ -10,45 +10,41 @@
     overflow-x: hidden;
 }
 
-.mainBox{
+.mainBox {
     border-radius: 10px;
     height: 85vh;
     box-shadow: 3px 3px 7px #111111;
 }
 
-.innerGrid{
+.innerGrid {
     padding-right: 60px;
     padding-left: 60px;
     padding-top: 30px;
-
 }
 
-.employees{
+.employees {
     border-radius: 15px;
     height: 620px;
 }
 
-
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
-    
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
     border-radius: 5px;
-    background:rgba(246, 246, 246, 0.671);
+    background: rgba(246, 246, 246, 0.671);
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #4392FE; 
+    background: #4392fe;
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(65, 132, 226); 
-
+    background: rgb(65, 132, 226);
 }
