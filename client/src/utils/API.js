@@ -73,3 +73,8 @@ export async function UpdateSurvey(id, survey) {
     const res = await api.put(`/surveys/${id}`, survey);
     return res;
 }
+
+export async function CreateUser(user) {
+    const res = await api.post('/users', user);
+    return res;
+}
