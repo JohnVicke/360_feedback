@@ -14,7 +14,7 @@ import {
 import { styled } from '@material-ui/core/styles';
 import { GetAllEvaluations, getTemplate } from '../../../utils/API';
 import * as _ from 'lodash';
-import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import NightsStayIcon from '@material-ui/icons/NightsStay';
 
 const MyCard = styled(Card)({
     background: '#EEEEEE',
@@ -129,7 +129,7 @@ class ContributionPoints extends Component {
                     alignItems="center"
                     style={{ color: '#fff', fontSize: '90px' }}
                 >
-                    <HourglassEmptyIcon color="inherit" fontSize="inherit" />
+                    <NightsStayIcon color="inherit" fontSize="inherit" />
 
                     <Typography
                         style={{
