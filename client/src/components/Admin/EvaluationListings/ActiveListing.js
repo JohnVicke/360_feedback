@@ -3,9 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {useAuth0} from '../../../react-auth0-spa';
 import Loading from '../../Loading/Loading';
 import {
-    GetActiveEvaluations,
     GetAllEvaluations,
-    GetUserByID,
     GetAllUsers,
     GetAllTemplates,
     UpdateSurveyActive,
@@ -84,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
     TextMuted: {
         opacity: '0.7',
         fontFamily: 'Source Sans Pro',
+    },
+
+    ProgressCircle: {
+
     },
 
 
@@ -226,7 +228,7 @@ function EmployeeBar(props) {
                         className={classes.ProgressCircle}
                         variant="static"
                         size={"3rem"}
-                        color={{progressColor}}
+                        color={progressColor}
                         value={getProgressValue(props.evaluation)}
                     />
                     <Typography className={classes.ProgressText}
