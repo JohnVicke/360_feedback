@@ -80,3 +80,9 @@ app.use('/api/users/', userRoutes);
 app.use('/api/templates/', templateRoutes);
 app.use('/api/surveys/', surveyRoutes);
 app.use('/api/questionare/', questionareRoutes);
+
+// Roles endpoints
+
+const { isUserAdmin } = require('./controllers/rolesController');
+
+app.get('/api/roles/:email', isUserAdmin);
