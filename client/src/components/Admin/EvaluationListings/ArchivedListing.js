@@ -147,12 +147,11 @@ function EmployeeBar(props) {
             }
         }
         var percentage = (nrOfAnswers / responses.length) * 100;
-        console.log(percentage);
         return percentage;
     }
 
     function getProgressColor(evaluation) {
-        let progressColor = '#472F80';
+        let progressColor = '#FBCA53';
         const responses = evaluation.responses;
         var nrOfAnswers = 0;
         for (var i = 0; i < responses.length; i++) {
@@ -218,6 +217,7 @@ function EmployeeBar(props) {
                         </Hidden>
                         <Grid item xs={6}
                               direction="column"
+                              justifyContent="center"
                               alignItems="center"
                               textAlign={"left"}>
                             <Typography
@@ -231,6 +231,7 @@ function EmployeeBar(props) {
                             <Typography
                                 variant="h7"
                                 classname={classes.UserRoleText}
+                                align="left"
                             >
                                 {props.user.role}
                             </Typography>
@@ -278,14 +279,14 @@ function EmployeeBar(props) {
                 <Grid className={classes.EmployeeBarGridItem} item xs>
                     <Typography
                         my={"2rem"}
-                        style={{opacity: '0.5', fontSize: '10px', color: "#000000"}}
+                        style={{opacity: '0.5', fontSize: '0.7rem', color: "#000000"}}
                     >
                         CURRENTLY ARCHIVED
                     </Typography>
                     <Button className={classes.ResumeButton}
                             aria-label="add"
 
-                            style={{backgroundColor: getProgressColor(props.evaluation)}}
+                            style={{backgroundColor: '#472F80'}}
                             onClick={() => {
                                 props.updateFunction(
                                     props.evaluation._id,

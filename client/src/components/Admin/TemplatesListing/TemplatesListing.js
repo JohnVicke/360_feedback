@@ -7,6 +7,8 @@ import {
     Typography,
     Avatar,
     Grid,
+    List,
+    ListItem,
     IconButton,
     Button,
 } from '@material-ui/core';
@@ -18,29 +20,30 @@ import Loading from '../../Loading/Loading';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
     },
+
+    EmployeeList: {
+        width: "90%",
+        maxHeight: '50vh',
+        margin: "auto",
+        listStyleType: 'none',
+        overflow: 'auto',
+    },
+
 }));
 function EmployeeList(props) {
+    const classes = useStyles();
     return (
-        <ul
-            style={{
-                width: '100%',
-                listStyleType: 'none',
-                maxHeight: '50vh',
-                overflow: 'auto',
-            }}
-        >
+        <List className={classes.EmployeeList} m={"0 0"} alignItems={"center"}>
             {props.templates &&
                 props.templates.map((template, index) => {
                     return (
-                        <li>
+                        <ListItem>
                             <EmployeeBar template={template} />
-                        </li>
+                        </ListItem>
                     );
                 })}
-        </ul>
+        </List>
     );
 }
 
