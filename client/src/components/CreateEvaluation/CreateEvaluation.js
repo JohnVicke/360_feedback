@@ -38,13 +38,10 @@ export default class CreateEvaluation extends React.Component {
         console.log(template);
 
         getAllUsers().then((res) => {
-            let startUsers = [];
-            startUsers.push(user);
             this.setState({
                 users: res.data,
                 template: template,
                 user: user,
-                addedUsers: startUsers,
             });
             this.state.users.map((user) => {
                 console.log(user.given_name + ' ' + user.family_name);
@@ -70,10 +67,6 @@ export default class CreateEvaluation extends React.Component {
     onComboChange = (user) => {
         if (user) this.onClickTest(user);
     };
-    getButtonEnabled() {
-        console.log(this.state.user);
-        return this.state.addedUsers.length === 0;
-    }
 
     render() {
         const comp = this;
@@ -89,7 +82,7 @@ export default class CreateEvaluation extends React.Component {
                         onClick={() => {
                             comp.onClickTest(props.user);
                         }}
-                        aria-label="add"
+                        aria-label='add'
                         style={{ backgroundColor: '#5ABE41', color: 'white' }}
                     >
                         <CheckIcon />
@@ -101,7 +94,7 @@ export default class CreateEvaluation extends React.Component {
                         onClick={() => {
                             comp.onClickTest(props.user);
                         }}
-                        aria-label="add"
+                        aria-label='add'
                         style={{ backgroundColor: '#4392FE', color: 'white' }}
                     >
                         <AddIcon />
@@ -127,9 +120,9 @@ export default class CreateEvaluation extends React.Component {
         function EmployeeBar(props) {
             return (
                 <Box
-                    className="employeeBar"
-                    bgcolor="#F6F6F6"
-                    width="0.95"
+                    className='employeeBar'
+                    bgcolor='#F6F6F6'
+                    width='0.97'
                     style={{
                         borderRadius: '15px',
                         marginTop: '15px',
@@ -152,27 +145,27 @@ export default class CreateEvaluation extends React.Component {
                                 />
 
                                 <Typography
-                                    variant="h5"
+                                    variant='h5'
                                     style={{
                                         paddingTop: '10px',
                                         fontFamily: 'Source Sans Pro',
                                         fontWeight: 'bold',
                                     }}
-                                    color="#000000"
+                                    color='#000000'
                                 >
                                     {props.user.given_name +
                                         ' ' +
                                         props.user.family_name}
                                 </Typography>
                                 <Typography
-                                    variant="h6"
+                                    variant='h6'
                                     style={{
                                         opacity: '0.7',
                                         marginTop: '2px',
                                         fontFamily: 'Source Sans Pro',
                                         fontWeight: 'bold',
                                     }}
-                                    color="#131313"
+                                    color='#131313'
                                 >
                                     {props.user.role}
                                 </Typography>
@@ -204,65 +197,62 @@ export default class CreateEvaluation extends React.Component {
         }
 
         return (
-            <div className="background">
+            <div className='background'>
                 <NavBar />
                 <Grow in={true}>
                     <Container>
                         <Grid
-                            direction="row"
+                            direction='row'
                             container
-                            justify="center"
-                            alignItems="center"
+                            justify='center'
+                            alignItems='center'
                         >
-                            <Box color="#FFFFFF" style={{ margin: '2rem 0' }}>
-                                <Typography variant="h6" color="#FFFFFF">
-                                    Creating evaluation
+                            <Box color='#FFFFFF' width={1} style={{ margin: '1rem 0' }} textAlign="center">
+                                <Typography
+                                    style={{
+                                        color: '#fff',
+                                        textAlign: 'center',
+                                        fontSize: '24px',
+                                        fontFamily: 'Source Sans Pro',
+                                        fontWeight: '400',
+                                        textTransform: 'uppercase',
+                                        marginTop: '0.5rem',
+                                    }}
+                                >
+                                    <strong>CREATING EVALUATION:</strong> Choose evaluators
+                                    <hr />
                                 </Typography>
                             </Box>
                         </Grid>
-                        <Box className="mainBox" bgcolor="#222222">
+                        <Box className='mainBox' bgcolor='#222222'>
                             <Grid
-                                className="innerGrid"
+                                className='innerGrid'
                                 container
-                                direction="column"
-                                justify="flex-start"
-                                height="100vh"
+                                direction='column'
+                                justify='flex-start'
+                                height='100vh'
                             >
-                                <Box color="#FFFFFF">
-                                    <Typography
-                                        variant="h6"
-                                        color="#FFFFFF"
-                                        style={{
-                                            fontFamily: 'Source Sans Pro',
-                                            fontWeight: 'bolder',
-                                        }}
-                                    >
-                                        Select Evaluators
-                                    </Typography>
-
-                                    <hr />
-                                </Box>
-
                                 <Box
-                                    className="employees"
-                                    bgcolor="#0F121F"
-                                    overflow="auto"
+                                    display='flex'
+                                    justifyContent='center'
+                                    style={{ margin: '1rem 0' }}
                                 >
-                                    <Box
-                                        display="flex"
-                                        justifyContent="center"
-                                        style={{ margin: '1rem 0' }}
-                                    >
-                                        <ComboBox
-                                            users={this.state.users}
-                                            handleOnChange={this.onComboChange}
-                                        />
-                                    </Box>
+                                    <ComboBox
+                                        users={this.state.users}
+                                        handleOnChange={this.onComboChange}
+                                    />
+                                </Box>
+                                <Box
+                                    className='employees'
+                                    bgcolor='#222222'
+                                    overflow='auto'
+                                >
+
                                     <Grid
                                         container
-                                        direction="row"
-                                        justify="center"
-                                        alignItems="flex-start"
+                                        direction='row'
+                                        justify='center'
+                                        alignItems='flex-start'
                                     >
                                         <EmployeeList
                                             users={this.state.users}
@@ -273,14 +263,14 @@ export default class CreateEvaluation extends React.Component {
                             <Grid
                                 container
                                 style={{
-                                    marginTop: '40px',
+                                    marginTop: '20px',
                                     paddingLeft: '50px',
                                     paddingRight: '50px',
                                 }}
                             >
                                 <Grid item xs={6}>
                                     <Button
-                                        variant="outlined"
+                                        variant='outlined'
                                         style={{
                                             borderRadius: '20px',
                                             color: '#F5F5F5',
@@ -288,7 +278,7 @@ export default class CreateEvaluation extends React.Component {
                                         }}
                                     >
                                         <Typography
-                                            variant="button"
+                                            variant='button'
                                             onClick={() => history.goBack()}
                                         >
                                             BACK
@@ -297,14 +287,13 @@ export default class CreateEvaluation extends React.Component {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Button
-                                        variant="contained"
+                                        variant='contained'
                                         style={{
                                             float: 'right',
                                             backgroundColor: '#4392FE',
                                             color: '#FFFFFF',
                                             borderRadius: '20px',
                                         }}
-                                        disabled={this.getButtonEnabled()}
                                         onClick={() =>
                                             history.push({
                                                 pathname: '/double_check',
@@ -318,7 +307,7 @@ export default class CreateEvaluation extends React.Component {
                                             })
                                         }
                                     >
-                                        <Typography variant="button">
+                                        <Typography variant='button'>
                                             CONTINUE
                                         </Typography>
                                     </Button>

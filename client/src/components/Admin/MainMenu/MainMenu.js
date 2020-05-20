@@ -12,7 +12,6 @@ import {
     IconButton,
     Button,
     spacing,
-    List,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import NavBar from '../../NavBar/NavBar';
@@ -24,8 +23,11 @@ import Profile from '../../Profile/Profile';
 import MainMenuTabs from './MainMenuTabs';
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
+import { Link } from 'react-router-dom';
 import history from '../../../utils/history';
-import {Link} from 'react-router-dom';
+
+import CreateIcon from '@material-ui/icons/Create';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import Tab from '@material-ui/core/Tab';
 import EvaluationWaiting from '../../Profile/EvaluationWaiting/EvaluationWaiting';
 
@@ -39,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
     MainMenu: {
         height: '100vh',
+        width: '100%',
         overflowY: 'auto',
         background: 'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
     },
@@ -53,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: "100vh",
     },
     tabs: {
+        width: '50%',
         margin: '0 auto',
     },
     tab: {
@@ -93,7 +97,15 @@ const MainMenu = () => {
             return (
                 <div>
                     <TemplatesListing />
+                </div>
+            );
+        }
+    }
 
+    function backButton() {
+        if (value === 2) {
+            return (
+                <Link to={{ pathname: '/createTemplate' }}>
                     <Button
                         variant="contained"
                         color="primary"
@@ -104,10 +116,11 @@ const MainMenu = () => {
                             })
                         }
                     >
+                        <CreateIcon style={{ marginRight: "5px" }} />
                         Create new template
                     </Button>
-                </div>
-            );
+                </Link>
+            )
         }
     }
 
@@ -147,21 +160,30 @@ const MainMenu = () => {
                     </Tabs>
                 </Paper>
                 {returnListing()}
-                <Box
-                    className={classes.BottomRow}
-                    display={'flex'}
-                    flexDirection={'row'}
-                    direction="row"
-                    justifyContent={'center'}
+                <Grid
+                    container
+                    alignItems='flex-start'
+                    justify='flex-end'
+                    direction='row'
                 >
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => history.push('/selectEvaluatee')}
-                    >
-                        Create new evaluation
-                    </Button>
-                </Box>
+                    <Grid item xs={6} >
+                        {backButton()}
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button
+                            variant='contained'
+                            color='primary'
+                            href='#contained-buttons'
+                            className={'mx-3'}
+                            style={{ float: "right", margin: "25px", backgroundColor: "#4392FE", borderRadius: "20px" }}
+                            onClick={() => history.push('/selectEvaluatee')}
+                        >
+                            <PostAddIcon style={{ marginRight: "5px" }} />
+                            Create new evaluation
+                        </Button>
+                    </Grid>
+
+                </Grid>
             </Box>
         </div>
     );
