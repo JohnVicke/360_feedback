@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { useAuth0 } from '../../../react-auth0-spa';
+import React, {useEffect, useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import {useAuth0} from '../../../react-auth0-spa';
 import {
     GetActiveEvaluations,
     GetAllEvaluations,
@@ -24,10 +24,11 @@ import {
     Button,
     CircularProgress,
     Hidden,
+    Divider,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Loading from '../../Loading/Loading';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,9 +65,18 @@ const useStyles = makeStyles((theme) => ({
         height: '5rem',
         margin: '2rem'
     },
+
     UserNameText: {
         fontFamily: 'Source Sans Pro',
         fontWeight: 'bold',
+        display: "flex",
+        whiteSpace: "nowrap",
+    },
+
+    UserRoleText: {
+        color: "#131313",
+        opacity: '0.7',
+        fontFamily: 'Source Sans Pro',
     },
 
     ResumeButton: {
@@ -102,24 +112,24 @@ function EmployeeList(props) {
     return (
         <List className={classes.EmployeeList} m={"0 0"} alignItems={"center"}>
             {props.evaluations &&
-                props.evaluations.map((evaluation, index) => {
-                    if (!evaluation.active) {
-                        const creator = evaluation.creator;
-                        const user = props.users.find(
-                            (user) => user._id === evaluation.e_id
-                        );
-                        return (
-                            <ListItem>
-                                <EmployeeBar
-                                    user={user}
-                                    evaluation={evaluation}
-                                    templates={props.templates}
-                                    updateFunction={props.updateFunction}
-                                />
-                            </ListItem>
-                        );
-                    }
-                })}
+            props.evaluations.map((evaluation, index) => {
+                if (!evaluation.active) {
+                    const creator = evaluation.creator;
+                    const user = props.users.find(
+                        (user) => user._id === evaluation.e_id
+                    );
+                    return (
+                        <ListItem>
+                            <EmployeeBar
+                                user={user}
+                                evaluation={evaluation}
+                                templates={props.templates}
+                                updateFunction={props.updateFunction}
+                            />
+                        </ListItem>
+                    );
+                }
+            })}
         </List>
     );
 }
@@ -139,6 +149,22 @@ function EmployeeBar(props) {
         var percentage = (nrOfAnswers / responses.length) * 100;
         console.log(percentage);
         return percentage;
+    }
+
+    function getProgressColor(evaluation) {
+        let progressColor = '#472F80';
+        const responses = evaluation.responses;
+        var nrOfAnswers = 0;
+        for (var i = 0; i < responses.length; i++) {
+            if (responses[i].answers.length > 0) {
+                nrOfAnswers++;
+            }
+        }
+        var percentage = (nrOfAnswers / responses.length) * 100;
+        if (percentage === 100) {
+            progressColor = "#5ABE41";
+        }
+        return progressColor;
     }
 
     function getProgressString(evaluation) {
@@ -164,7 +190,7 @@ function EmployeeBar(props) {
 
     return (
         <Box className={classes.EmployeeBar}
-            bgcolor="#F6F6F6"
+             bgcolor="#F6F6F6"
         >
             <Grid
                 container
@@ -182,6 +208,8 @@ function EmployeeBar(props) {
                         <Hidden mdDown>
                             <Grid item xs={6}
                                   justify="flex-start"
+                                  alignItems="center"
+
                             >
                                 <Avatar className={classes.Avatar}
                                         src={props.user.picture}
@@ -193,19 +221,16 @@ function EmployeeBar(props) {
                               alignItems="center"
                               textAlign={"left"}>
                             <Typography
-                                variant="h5"
-                                style={{
-                                    fontFamily: 'Source Sans Pro',
-                                    fontWeight: 'bold',
-                                }}
+                                className={classes.UserNameText}
+                                variant="h6"
                                 color="#000000"
+                                align="left"
                             >
                                 {username}
                             </Typography>
                             <Typography
-                                variant="h6"
-                                classname={classes.TextMuted}
-                                color="#131313"
+                                variant="h7"
+                                classname={classes.UserRoleText}
                             >
                                 {props.user.role}
                             </Typography>
@@ -213,25 +238,29 @@ function EmployeeBar(props) {
                     </Grid>
                     <Grid/>
                 </Grid>
-                <Grid className={classes.EmployeeBarGridItem} item xs>
+                <Grid className={classes.EmployeeBarGridItem} direction={'column'} item xs
+                      alignContent={"center"}>
                     <Typography
-                        variant="h6"
+                        variant="h7"
                         classname={classes.TextMuted}
                         color="#131313"
                     >
                         {getTemplateName(props.evaluation.template_id)}
                     </Typography>
 
+                    <Box flexDirection="row">
                         <CircularProgress
                             className={classes.ProgressCircle}
                             variant="static"
                             size={"3rem"}
+                            style={{color: getProgressColor(props.evaluation)}}
                             value={getProgressValue(props.evaluation)}
                         />
-                            <Typography className={classes.ProgressText}
-                            >
-                                {getProgressString(props.evaluation)}
-                            </Typography>
+                        <Typography className={classes.ProgressText}
+                        >
+                            {getProgressString(props.evaluation)}
+                        </Typography>
+                    </Box>
 
                     <Link
                         to={{
@@ -240,18 +269,23 @@ function EmployeeBar(props) {
                                 surveyId: props.evaluation._id,
                             },
                         }}
+                        style={{textDecoration: 'none'}}
                     >
                         Overview Board
                     </Link>
                 </Grid>
+                <Divider orientation="vertical" flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
                     <Typography
+                        my={"2rem"}
                         style={{opacity: '0.5', fontSize: '10px', color: "#000000"}}
                     >
                         CURRENTLY ARCHIVED
                     </Typography>
                     <Button className={classes.ResumeButton}
                             aria-label="add"
+
+                            style={{backgroundColor: getProgressColor(props.evaluation)}}
                             onClick={() => {
                                 props.updateFunction(
                                     props.evaluation._id,
@@ -273,7 +307,7 @@ const ArchivedListing = () => {
     const [archivedEvaluations, setArchivedEvaluations] = useState([]);
     const [templates, setTemplates] = useState([]);
 
-    const { loggedInUser } = useAuth0();
+    const {loggedInUser} = useAuth0();
 
     useEffect(() => {
         const fetchEvaluations = async () => {
@@ -303,13 +337,13 @@ const ArchivedListing = () => {
     }, [loggedInUser]);
 
     async function updateSurvey(id, active) {
-        const res = await UpdateSurveyActive(id, { active: active });
+        const res = await UpdateSurveyActive(id, {active: active});
         const response = await GetAllEvaluations();
         setArchivedEvaluations(response.data.data);
     }
 
     if (users.length === 0) {
-        return <Loading />;
+        return <Loading/>;
     } else if (archivedEvaluations.length === 0 || templates.length === 0) {
         return <div>No archived evaluations found</div>;
     }
