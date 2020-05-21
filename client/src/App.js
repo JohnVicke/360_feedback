@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth0 } from './react-auth0-spa';
 import { Router, Route, Switch } from 'react-router-dom';
 import Profile from './components/Profile/Profile';
@@ -18,16 +18,22 @@ import SelectEvaluatee from './components/CreateEvaluation/SelectEvaluatee';
 import SelectTemplate from './components/SelectTemplate/SelectTemplate';
 import DoubleCheck from './components/Admin/DoubleCheck/DoubleCheck';
 import NoAdminAccess from './components/NoAdminAccess/NoAdminAccess';
-import { IsAdmin } from './utils/API';
 import { Box, Button } from '@material-ui/core';
 import './AdminPath.css';
 import AdminRoute from './components/PricateRoutes/AdminRoutes';
-import useAdminStatus from './utils/AdminStatus';
+import { IsAdmin } from './utils/API';
 
 function App() {
     const { user, loading, isAuthenticated } = useAuth0();
-    const isAdmin = useAdminStatus();
+    const [isAdmin, setIsAdmin] = useState(false);
     const [choice, setChoice] = useState(false);
+
+    useEffect(() => {
+        const getAdminStatus = async () => {
+            setIsAdmin(await IsAdmin(user.email));
+        };
+        if (user) getAdminStatus();
+    }, [user]);
 
     const handleAdminClick = () => {
         setChoice(true);
