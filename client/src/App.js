@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth0 } from './react-auth0-spa';
 import { Router, Route, Switch } from 'react-router-dom';
 import Profile from './components/Profile/Profile';
@@ -17,11 +17,42 @@ import AOverviewBoard from './components/AOverviewBoard/AOverviewBoard';
 import SelectEvaluatee from './components/CreateEvaluation/SelectEvaluatee';
 import SelectTemplate from './components/SelectTemplate/SelectTemplate';
 import DoubleCheck from './components/Admin/DoubleCheck/DoubleCheck';
+import { IsAdmin } from './utils/API';
+import { Box, Button } from '@material-ui/core';
+import './AdminPath.css';
 
 function App() {
-    const { loading, isAuthenticated } = useAuth0();
+    const { user, loading, isAuthenticated } = useAuth0();
+    const [choice, setChoice] = useState(false);
 
-    if (loading) {
+    const handleAdminClick = () => {
+        setChoice(true);
+        history.push('/');
+    };
+
+    const handleUserClick = () => {
+        setChoice(true);
+        history.push('/profile');
+    };
+
+    const AdminPath = () => {
+        return (
+            <div className='background'>
+                <div className='button-container'>
+                    <div className='admin' onClick={handleAdminClick}>
+                        Continue as admin
+                    </div>
+                    <div className='user' onClick={handleUserClick}>
+                        Continue as user
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    if (!choice && isAuthenticated) {
+        return <div>{IsAdmin(user.email) && AdminPath()}</div>;
+    } else if (loading) {
         return <Loading />;
     } else if (!isAuthenticated) {
         return (
@@ -33,15 +64,24 @@ function App() {
         );
     }
     return (
-        <div className="App">
+        <div className='App'>
             <Router history={history}>
                 <Switch>
                     <PrivateRoute exact path='/' component={MainMenu} />
                     <PrivateRoute path='/profile' component={Profile} />
                     <PrivateRoute path='/fillin' component={FillEvaluation} />
-                    <PrivateRoute path="/selectEvaluators" component={CreateEvaluation} />
-                    <PrivateRoute path="/selectEvaluatee" component={SelectEvaluatee} />
-                    <PrivateRoute path="/selectTemplate" component={SelectTemplate} />
+                    <PrivateRoute
+                        path='/selectEvaluators'
+                        component={CreateEvaluation}
+                    />
+                    <PrivateRoute
+                        path='/selectEvaluatee'
+                        component={SelectEvaluatee}
+                    />
+                    <PrivateRoute
+                        path='/selectTemplate'
+                        component={SelectTemplate}
+                    />
                     <PrivateRoute
                         path='/createEvaluation'
                         component={CreateEvaluation}
@@ -50,11 +90,11 @@ function App() {
                         path='/double_check'
                         component={DoubleCheck}
                     />
-                    <PrivateRoute exact path="/" component={MainMenu} />
-                    <PrivateRoute path="/profile" component={Profile} />
-                    <PrivateRoute path="/fillin" component={FillEvaluation} />
+                    <PrivateRoute exact path='/' component={MainMenu} />
+                    <PrivateRoute path='/profile' component={Profile} />
+                    <PrivateRoute path='/fillin' component={FillEvaluation} />
                     <PrivateRoute
-                        path="/createEvaluation"
+                        path='/createEvaluation'
                         component={CreateEvaluation}
                     />
                     <PrivateRoute
@@ -62,7 +102,7 @@ function App() {
                         component={CreateTemplate}
                     />
                     <PrivateRoute
-                        path="/admin/overviewboard"
+                        path='/admin/overviewboard'
                         component={AOverviewBoard}
                     />
                 </Switch>

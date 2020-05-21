@@ -73,3 +73,11 @@ export async function UpdateSurvey(id, survey) {
     const res = await api.put(`/surveys/${id}`, survey);
     return res;
 }
+
+export async function IsAdmin(email) {
+    const res = await api.get(`/roles/${email}`);
+    const {
+        data: { verified },
+    } = res;
+    return verified;
+}
