@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
     },
 
     EmployeeList: {
-        width: "90%",
+        width: '90%',
         maxHeight: '50vh',
-        margin: "auto",
+        margin: 'auto',
         listStyleType: 'none',
         overflow: 'auto',
     },
@@ -39,12 +39,11 @@ const useStyles = makeStyles((theme) => ({
         width: "95%",
         maxHeight: "20%",
     },
-
 }));
 function EmployeeList(props) {
     const classes = useStyles();
     return (
-        <List className={classes.EmployeeList} m={"0 0"} alignItems={"center"}>
+        <List className={classes.EmployeeList} m={'0 0'} alignItems={'center'}>
             {props.templates &&
                 props.templates.map((template, index) => {
                     return (
@@ -76,6 +75,7 @@ function EmployeeBar(props) {
                                 height: '60px',
                                 marginTop: '10px',
                                 marginRight: '10px',
+                                marginLeft: '10px',
                             }}
                         />
 
