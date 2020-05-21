@@ -47,7 +47,7 @@ function App() {
 
     const AdminPath = () => {
         return (
-            <div className='background'>
+            <div className='admin-background'>
                 <div className='button-container'>
                     <div className='admin' onClick={handleAdminClick}>
                         Continue as admin
