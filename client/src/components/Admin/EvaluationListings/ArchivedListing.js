@@ -45,9 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
     EmployeeBar: {
         borderRadius: '15px',
-        margin: "15px auto",
-        paddingTop: '10px',
-        paddingBottom: '10px',
+        margin: "15px 0",
         backgroundColor: '#F6F6F6',
         width: "95%",
         maxHeight: "20%",
@@ -105,6 +103,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1rem',
     },
 
+    CurrentStatusText: {
+        fontSize: '1rem',
+        opacity: '0.5',
+        color: "#000000",
+    },
+
 }));
 
 function EmployeeList(props) {
@@ -119,7 +123,7 @@ function EmployeeList(props) {
                         (user) => user._id === evaluation.e_id
                     );
                     return (
-                        <ListItem>
+                        <ListItem m={"0"}>
                             <EmployeeBar
                                 user={user}
                                 evaluation={evaluation}
@@ -278,8 +282,8 @@ function EmployeeBar(props) {
                 <Divider orientation="vertical" flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
                     <Typography
+                        className={classes.CurrentStatusText}
                         my={"2rem"}
-                        style={{opacity: '0.5', fontSize: '0.7rem', color: "#000000"}}
                     >
                         CURRENTLY ARCHIVED
                     </Typography>
