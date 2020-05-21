@@ -123,7 +123,7 @@ class AOverviewBoard extends Component {
         //const surveyId = '5eba8593ff1b10be56b09465';
 
         const res = await (await GetSurveyById(surveyId)).data;
-        console.log(res);
+
         const template = await (await getTemplate(res._id)).data;
         const user = await (await GetUserById(res.e_id)).data;
 
@@ -136,7 +136,7 @@ class AOverviewBoard extends Component {
         });
     };
     Transition = React.forwardRef(function Transition(props, ref) {
-        return <Slide direction="up" ref={ref} {...props} />;
+        return <Slide direction='up' ref={ref} {...props} />;
     });
     handleClickOpen = (index) => {
         this.setState({ dialogOpen: true, index });
@@ -174,7 +174,7 @@ class AOverviewBoard extends Component {
                 sId: sId,
             });
         }
-        console.log(selected);
+
         this.setState({ selectedQuestions: selected });
     };
     getColor = (x) => {
@@ -224,7 +224,7 @@ class AOverviewBoard extends Component {
         } else {
             return (
                 <div>
-                    <div className="background">
+                    <div className='background'>
                         <NavBar />
 
                         <Typography
@@ -241,9 +241,9 @@ class AOverviewBoard extends Component {
                             {this.state.templateName} for <br />
                         </Typography>
                         <Box
-                            display="flex"
-                            flexDirection="row"
-                            alignItems="center"
+                            display='flex'
+                            flexDirection='row'
+                            alignItems='center'
                         >
                             <Avatar
                                 src={this.state.user.picture}
@@ -254,8 +254,8 @@ class AOverviewBoard extends Component {
                                 }}
                             />
                             <Box
-                                display="flex"
-                                flexDirection="row"
+                                display='flex'
+                                flexDirection='row'
                                 style={{ margin: '0 2rem' }}
                             >
                                 <Typography
@@ -307,10 +307,10 @@ class AOverviewBoard extends Component {
                             TransitionComponent={this.Transition}
                             keepMounted
                             onClose={this.handleClose}
-                            aria-labelledby="alert-dialog-slide-title"
-                            aria-describedby="alert-dialog-slide-description"
-                            maxWidth="lg"
-                            fullWidth="true"
+                            aria-labelledby='alert-dialog-slide-title'
+                            aria-describedby='alert-dialog-slide-description'
+                            maxWidth='lg'
+                            fullWidth='true'
                         >
                             <Typography
                                 style={{
@@ -328,10 +328,10 @@ class AOverviewBoard extends Component {
                                 }
                             </Typography>
                             <Box
-                                display="flex"
-                                flexWrap="wrap"
-                                alignContent="space-between"
-                                margin="0 3rem"
+                                display='flex'
+                                flexWrap='wrap'
+                                alignContent='space-between'
+                                margin='0 3rem'
                             >
                                 {this.state.template.sections[
                                     this.state.index
@@ -361,16 +361,16 @@ class AOverviewBoard extends Component {
                                             </Typography>
 
                                             <Box
-                                                display="flex"
-                                                flexDirection="column"
+                                                display='flex'
+                                                flexDirection='column'
                                             >
                                                 <Box
-                                                    display="flex"
-                                                    flexDirection="row"
+                                                    display='flex'
+                                                    flexDirection='row'
                                                 >
                                                     <Box
-                                                        display="flex"
-                                                        flexDirection="column"
+                                                        display='flex'
+                                                        flexDirection='column'
                                                     >
                                                         <Avatar></Avatar>
                                                         <Typography
@@ -441,16 +441,16 @@ class AOverviewBoard extends Component {
                                                     .map((answer) => {
                                                         return (
                                                             <Box
-                                                                display="flex"
-                                                                flexDirection="row"
+                                                                display='flex'
+                                                                flexDirection='row'
                                                                 style={{
                                                                     margin:
                                                                         '0.5rem 0',
                                                                 }}
                                                             >
                                                                 <Box
-                                                                    display="flex"
-                                                                    flexDirection="column"
+                                                                    display='flex'
+                                                                    flexDirection='column'
                                                                 >
                                                                     <Avatar></Avatar>
                                                                 </Box>
@@ -503,7 +503,7 @@ class AOverviewBoard extends Component {
                             <DialogActions>
                                 <Button
                                     onClick={this.handleClose}
-                                    color="primary"
+                                    color='primary'
                                 >
                                     Close
                                 </Button>
@@ -524,16 +524,16 @@ class AOverviewBoard extends Component {
                         >
                             Selected questions{' '}
                             <EditIcon
-                                className="test"
+                                className='test'
                                 style={{ margin: '0 1rem' }}
                                 onClick={this.handleSelectedOpen}
                             />
                         </Typography>
                         <Box
-                            display="flex"
-                            flexWrap="wrap"
-                            alignContent="flex-start"
-                            margin="0 4rem"
+                            display='flex'
+                            flexWrap='wrap'
+                            alignContent='flex-start'
+                            margin='0 4rem'
                         >
                             {comp.state.selectedQuestions.map((question) => {
                                 return (
@@ -553,10 +553,10 @@ class AOverviewBoard extends Component {
                             TransitionComponent={this.Transition}
                             keepMounted
                             onClose={this.handleSelectedClose}
-                            aria-labelledby="alert-dialog-slide-title"
-                            aria-describedby="alert-dialog-slide-description"
-                            maxWidth="lg"
-                            fullWidth="true"
+                            aria-labelledby='alert-dialog-slide-title'
+                            aria-describedby='alert-dialog-slide-description'
+                            maxWidth='lg'
+                            fullWidth='true'
                         >
                             <Typography
                                 style={{
@@ -570,17 +570,15 @@ class AOverviewBoard extends Component {
                                 Choose selected questions
                             </Typography>
                             <Box
-                                display="flex"
-                                flexWrap="wrap"
-                                alignContent="space-between"
-                                margin="0 3rem"
+                                display='flex'
+                                flexWrap='wrap'
+                                alignContent='space-between'
+                                margin='0 3rem'
                             >
                                 {this.state.template.sections.map(
                                     (section, index) => {
                                         return section.questions.map(
                                             (question) => {
-                                                console.log('INDEX');
-                                                console.log(index);
                                                 return (
                                                     <Box
                                                         style={{
@@ -612,15 +610,15 @@ class AOverviewBoard extends Component {
                                                         </Typography>
 
                                                         <Box
-                                                            display="flex"
-                                                            flexDirection="column"
+                                                            display='flex'
+                                                            flexDirection='column'
                                                         >
                                                             <Box
-                                                                display="flex"
-                                                                flexDirection="row"
+                                                                display='flex'
+                                                                flexDirection='row'
                                                             >
                                                                 <Checkbox
-                                                                    color="primary"
+                                                                    color='primary'
                                                                     inputProps={{
                                                                         'aria-label':
                                                                             'secondary checkbox',
@@ -649,8 +647,8 @@ class AOverviewBoard extends Component {
                                                                     }}
                                                                 />
                                                                 <Box
-                                                                    display="flex"
-                                                                    flexDirection="column"
+                                                                    display='flex'
+                                                                    flexDirection='column'
                                                                 >
                                                                     <Avatar></Avatar>
                                                                     <Typography
@@ -731,15 +729,15 @@ class AOverviewBoard extends Component {
                                                                     ) => {
                                                                         return (
                                                                             <Box
-                                                                                display="flex"
-                                                                                flexDirection="row"
+                                                                                display='flex'
+                                                                                flexDirection='row'
                                                                                 style={{
                                                                                     margin:
                                                                                         '0.5rem 0',
                                                                                 }}
                                                                             >
                                                                                 <Checkbox
-                                                                                    color="primary"
+                                                                                    color='primary'
                                                                                     inputProps={{
                                                                                         'aria-label':
                                                                                             'secondary checkbox',
@@ -760,8 +758,8 @@ class AOverviewBoard extends Component {
                                                                                     }}
                                                                                 />
                                                                                 <Box
-                                                                                    display="flex"
-                                                                                    flexDirection="column"
+                                                                                    display='flex'
+                                                                                    flexDirection='column'
                                                                                 >
                                                                                     <Avatar></Avatar>
                                                                                 </Box>
@@ -829,9 +827,9 @@ class AOverviewBoard extends Component {
                             </DialogActions>
                         </Dialog>
                         <Box
-                            display="flex"
-                            flexWrap="wrap"
-                            justifyContent="flex-end"
+                            display='flex'
+                            flexWrap='wrap'
+                            justifyContent='flex-end'
                             style={{
                                 position: 'absolute',
                                 bottom: 50,
@@ -840,7 +838,7 @@ class AOverviewBoard extends Component {
                         >
                             <Button
                                 onClick={() => history.goBack()}
-                                variant="outlined"
+                                variant='outlined'
                                 style={{
                                     borderRadius: '20px',
                                     color: '#F5F5F5',
@@ -848,10 +846,10 @@ class AOverviewBoard extends Component {
                                     marginRight: '2em',
                                 }}
                             >
-                                <Typography variant="button">BACK</Typography>
+                                <Typography variant='button'>BACK</Typography>
                             </Button>
                             <Button
-                                variant="contained"
+                                variant='contained'
                                 style={{
                                     backgroundColor: '#4392FE',
                                     color: '#FFFFFF',
@@ -865,7 +863,7 @@ class AOverviewBoard extends Component {
                                     history.push('/');
                                 }}
                             >
-                                <Typography variant="button">
+                                <Typography variant='button'>
                                     MARKED AS COMPLETE
                                 </Typography>
                             </Button>

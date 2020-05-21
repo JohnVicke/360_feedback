@@ -34,8 +34,6 @@ export default class CreateEvaluation extends React.Component {
 
     componentDidMount = () => {
         const { user, template } = this.props.location.state;
-        console.log(user);
-        console.log(template);
 
         getAllUsers().then((res) => {
             let startUsers = [];
@@ -46,12 +44,8 @@ export default class CreateEvaluation extends React.Component {
                 user: user,
                 addedUsers: startUsers,
             });
-            this.state.users.map((user) => {
-                console.log(user.given_name + ' ' + user.family_name);
-            });
+            this.state.users.map((user) => {});
         });
-
-
     };
 
     onClickTest = (user) => {
@@ -66,7 +60,6 @@ export default class CreateEvaluation extends React.Component {
                 addedUsers: this.state.addedUsers.concat(user),
             });
         }
-        console.log(this.state.addedUsers);
     };
 
     onComboChange = (user) => {
@@ -140,7 +133,6 @@ export default class CreateEvaluation extends React.Component {
                     }}
                 >
                     <div>
-                        {/*console.log(props)*/}
                         <Grid container>
                             <Grid item xs={6}>
                                 <Avatar
@@ -201,7 +193,6 @@ export default class CreateEvaluation extends React.Component {
         function names() {
             return comp.state.addedUsers.map((user) => {
                 return <p>{user.given_name + ' ' + user.family_name}</p>;
-                console.log(user.given_name);
             });
         }
 
@@ -216,7 +207,12 @@ export default class CreateEvaluation extends React.Component {
                             justify='center'
                             alignItems='center'
                         >
-                            <Box color='#FFFFFF' width={1} style={{ margin: '1rem 0' }} textAlign="center">
+                            <Box
+                                color='#FFFFFF'
+                                width={1}
+                                style={{ margin: '1rem 0' }}
+                                textAlign='center'
+                            >
                                 <Typography
                                     style={{
                                         color: '#fff',
@@ -228,7 +224,8 @@ export default class CreateEvaluation extends React.Component {
                                         marginTop: '0.5rem',
                                     }}
                                 >
-                                    <strong>CREATING EVALUATION:</strong> Choose evaluators
+                                    <strong>CREATING EVALUATION:</strong> Choose
+                                    evaluators
                                     <hr />
                                 </Typography>
                             </Box>
@@ -256,7 +253,6 @@ export default class CreateEvaluation extends React.Component {
                                     bgcolor='#222222'
                                     overflow='auto'
                                 >
-
                                     <Grid
                                         container
                                         direction='row'
