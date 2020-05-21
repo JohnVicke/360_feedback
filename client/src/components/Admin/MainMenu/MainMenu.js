@@ -36,7 +36,7 @@ import EvaluationWaiting from '../../Profile/EvaluationWaiting/EvaluationWaiting
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        overflow: "hidden",
+        overflow: 'hidden',
         backgroundColor: 'transparent',
     },
     padding: {
@@ -93,7 +93,6 @@ const MainMenu = () => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        console.log(newValue);
     };
 
     function returnListing() {

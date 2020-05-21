@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers } from '../../utils/API';
 import Loading from '../Loading/Loading';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
+import history from '../../utils/history';
 
 const Employees = (props) => {
     const [employees, setEmployees] = useState([]);
@@ -23,8 +24,20 @@ const Employees = (props) => {
                 justifyContent='center'
                 alignItems='center'
             >
-                {employees.map((e) => e.family_name)};
-            </Box>{' '}
+                {employees.map((e) => (
+                    <div
+                        style={{
+                            fontFamily: 'Source Sans Pro',
+                            fontSize: '1rem',
+                            color: '#fff',
+                            margin: '1em',
+                        }}
+                    >{`${e.given_name} ${e.family_name} ${e.role}`}</div>
+                ))}
+                <Button onClick={() => history.push('/add_user')}>
+                    Add user
+                </Button>
+            </Box>
         </div>
     );
 };

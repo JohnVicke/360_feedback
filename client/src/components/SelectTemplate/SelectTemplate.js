@@ -37,7 +37,6 @@ const ContinueButton = styled(Button)({
     // float: 'right',
     // transition: 'ease-in-out 0.2s',
     // marginRight: '4rem'
-
 });
 const BackButton = styled(Button)({
     backgroundColor: 'transparent',
@@ -76,11 +75,10 @@ class SelectTemplate extends Component {
     }
 
     componentDidMount = async () => {
-        console.log(this.props.location.state);
         const { user } = this.props.location.state;
-        console.log(user);
+
         const response = await (await GetAllTemplates()).data;
-        console.log(response.data);
+
         this.setState({
             user: user,
             templates: response.data,
@@ -236,7 +234,7 @@ class SelectTemplate extends Component {
                                     color: '#FFFFFF',
                                     borderRadius: '20px',
                                     marginTop: '18rem',
-                                    marginRight: '4rem'
+                                    marginRight: '4rem',
                                 }}
                                 onClick={() =>
                                     history.push({
@@ -260,7 +258,6 @@ class SelectTemplate extends Component {
                             </BackButton>
                         </MyCard>
                     </Box>
-
                 </Grow>
             </div>
         );

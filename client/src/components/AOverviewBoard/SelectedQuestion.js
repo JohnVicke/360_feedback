@@ -39,13 +39,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SelectedQuestion = (props) => {
-    console.log(props);
     const classes = useStyles();
 
     return (
         <Card
             className={classes.question}
-            variant="outlined"
+            variant='outlined'
             style={{ backgroundColor: props.backgroundcolor }}
         >
             <CardContent>
@@ -55,7 +54,7 @@ const SelectedQuestion = (props) => {
                     justifyContent={'space-between'}
                 >
                     <Typography
-                        variant="h5"
+                        variant='h5'
                         style={{ fontFamily: 'Source Sans Pro' }}
                     >
                         {props.title}
