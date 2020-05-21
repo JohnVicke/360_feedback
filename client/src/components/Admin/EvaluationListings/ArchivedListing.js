@@ -65,16 +65,20 @@ const useStyles = makeStyles((theme) => ({
     },
 
     UserNameText: {
+        color: "#000000",
+        fontSize: '30',
         fontFamily: 'Source Sans Pro',
-        fontWeight: 'bold',
+        fontWeight: 'Bold',
         display: "flex",
         whiteSpace: "nowrap",
     },
 
     UserRoleText: {
-        color: "#131313",
+        fontSize: '22',
+        color: "#000000",
         opacity: '0.7',
         fontFamily: 'Source Sans Pro',
+        fontWeight: 'Bold',
     },
 
     ResumeButton: {
@@ -83,13 +87,14 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '13px',
     },
 
-    OverviewBoardButton: {
-        backgroundColor: '#4392FE',
-        color: 'white',
-        fontSize: '13px',
+    OverviewBoardText: {
+        color: '#4392FE',
+        fontSize: '16',
     },
 
+
     TextMuted: {
+        color: "#000000",
         opacity: '0.7',
         fontFamily: 'Source Sans Pro',
     },
@@ -101,13 +106,22 @@ const useStyles = makeStyles((theme) => ({
     ProgressText: {
         color: "#000000",
         fontSize: '1rem',
+        fontFamily: 'Roboto Mono'
     },
 
     CurrentStatusText: {
-        fontSize: '1rem',
+        fontSize: '13',
         opacity: '0.5',
         color: "#000000",
     },
+
+    TimeStamp: {
+        opacity: '0.5',
+        color: "#000000",
+        fontSize: '1rem',
+        fontFamily: 'Roboto Mono',
+    }
+
 
 }));
 
@@ -181,6 +195,21 @@ function EmployeeBar(props) {
         return nrOfAnswers + ' / ' + responses.length;
     }
 
+    function getDate(evaluation) {
+        var date = "-";
+        if (!evaluation.created_date) {
+        } else {
+            console.log(evaluation.created_date);
+            var created_date = new Date(evaluation.created_date);
+            date = created_date.getDate() + "/" + (created_date.getMonth() + 1) + ' - ' +
+                created_date.getFullYear();
+        }
+
+        return date;
+
+    }
+
+
     function getTemplateName(templateId) {
         console.log(templateId);
         console.log(props.templates);
@@ -221,19 +250,15 @@ function EmployeeBar(props) {
                         </Hidden>
                         <Grid item xs={6}
                               direction="column"
-                              justifyContent="center"
                               alignItems="center"
                               textAlign={"left"}>
                             <Typography
                                 className={classes.UserNameText}
-                                variant="h6"
-                                color="#000000"
                                 align="left"
                             >
                                 {username}
                             </Typography>
                             <Typography
-                                variant="h7"
                                 classname={classes.UserRoleText}
                                 align="left"
                             >
@@ -246,26 +271,21 @@ function EmployeeBar(props) {
                 <Grid className={classes.EmployeeBarGridItem} direction={'column'} item xs
                       alignContent={"center"}>
                     <Typography
-                        variant="h7"
-                        classname={classes.TextMuted}
-                        color="#131313"
+                        className={classes.TextMuted}
                     >
                         {getTemplateName(props.evaluation.template_id)}
                     </Typography>
+                    <CircularProgress
+                        className={classes.ProgressCircle}
+                        variant="static"
+                        size={"3rem"}
+                        style={{color: getProgressColor(props.evaluation)}}
+                        value={getProgressValue(props.evaluation)}
+                    />
+                    <Typography className={classes.ProgressText}>
+                        {getProgressString(props.evaluation)}
+                    </Typography>
 
-                    <Box flexDirection="row">
-                        <CircularProgress
-                            className={classes.ProgressCircle}
-                            variant="static"
-                            size={"3rem"}
-                            style={{color: getProgressColor(props.evaluation)}}
-                            value={getProgressValue(props.evaluation)}
-                        />
-                        <Typography className={classes.ProgressText}
-                        >
-                            {getProgressString(props.evaluation)}
-                        </Typography>
-                    </Box>
 
                     <Link
                         to={{
@@ -281,6 +301,14 @@ function EmployeeBar(props) {
                 </Grid>
                 <Divider orientation="vertical" flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
+
+                    <Typography
+                        className={classes.TimeStamp}
+                    >
+                        {getDate(props.evaluation)}
+                    </Typography>
+
+
                     <Typography
                         className={classes.CurrentStatusText}
                         my={"2rem"}

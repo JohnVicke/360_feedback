@@ -63,16 +63,20 @@ const useStyles = makeStyles((theme) => ({
     },
 
     UserNameText: {
+        color: "#000000",
+        fontSize: '40',
         fontFamily: 'Source Sans Pro',
-        fontWeight: 'bold',
+        fontWeight: 'Bold',
         display: "flex",
         whiteSpace: "nowrap",
     },
 
     UserRoleText: {
-        color: "#131313",
+        fontSize: '22',
+        color: "#000000",
         opacity: '0.7',
         fontFamily: 'Source Sans Pro',
+        fontWeight: 'Bold',
     },
 
     ArchiveButton: {
@@ -80,35 +84,41 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '13px',
     },
 
-    OverviewBoardButton: {
-        color: 'white',
-        fontSize: '13px',
+    OverviewBoardText: {
+        color: '#4392FE',
+        fontSize: '16',
     },
 
+
     TextMuted: {
-        opacity: '0.5',
+        color: "#000000",
+        fontSize: "14",
+        opacity: '0.7',
         fontFamily: 'Source Sans Pro',
     },
 
-    ProgressCircle: {},
-
+    ProgressCircle: {
+        color: '#e5e5e5',
+    },
 
     ProgressText: {
         color: "#000000",
-        fontSize: '1rem',
+        fontSize: '32',
+        fontFamily: 'Roboto Mono'
     },
 
     CurrentStatusText: {
-        fontSize: '1rem',
+        fontSize: '13',
         opacity: '0.5',
         color: "#000000",
     },
 
-    Date: {
+    TimeStamp: {
+        opacity: '0.5',
         color: "#000000",
         fontSize: '1rem',
+        fontFamily: 'Roboto Mono',
     }
-
 
 
 }));
@@ -157,7 +167,7 @@ function EmployeeBar(props) {
     }
 
     function getProgressColor(evaluation) {
-        let progressColor;
+        let progressColor = "#4392FE";
         const responses = evaluation.responses;
         var nrOfAnswers = 0;
         for (var i = 0; i < responses.length; i++) {
@@ -168,8 +178,6 @@ function EmployeeBar(props) {
         var percentage = (nrOfAnswers / responses.length) * 100;
         if (percentage === 100) {
             progressColor = "#5ABE41";
-        }else{
-            progressColor = "#4392FE";
         }
         return progressColor;
     }
@@ -185,6 +193,21 @@ function EmployeeBar(props) {
         return nrOfAnswers + ' / ' + responses.length;
     }
 
+    function getDate(evaluation) {
+        var date = "-";
+        if (!evaluation.created_date) {
+        } else {
+            console.log(evaluation.created_date);
+            var created_date = new Date(evaluation.created_date);
+            date = created_date.getDate() + "/" + (created_date.getMonth() + 1) + ' - ' +
+                created_date.getFullYear();
+        }
+
+        return date;
+
+    }
+
+
     function getTemplateName(templateId) {
         console.log(templateId);
         console.log(props.templates);
@@ -197,7 +220,7 @@ function EmployeeBar(props) {
 
     return (
         <Box className={classes.EmployeeBar}
-             bgcolor="#F6F6F6">
+              bgcolor="#F6F6F6">
             <Grid
                 container
                 direction="row"
@@ -228,15 +251,13 @@ function EmployeeBar(props) {
                               textAlign={"left"}>
                             <Typography
                                 className={classes.UserNameText}
-                                variant="h6"
-                                color="#000000"
                                 align="left"
                             >
                                 {username}
                             </Typography>
                             <Typography
-                                variant="h7"
-                                classname={classes.UserRoleText}
+                                className={classes.UserRoleText}
+                                align="left"
                             >
                                 {props.user.role}
                             </Typography>
@@ -247,26 +268,21 @@ function EmployeeBar(props) {
                 <Grid className={classes.EmployeeBarGridItem} direction={'column'} item xs
                       alignContent={"center"}>
                     <Typography
-                        variant="h7"
-                        classname={classes.TextMuted}
-                        color="#131313"
+                        className={classes.TextMuted}
                     >
                         {getTemplateName(props.evaluation.template_id)}
                     </Typography>
+                    <CircularProgress
+                        className={classes.ProgressCircle}
+                        variant="static"
+                        size={"3rem"}
+                        style={{color: getProgressColor(props.evaluation)}}
+                        value={getProgressValue(props.evaluation)}
+                    />
+                    <Typography className={classes.ProgressText}>
+                        {getProgressString(props.evaluation)}
+                    </Typography>
 
-                    <Box flexDirection="row">
-                        <CircularProgress
-                            className={classes.ProgressCircle}
-                            variant="static"
-                            size={"3rem"}
-                            style={{color: getProgressColor(props.evaluation)}}
-                            value={getProgressValue(props.evaluation)}
-                        />
-                        <Typography className={classes.ProgressText}
-                        >
-                            {getProgressString(props.evaluation)}
-                        </Typography>
-                    </Box>
 
                     <Link
                         to={{
@@ -277,46 +293,47 @@ function EmployeeBar(props) {
                         }}
                         style={{textDecoration: 'none'}}
                     >
-                        Overview Board
+                        <Typography className={classes.OverviewBoardText}
+                        >
+                            Overview Board
+                        </Typography>
+
                     </Link>
                 </Grid>
                 <Divider orientation="vertical" flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
-                    <Box alignSelf="flex-start">
-                        <Typography
-                            className={classes.TimeStamp}
-                        >
-                            {props.evaluation.created_date.getDate()+"/"+
-                                (props.evaluation.created_date.getMonth()+1)+'-'+
-                                props.evaluation.created_date.getFullYear()
+
+                    <Typography
+                        className={classes.TimeStamp}
+                    >
+                        {getDate(props.evaluation)}
+                    </Typography>
+
+
+                    <Typography
+                        className={classes.CurrentStatusText}
+                        my={"2rem"}
+                    >
+                        CURRENTLY ACTIVE
+                    </Typography>
+                    <Button className={classes.ArchiveButton}
+                            aria-label="add"
+
+                            style={{backgroundColor: getProgressColor(props.evaluation)}}
+                            onClick={() => {
+                                props.updateFunction(
+                                    props.evaluation._id,
+                                    false
+                                );
                             }}
-                        </Typography>
-                    </Box>
-
-                <Typography
-                    classname={classes.CurrentStatusText}
-                    my={"2rem"}
-                >
-                    CURRENTLY ACTIVE
-                </Typography>
-                <Button className={classes.ArchiveButton}
-                        aria-label="add"
-
-                        style={{backgroundColor: getProgressColor(props.evaluation)}}
-                        onClick={() => {
-                            props.updateFunction(
-                                props.evaluation._id,
-                                false
-                            );
-                        }}
-                >
-                    ARCHIVE
-                </Button>
+                    >
+                        ARCHIVE
+                    </Button>
+                </Grid>
             </Grid>
-        </Grid>
-</Box>
-)
-    ;
+        </Box>
+    )
+        ;
 }
 
 const ActiveListing = () => {
