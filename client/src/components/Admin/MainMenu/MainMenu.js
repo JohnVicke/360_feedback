@@ -34,6 +34,7 @@ import EvaluationWaiting from '../../Profile/EvaluationWaiting/EvaluationWaiting
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        overflow: "hidden",
         backgroundColor: 'transparent',
     },
     padding: {

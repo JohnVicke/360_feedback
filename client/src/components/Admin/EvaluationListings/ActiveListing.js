@@ -43,9 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
     EmployeeBar: {
         borderRadius: '15px',
-        margin: "15px auto",
-        paddingTop: '10px',
-        paddingBottom: '10px',
+        margin: "15px 0",
         backgroundColor: '#F6F6F6',
         width: "95%",
         maxHeight: "20%",
@@ -65,16 +63,20 @@ const useStyles = makeStyles((theme) => ({
     },
 
     UserNameText: {
+        color: "#000000",
+        fontSize: '40',
         fontFamily: 'Source Sans Pro',
-        fontWeight: 'bold',
+        fontWeight: 'Bold',
         display: "flex",
         whiteSpace: "nowrap",
     },
 
     UserRoleText: {
-        color: "#131313",
+        fontSize: '22',
+        color: "#000000",
         opacity: '0.7',
         fontFamily: 'Source Sans Pro',
+        fontWeight: 'Bold',
     },
 
     ArchiveButton: {
@@ -82,23 +84,42 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '13px',
     },
 
-    OverviewBoardButton: {
-        color: 'white',
-        fontSize: '13px',
+    OverviewBoardText: {
+        color: '#4392FE',
+        fontSize: '16',
     },
 
+
     TextMuted: {
+        color: "#000000",
+        fontSize: "14",
         opacity: '0.7',
         fontFamily: 'Source Sans Pro',
     },
 
-    ProgressCircle: {},
-
+    ProgressCircle: {
+        color: '#e5e5e5',
+    },
 
     ProgressText: {
         color: "#000000",
-        fontSize: '1rem',
+        fontSize: '32',
+        fontFamily: 'Roboto Mono'
     },
+
+    CurrentStatusText: {
+        fontSize: '13',
+        opacity: '0.5',
+        color: "#000000",
+    },
+
+    TimeStamp: {
+        opacity: '0.5',
+        color: "#000000",
+        fontSize: '1rem',
+        fontFamily: 'Roboto Mono',
+    }
+
 
 }));
 
@@ -114,7 +135,7 @@ function EmployeeList(props) {
                         (user) => user._id === evaluation.e_id
                     );
                     return (
-                        <ListItem>
+                        <ListItem m={"0"}>
                             <EmployeeBar
                                 user={user}
                                 evaluation={evaluation}
@@ -172,6 +193,21 @@ function EmployeeBar(props) {
         return nrOfAnswers + ' / ' + responses.length;
     }
 
+    function getDate(evaluation) {
+        var date = "-";
+        if (!evaluation.created_date) {
+        } else {
+            console.log(evaluation.created_date);
+            var created_date = new Date(evaluation.created_date);
+            date = created_date.getDate() + "/" + (created_date.getMonth() + 1) + ' - ' +
+                created_date.getFullYear();
+        }
+
+        return date;
+
+    }
+
+
     function getTemplateName(templateId) {
         console.log(templateId);
         console.log(props.templates);
@@ -184,7 +220,7 @@ function EmployeeBar(props) {
 
     return (
         <Box className={classes.EmployeeBar}
-             bgcolor="#F6F6F6">
+              bgcolor="#F6F6F6">
             <Grid
                 container
                 direction="row"
@@ -215,15 +251,13 @@ function EmployeeBar(props) {
                               textAlign={"left"}>
                             <Typography
                                 className={classes.UserNameText}
-                                variant="h6"
-                                color="#000000"
                                 align="left"
                             >
                                 {username}
                             </Typography>
                             <Typography
-                                variant="h7"
-                                classname={classes.UserRoleText}
+                                className={classes.UserRoleText}
+                                align="left"
                             >
                                 {props.user.role}
                             </Typography>
@@ -234,26 +268,21 @@ function EmployeeBar(props) {
                 <Grid className={classes.EmployeeBarGridItem} direction={'column'} item xs
                       alignContent={"center"}>
                     <Typography
-                        variant="h7"
-                        classname={classes.TextMuted}
-                        color="#131313"
+                        className={classes.TextMuted}
                     >
                         {getTemplateName(props.evaluation.template_id)}
                     </Typography>
+                    <CircularProgress
+                        className={classes.ProgressCircle}
+                        variant="static"
+                        size={"3rem"}
+                        style={{color: getProgressColor(props.evaluation)}}
+                        value={getProgressValue(props.evaluation)}
+                    />
+                    <Typography className={classes.ProgressText}>
+                        {getProgressString(props.evaluation)}
+                    </Typography>
 
-                    <Box flexDirection="row">
-                        <CircularProgress
-                            className={classes.ProgressCircle}
-                            variant="static"
-                            size={"3rem"}
-                            style={{color: getProgressColor(props.evaluation)}}
-                            value={getProgressValue(props.evaluation)}
-                        />
-                        <Typography className={classes.ProgressText}
-                        >
-                            {getProgressString(props.evaluation)}
-                        </Typography>
-                    </Box>
 
                     <Link
                         to={{
@@ -264,14 +293,26 @@ function EmployeeBar(props) {
                         }}
                         style={{textDecoration: 'none'}}
                     >
-                        Overview Board
+                        <Typography className={classes.OverviewBoardText}
+                        >
+                            Overview Board
+                        </Typography>
+
                     </Link>
                 </Grid>
                 <Divider orientation="vertical" flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
+
                     <Typography
+                        className={classes.TimeStamp}
+                    >
+                        {getDate(props.evaluation)}
+                    </Typography>
+
+
+                    <Typography
+                        className={classes.CurrentStatusText}
                         my={"2rem"}
-                        style={{opacity: '0.5', fontSize: '10px', color: "#000000"}}
                     >
                         CURRENTLY ACTIVE
                     </Typography>
@@ -291,7 +332,8 @@ function EmployeeBar(props) {
                 </Grid>
             </Grid>
         </Box>
-    );
+    )
+        ;
 }
 
 const ActiveListing = () => {

@@ -29,6 +29,16 @@ const useStyles = makeStyles((theme) => ({
         listStyleType: 'none',
         overflow: 'auto',
     },
+
+    EmployeeBar: {
+        borderRadius: '15px',
+        margin: "15px 0",
+        paddingTop: '10px',
+        paddingBottom: '10px',
+        backgroundColor: '#F6F6F6',
+        width: "95%",
+        maxHeight: "20%",
+    },
 }));
 function EmployeeList(props) {
     const classes = useStyles();
@@ -37,7 +47,7 @@ function EmployeeList(props) {
             {props.templates &&
                 props.templates.map((template, index) => {
                     return (
-                        <ListItem>
+                        <ListItem m={"0"}>
                             <EmployeeBar template={template} />
                         </ListItem>
                     );
@@ -47,17 +57,10 @@ function EmployeeList(props) {
 }
 
 function EmployeeBar(props) {
+    const classes = useStyles();
     return (
         <Box
-            className='employeeBar'
-            bgcolor='#F6F6F6'
-            width='0.95'
-            style={{
-                borderRadius: '15px',
-                marginTop: '15px',
-                paddingTop: '10px',
-                paddingBottom: '10px',
-            }}
+            className={classes.EmployeeBar}
         >
             <div>
                 {console.log(props)}
@@ -65,8 +68,9 @@ function EmployeeBar(props) {
                     <Grid item xs={6}>
                         <Assignment
                             style={{
-                                color: '#000',
+                                color: '#00000',
                                 float: 'left',
+                                marginLeft: '10px',
                                 width: '60px',
                                 height: '60px',
                                 marginTop: '10px',
