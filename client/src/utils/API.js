@@ -74,6 +74,13 @@ export async function UpdateSurvey(id, survey) {
     return res;
 }
 
+export async function IsAdmin(email) {
+    const res = await api.get(`/roles/${email}`);
+    const {
+        data: { verified },
+    } = res;
+    return verified;
+
 export async function CreateUser(user) {
     const res = await api.post('/users', user);
     return res;
