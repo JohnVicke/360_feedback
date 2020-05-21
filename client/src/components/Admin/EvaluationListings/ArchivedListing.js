@@ -345,6 +345,7 @@ const ArchivedListing = () => {
     useEffect(() => {
         const fetchEvaluations = async () => {
             const response = await GetAllEvaluations();
+            response.data.data.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime());
             setArchivedEvaluations(response.data.data);
         };
         fetchEvaluations();

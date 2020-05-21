@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     ProgressCircle: {
-        color: '#e5e5e5',
+        color: '#4392FE',
     },
 
     ProgressText: {
@@ -349,6 +349,7 @@ const ActiveListing = () => {
     useEffect(() => {
         const fetchEvaluations = async () => {
             const response = await GetAllEvaluations();
+            response.data.data.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime());
             setActiveEvaluations(response.data.data);
         };
         fetchEvaluations();
