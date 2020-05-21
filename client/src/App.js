@@ -22,6 +22,7 @@ import { Box, Button } from '@material-ui/core';
 import './AdminPath.css';
 import AdminRoute from './components/PricateRoutes/AdminRoutes';
 import { IsAdmin } from './utils/API';
+import AddUser from './components/Admin/AddUser/AddUser';
 
 function App() {
     const { user, loading, isAuthenticated } = useAuth0();
@@ -60,8 +61,8 @@ function App() {
         );
     };
 
-    if (!choice && isAuthenticated) {
-        return <div>{isAdmin && AdminPath()}</div>;
+    if (isAuthenticated && isAdmin) {
+        return <div>{AdminPath()}</div>;
     } else if (loading) {
         return <Loading />;
     } else if (!isAuthenticated) {
@@ -76,6 +77,7 @@ function App() {
     return (
         <div className='App'>
             <Router history={history}>
+                {history.push('/profile')}
                 <Switch>
                     <AdminRoute
                         exact
@@ -118,6 +120,11 @@ function App() {
                     <AdminRoute
                         path='/admin/overviewboard'
                         component={AOverviewBoard}
+                    />
+                    <AdminRoute
+                        appProps={{ isAdmin }}
+                        path={'/add_user'}
+                        compoent={AddUser}
                     />
                     <Route path='/no_access' component={NoAdminAccess} />
                 </Switch>

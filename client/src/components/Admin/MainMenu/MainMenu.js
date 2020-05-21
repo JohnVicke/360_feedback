@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useAuth0} from '../../../react-auth0-spa';
+import React, { useState, useEffect } from 'react';
+import { useAuth0 } from '../../../react-auth0-spa';
 import {
     makeStyles,
     Box,
@@ -14,16 +14,18 @@ import {
     spacing,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import Employees from '../../Employees/Employees';
 import NavBar from '../../NavBar/NavBar';
+import AdminNavBar from '../../NavBar/AdminNavBar';
 import ActiveListing from '../EvaluationListings/ActiveListing';
 import ArchivedListing from '../EvaluationListings/ArchivedListing';
 import TemplatesListing from '../TemplatesListing/TemplatesListing';
 import happy from '../../../assets/misc/emoji-happy.svg';
 import Profile from '../../Profile/Profile';
 import MainMenuTabs from './MainMenuTabs';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import history from '../../../utils/history';
 
 import CreateIcon from '@material-ui/icons/Create';
@@ -43,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
         width: '100%',
         overflowY: 'auto',
-        background: 'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
+        background:
+            'linear-gradient(45deg, rgba(126,231,119,1) 0, rgba(14,17,24,1) 0%, rgba(38,46,63,1) 100%)',
     },
     MenuBox: {
         background: '#222222',
@@ -53,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             margin: 0,
         },
-        maxHeight: "100vh",
+        maxHeight: '100vh',
     },
     tabs: {
         width: '50%',
@@ -73,10 +76,10 @@ const useStyles = makeStyles((theme) => ({
     selected: {},
 
     CreateNewTemplateButton: {
-        float: "left",
-        margin: "25px",
-        backgroundColor: "#4392FE",
-        borderRadius: "20px"
+        float: 'left',
+        margin: '25px',
+        backgroundColor: '#4392FE',
+        borderRadius: '20px',
     },
 }));
 
@@ -84,7 +87,7 @@ const MainMenu = () => {
     const classes = useStyles();
     const [userInfo, setUserInfo] = useState([]);
     const [userEvals, setUserEvals] = useState([]);
-    const {loading, user} = useAuth0();
+    const { loading, user } = useAuth0();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -94,52 +97,54 @@ const MainMenu = () => {
 
     function returnListing() {
         if (value === 0) {
-            return <ActiveListing/>;
+            return <ActiveListing />;
         }
         if (value === 1) {
-            return <ArchivedListing/>;
+            return <ArchivedListing />;
         }
         if (value === 2) {
             return (
                 <div>
-                    <TemplatesListing/>
+                    <TemplatesListing />
                 </div>
             );
+        }
+        if (value === 3) {
+            return <Employees />;
         }
     }
 
     function createTemplateButton() {
         if (value === 2) {
             return (
-
                 <Button
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     className={classes.CreateNewTemplateButton}
-                    mx={"3"}
+                    mx={'3'}
                     onClick={() =>
                         history.push({
                             pathname: '/createTemplate',
                         })
                     }
                 >
-                    <CreateIcon style={{marginRight: "5px"}}/>
+                    <CreateIcon style={{ marginRight: '5px' }} />
                     Create new template
                 </Button>
-            )
+            );
         }
     }
 
     return (
         <div className={classes.MainMenu}>
-            <NavBar/>
+            <AdminNavBar />
             <Box className={classes.MenuBox} justifyContent={'center'}>
                 <Paper className={classes.root}>
                     <Tabs
                         value={value}
                         onChange={handleChange}
-                        indicatorColor="primary"
-                        textColor="primary"
+                        indicatorColor='primary'
+                        textColor='primary'
                         centered
                     >
                         <Tab
@@ -147,21 +152,28 @@ const MainMenu = () => {
                                 root: classes.tab,
                                 selected: classes.selected,
                             }}
-                            label="Active"
+                            label='Active'
                         />
                         <Tab
                             classes={{
                                 root: classes.tab,
                                 selected: classes.selected,
                             }}
-                            label="Archived"
+                            label='Archived'
                         />
                         <Tab
                             classes={{
                                 root: classes.tab,
                                 selected: classes.selected,
                             }}
-                            label="Templates"
+                            label='Templates'
+                        />
+                        <Tab
+                            classes={{
+                                root: classes.tab,
+                                selected: classes.selected,
+                            }}
+                            label='Users'
                         />
                     </Tabs>
                 </Paper>
@@ -180,14 +192,18 @@ const MainMenu = () => {
                             variant='contained'
                             color='primary'
                             className={'mx-3'}
-                            style={{float: "right", margin: "25px", backgroundColor: "#4392FE", borderRadius: "20px"}}
+                            style={{
+                                float: 'right',
+                                margin: '25px',
+                                backgroundColor: '#4392FE',
+                                borderRadius: '20px',
+                            }}
                             onClick={() => history.push('/selectEvaluatee')}
                         >
-                            <PostAddIcon style={{marginRight: "5px"}}/>
+                            <PostAddIcon style={{ marginRight: '5px' }} />
                             Create new evaluation
                         </Button>
                     </Grid>
-
                 </Grid>
             </Box>
         </div>
