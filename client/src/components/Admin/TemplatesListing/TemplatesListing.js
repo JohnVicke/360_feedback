@@ -23,18 +23,17 @@ const useStyles = makeStyles((theme) => ({
     },
 
     EmployeeList: {
-        width: "90%",
+        width: '90%',
         maxHeight: '50vh',
-        margin: "auto",
+        margin: 'auto',
         listStyleType: 'none',
         overflow: 'auto',
     },
-
 }));
 function EmployeeList(props) {
     const classes = useStyles();
     return (
-        <List className={classes.EmployeeList} m={"0 0"} alignItems={"center"}>
+        <List className={classes.EmployeeList} m={'0 0'} alignItems={'center'}>
             {props.templates &&
                 props.templates.map((template, index) => {
                     return (
@@ -66,13 +65,13 @@ function EmployeeBar(props) {
                     <Grid item xs={6}>
                         <Assignment
                             style={{
-                                color: '#fff',
+                                color: '#000',
                                 float: 'left',
-                                mergin: '15px',
                                 width: '60px',
                                 height: '60px',
                                 marginTop: '10px',
                                 marginRight: '10px',
+                                marginLeft: '10px',
                             }}
                         />
 
