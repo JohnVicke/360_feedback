@@ -27,7 +27,7 @@ import AddUser from './components/Admin/AddUser/AddUser';
 function App() {
     const { user, loading, isAuthenticated } = useAuth0();
     const [isAdmin, setIsAdmin] = useState(false);
-    const [choice, setChoice] = useState(false);
+    const [choice, setChoice] = useState('');
 
     useEffect(() => {
         const getAdminStatus = async () => {
@@ -37,13 +37,11 @@ function App() {
     }, [user]);
 
     const handleAdminClick = () => {
-        setChoice(true);
-        history.push('/');
+        setChoice('/');
     };
 
     const handleUserClick = () => {
-        setChoice(true);
-        history.push('/profile');
+        setChoice('/profile');
     };
 
     const AdminPath = () => {
@@ -61,7 +59,7 @@ function App() {
         );
     };
 
-    if (isAuthenticated && isAdmin) {
+    if (choice === '' && isAuthenticated && isAdmin) {
         return <div>{AdminPath()}</div>;
     } else if (loading) {
         return <Loading />;
@@ -77,7 +75,7 @@ function App() {
     return (
         <div className='App'>
             <Router history={history}>
-                {history.push('/profile')}
+                {isAdmin ? history.push(choice) : history.push('/profile')}
                 <Switch>
                     <AdminRoute
                         exact
