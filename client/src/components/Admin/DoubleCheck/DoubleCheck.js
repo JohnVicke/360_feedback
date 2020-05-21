@@ -42,6 +42,7 @@ const DoubleCheck = (props) => {
         // create empty survey first
         const res = await CreateEmptySurvey({
             active: true,
+            created_date: new Date(),
             end_date: new Date(),
             responses: [],
         });
@@ -55,6 +56,7 @@ const DoubleCheck = (props) => {
             creator: user._id, // Set creator to auth0 userid in database
             active: true,
             e_id: user._id,
+            created_date: new Date(),
             end_date: '2020-04-06T22:00:00.000Z',
             template_id: template._id,
             responses: users.map((u) => {

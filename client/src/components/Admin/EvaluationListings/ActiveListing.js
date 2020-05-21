@@ -43,9 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
     EmployeeBar: {
         borderRadius: '15px',
-        margin: "15px auto",
-        paddingTop: '10px',
-        paddingBottom: '10px',
+        margin: "15px 0",
         backgroundColor: '#F6F6F6',
         width: "95%",
         maxHeight: "20%",
@@ -88,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     TextMuted: {
-        opacity: '0.7',
+        opacity: '0.5',
         fontFamily: 'Source Sans Pro',
     },
 
@@ -99,6 +97,19 @@ const useStyles = makeStyles((theme) => ({
         color: "#000000",
         fontSize: '1rem',
     },
+
+    CurrentStatusText: {
+        fontSize: '1rem',
+        opacity: '0.5',
+        color: "#000000",
+    },
+
+    Date: {
+        color: "#000000",
+        fontSize: '1rem',
+    }
+
+
 
 }));
 
@@ -114,7 +125,7 @@ function EmployeeList(props) {
                         (user) => user._id === evaluation.e_id
                     );
                     return (
-                        <ListItem>
+                        <ListItem m={"0"}>
                             <EmployeeBar
                                 user={user}
                                 evaluation={evaluation}
@@ -146,7 +157,7 @@ function EmployeeBar(props) {
     }
 
     function getProgressColor(evaluation) {
-        let progressColor = "#4392FE";
+        let progressColor;
         const responses = evaluation.responses;
         var nrOfAnswers = 0;
         for (var i = 0; i < responses.length; i++) {
@@ -157,6 +168,8 @@ function EmployeeBar(props) {
         var percentage = (nrOfAnswers / responses.length) * 100;
         if (percentage === 100) {
             progressColor = "#5ABE41";
+        }else{
+            progressColor = "#4392FE";
         }
         return progressColor;
     }
@@ -269,29 +282,41 @@ function EmployeeBar(props) {
                 </Grid>
                 <Divider orientation="vertical" flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
-                    <Typography
-                        my={"2rem"}
-                        style={{opacity: '0.5', fontSize: '10px', color: "#000000"}}
-                    >
-                        CURRENTLY ACTIVE
-                    </Typography>
-                    <Button className={classes.ArchiveButton}
-                            aria-label="add"
-
-                            style={{backgroundColor: getProgressColor(props.evaluation)}}
-                            onClick={() => {
-                                props.updateFunction(
-                                    props.evaluation._id,
-                                    false
-                                );
+                    <Box alignSelf="flex-start">
+                        <Typography
+                            className={classes.TimeStamp}
+                        >
+                            {props.evaluation.created_date.getDate()+"/"+
+                                (props.evaluation.created_date.getMonth()+1)+'-'+
+                                props.evaluation.created_date.getFullYear()
                             }}
-                    >
-                        ARCHIVE
-                    </Button>
-                </Grid>
+                        </Typography>
+                    </Box>
+
+                <Typography
+                    classname={classes.CurrentStatusText}
+                    my={"2rem"}
+                >
+                    CURRENTLY ACTIVE
+                </Typography>
+                <Button className={classes.ArchiveButton}
+                        aria-label="add"
+
+                        style={{backgroundColor: getProgressColor(props.evaluation)}}
+                        onClick={() => {
+                            props.updateFunction(
+                                props.evaluation._id,
+                                false
+                            );
+                        }}
+                >
+                    ARCHIVE
+                </Button>
             </Grid>
-        </Box>
-    );
+        </Grid>
+</Box>
+)
+    ;
 }
 
 const ActiveListing = () => {
