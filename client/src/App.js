@@ -18,11 +18,10 @@ import SelectEvaluatee from './components/CreateEvaluation/SelectEvaluatee';
 import SelectTemplate from './components/SelectTemplate/SelectTemplate';
 import DoubleCheck from './components/Admin/DoubleCheck/DoubleCheck';
 import NoAdminAccess from './components/NoAdminAccess/NoAdminAccess';
-import { IsAdmin } from './utils/API';
 import { Box, Button } from '@material-ui/core';
 import './AdminPath.css';
 import AdminRoute from './components/PricateRoutes/AdminRoutes';
-import useAdminStatus from './utils/AdminStatus';
+import { useAdminStatus } from './utils/AdminStatus';
 
 function App() {
     const { user, loading, isAuthenticated } = useAuth0();
@@ -55,6 +54,9 @@ function App() {
     };
 
     if (!choice && isAuthenticated) {
+        {
+            console.log(isAdmin);
+        }
         return <div>{isAdmin && AdminPath()}</div>;
     } else if (loading) {
         return <Loading />;

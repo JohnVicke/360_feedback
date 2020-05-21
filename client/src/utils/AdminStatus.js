@@ -16,4 +16,4 @@ const useAdminStatus = (props) => {
     return isAdmin;
 };
 
-export default useAdminStatus;
+export default AdminStatus;
