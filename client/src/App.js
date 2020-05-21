@@ -17,12 +17,16 @@ import AOverviewBoard from './components/AOverviewBoard/AOverviewBoard';
 import SelectEvaluatee from './components/CreateEvaluation/SelectEvaluatee';
 import SelectTemplate from './components/SelectTemplate/SelectTemplate';
 import DoubleCheck from './components/Admin/DoubleCheck/DoubleCheck';
+import NoAdminAccess from './components/NoAdminAccess/NoAdminAccess';
 import { IsAdmin } from './utils/API';
 import { Box, Button } from '@material-ui/core';
 import './AdminPath.css';
+import AdminRoute from './components/PricateRoutes/AdminRoutes';
+import useAdminStatus from './utils/AdminStatus';
 
 function App() {
     const { user, loading, isAuthenticated } = useAuth0();
+    const isAdmin = useAdminStatus();
     const [choice, setChoice] = useState(false);
 
     const handleAdminClick = () => {
@@ -51,7 +55,7 @@ function App() {
     };
 
     if (!choice && isAuthenticated) {
-        return <div>{IsAdmin(user.email) && AdminPath()}</div>;
+        return <div>{isAdmin && AdminPath()}</div>;
     } else if (loading) {
         return <Loading />;
     } else if (!isAuthenticated) {
@@ -67,44 +71,49 @@ function App() {
         <div className='App'>
             <Router history={history}>
                 <Switch>
-                    <PrivateRoute exact path='/' component={MainMenu} />
+                    <AdminRoute
+                        exact
+                        path='/'
+                        component={MainMenu}
+                        appProps={{ isAdmin }}
+                    />
                     <PrivateRoute path='/profile' component={Profile} />
                     <PrivateRoute path='/fillin' component={FillEvaluation} />
-                    <PrivateRoute
+                    <AdminRoute
+                        appProps={{ isAdmin }}
                         path='/selectEvaluators'
                         component={CreateEvaluation}
                     />
-                    <PrivateRoute
+                    <AdminRoute
+                        appProps={{ isAdmin }}
                         path='/selectEvaluatee'
                         component={SelectEvaluatee}
                     />
-                    <PrivateRoute
+                    <AdminRoute
+                        appProps={{ isAdmin }}
                         path='/selectTemplate'
                         component={SelectTemplate}
                     />
-                    <PrivateRoute
+                    <AdminRoute
+                        appProps={{ isAdmin }}
                         path='/createEvaluation'
                         component={CreateEvaluation}
                     />
-                    <PrivateRoute
+                    <AdminRoute
+                        appProps={{ isAdmin }}
                         path='/double_check'
                         component={DoubleCheck}
                     />
-                    <PrivateRoute exact path='/' component={MainMenu} />
-                    <PrivateRoute path='/profile' component={Profile} />
-                    <PrivateRoute path='/fillin' component={FillEvaluation} />
-                    <PrivateRoute
-                        path='/createEvaluation'
-                        component={CreateEvaluation}
-                    />
-                    <PrivateRoute
+                    <AdminRoute
+                        appProps={{ isAdmin }}
                         path={'/createTemplate'}
                         component={CreateTemplate}
                     />
-                    <PrivateRoute
+                    <AdminRoute
                         path='/admin/overviewboard'
                         component={AOverviewBoard}
                     />
+                    <Route path='/no_access' component={NoAdminAccess} />
                 </Switch>
             </Router>
         </div>
