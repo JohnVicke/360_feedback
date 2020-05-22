@@ -122,13 +122,14 @@ function App() {
                                 component={CreateTemplate}
                             />
                             <AdminRoute
+                                appProps={{ isAdmin }}
                                 path='/admin/overviewboard'
                                 component={AOverviewBoard}
                             />
                             <AdminRoute
                                 appProps={{ isAdmin }}
-                                path={'/add_user'}
-                                compoent={AddUser}
+                                path='/add_user'
+                                component={AddUser}
                             />
                             <Route
                                 path='/no_access'

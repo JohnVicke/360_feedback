@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
     EmployeeBar: {
         borderRadius: '15px',
-        margin: "15px 0",
+        margin: '15px 0',
         paddingTop: '10px',
         paddingBottom: '10px',
         backgroundColor: '#F6F6F6',
-        width: "95%",
-        maxHeight: "20%",
+        width: '95%',
+        maxHeight: '20%',
     },
 }));
 function EmployeeList(props) {
@@ -47,7 +47,7 @@ function EmployeeList(props) {
             {props.templates &&
                 props.templates.map((template, index) => {
                     return (
-                        <ListItem m={"0"}>
+                        <ListItem m={'0'}>
                             <EmployeeBar template={template} />
                         </ListItem>
                     );
@@ -59,11 +59,8 @@ function EmployeeList(props) {
 function EmployeeBar(props) {
     const classes = useStyles();
     return (
-        <Box
-            className={classes.EmployeeBar}
-        >
+        <Box className={classes.EmployeeBar}>
             <div>
-                {console.log(props)}
                 <Grid container>
                     <Grid item xs={6}>
                         <Assignment
@@ -152,7 +149,7 @@ const TemplatesListing = () => {
     useEffect(() => {
         const fetchTemplates = async () => {
             const response = await GetAllTemplates();
-            console.log(response.data.data);
+
             setTemplates(response.data.data);
         };
         fetchTemplates();

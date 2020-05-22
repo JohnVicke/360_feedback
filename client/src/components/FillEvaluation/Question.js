@@ -107,7 +107,7 @@ class Question extends React.Component {
     };
     handleComment = async (event) => {
         const commentText = event.target.value;
-        console.log(commentText);
+
         this.setState({ commentText });
     };
     handleRemoveComment = async (event) => {
@@ -120,7 +120,6 @@ class Question extends React.Component {
             currentSection - 1
         ].questions.length;
         var nrOfSections = this.state.component.state.sections.length;
-        console.log(nrOfSections);
 
         if (this.state.answer === '') {
             window.alert('Fill in answer!');
@@ -152,7 +151,6 @@ class Question extends React.Component {
                     responses[i].answers.push(answer);
                 }
             }
-            console.log(responses);
 
             //Pushing the new answer to the database.
 
@@ -160,8 +158,6 @@ class Question extends React.Component {
                 this.state.component.state.userId,
                 { responses: responses }
             );
-            console.log('Done!');
-            console.log(pushingApi);
 
             if (
                 currentSection === nrOfSections &&
@@ -213,8 +209,6 @@ class Question extends React.Component {
                     responseInsert.user_id = this.state.component.state.userId;
                     survey.responses.push(responseInsert);
                     const resSurvey = await UpdateSurvey(survey._id, survey);
-                    console.log('SURVEY');
-                    console.log(resSurvey);
 
                     this.state.component.setState({ finished: true });
                 } else {
@@ -225,7 +219,7 @@ class Question extends React.Component {
                 if (currentQuestion === currentSectionLength) {
                     currentQuestion = 1;
                     currentSection++;
-                    console.log(currentSection);
+
                     this.state.component.setState({
                         currentSection,
                         currentQuestion,
@@ -246,7 +240,6 @@ class Question extends React.Component {
             currentSection - 1
         ].questions.length;
         var nrOfSections = this.state.component.state.sections.length;
-        console.log(nrOfSections);
 
         if (currentSection === 1) {
             if (currentQuestion === 1) {
@@ -327,20 +320,20 @@ class Question extends React.Component {
                 );
             } else {
                 return (
-                    <Box alignItems="center" style={{ marginTop: '2rem' }}>
+                    <Box alignItems='center' style={{ marginTop: '2rem' }}>
                         <MyButton2 onClick={comp.handleRemoveComment}>
                             <RemoveCircleIcon></RemoveCircleIcon>
                         </MyButton2>
                         <TextField
-                            id="filled-basic"
-                            label="Comment"
-                            variant="filled"
+                            id='filled-basic'
+                            label='Comment'
+                            variant='filled'
                             style={{
                                 width: '580px',
                                 marginLeft: 'auto',
                                 marginRight: 'auto',
                             }}
-                            autoFocus="true"
+                            autoFocus='true'
                             value={comp.state.commentText}
                             InputProps={{
                                 style: {
@@ -370,7 +363,7 @@ class Question extends React.Component {
             }
         }
         return (
-            <Box display="flex" flexDirection="row" className="q-slide">
+            <Box display='flex' flexDirection='row' className='q-slide'>
                 <MyCard style={{ marginRight: 'auto', marginLeft: 'auto' }}>
                     <Typography
                         style={{

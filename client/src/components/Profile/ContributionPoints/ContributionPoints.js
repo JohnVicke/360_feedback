@@ -40,17 +40,16 @@ class ContributionPoints extends Component {
     }
 
     componentDidMount = async () => {
-        console.log(this.state.userInfo);
         let evals = await (await GetAllEvaluations()).data.data;
         _.orderBy(evals, ['end_date'], ['desc']);
         let survey = '';
         survey = evals.find(
             (survey) => survey.e_id === this.state.userInfo.data._id
         );
-        console.log(survey);
+
         if (survey != null) {
             let template = await (await getTemplate(survey._id)).data;
-            console.log(template);
+
             this.setState({
                 survey: survey,
                 template: template,
@@ -124,12 +123,12 @@ class ContributionPoints extends Component {
         if (this.state.loading) {
             return (
                 <Box
-                    display="flex"
-                    flexDirection="row"
-                    alignItems="center"
+                    display='flex'
+                    flexDirection='row'
+                    alignItems='center'
                     style={{ color: '#fff', fontSize: '90px' }}
                 >
-                    <NightsStayIcon color="inherit" fontSize="inherit" />
+                    <NightsStayIcon color='inherit' fontSize='inherit' />
 
                     <Typography
                         style={{
@@ -146,7 +145,7 @@ class ContributionPoints extends Component {
             );
         } else {
             return (
-                <div className="cards-container">
+                <div className='cards-container'>
                     {' '}
                     {this.state.template.sections.map((section, index) => {
                         return (
@@ -177,10 +176,10 @@ class ContributionPoints extends Component {
                                     }}
                                 ></hr>
                                 <Box
-                                    display="flex"
-                                    flexDirection="row"
-                                    justifyContent="space-between"
-                                    margin="0 1rem 0 1rem"
+                                    display='flex'
+                                    flexDirection='row'
+                                    justifyContent='space-between'
+                                    margin='0 1rem 0 1rem'
                                 >
                                     <Box>
                                         <p

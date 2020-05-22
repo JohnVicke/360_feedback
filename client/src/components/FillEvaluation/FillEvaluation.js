@@ -26,7 +26,6 @@ class FillEvaluation extends Component {
         };
     }
     componentDidMount() {
-        console.log(this.props.location.state);
         const {
             fromProfile: {
                 answers,
@@ -35,7 +34,7 @@ class FillEvaluation extends Component {
             },
             myId,
         } = this.props.location.state;
-        console.log(answers);
+
         this.setState({
             sections: sections,
             name: given_name,
@@ -60,8 +59,6 @@ class FillEvaluation extends Component {
                 .isEmpty()
         ) {
             this.setState({ response });
-            console.log(response);
-            console.log(this.state.response);
         }
     };
 
@@ -74,7 +71,7 @@ class FillEvaluation extends Component {
         function Finished(props) {
             if (props.component.state.finished === false) {
                 return (
-                    <div className="background">
+                    <div className='background'>
                         <NavBar />
                         <Typography
                             style={{
@@ -125,12 +122,12 @@ class FillEvaluation extends Component {
                 );
             } else {
                 return (
-                    <div className="background">
+                    <div className='background'>
                         <NavBar />
-                        <div className="submitted-margin">
+                        <div className='submitted-margin'>
                             <Submitted
-                                header="Your answer was submitted!"
-                                subHeader="Thank you for your answers"
+                                header='Your answer was submitted!'
+                                subHeader='Thank you for your answers'
                                 button={{
                                     name: 'Home',
                                     func: () => history.push('/profile'),
