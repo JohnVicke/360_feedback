@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Landing.css';
 import Logo from '../../assets/logos/logohorizontal.svg';
 import LoginButton from './LoginButton';
 import { useAuth0 } from '../../react-auth0-spa';
+import { useState } from 'react';
 
 const LandingPage = () => {
     const { loginWithPopup } = useAuth0();
+
+    const handleLogin = async () => {
+        loginWithPopup();
+    };
+
     return (
         <div className='landing-page'>
             <div className='overlay'>
@@ -24,7 +30,7 @@ const LandingPage = () => {
                     <LoginButton
                         variant='contained'
                         className='login-button'
-                        onClick={() => loginWithPopup({})}
+                        onClick={handleLogin}
                     >
                         Log in
                     </LoginButton>
