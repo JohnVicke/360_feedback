@@ -89,7 +89,7 @@ const AdminNavBar = () => {
     };
 
     const toMainMenu = () => {
-        history.push('/');
+        history.push('/main_menu');
     };
 
     const toAddUser = () => {

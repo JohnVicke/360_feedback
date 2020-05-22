@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     },
 });
 
-const NavBar = () => {
+const NavBar = (props) => {
     const { logout, user } = useAuth0();
     const history = useHistory();
     const classes = useStyles();
@@ -127,6 +127,12 @@ const NavBar = () => {
                                 </Typography>
                             </Button>
                         </Box>
+                        {props.isAdmin && (
+                            <p style={{ marginRight: '1em' }}>
+                                Logged in <br />
+                                as admin
+                            </p>
+                        )}
                         <Button
                             onClick={handleToggle}
                             ref={anchorRef}
@@ -169,6 +175,17 @@ const NavBar = () => {
                                                 id='menu-list-grow'
                                                 onKeyDown={handleListKeyDown}
                                             >
+                                                {props.isAdmin && (
+                                                    <MenuItem
+                                                        onClick={() =>
+                                                            history.push(
+                                                                '/main_menu'
+                                                            )
+                                                        }
+                                                    >
+                                                        Main menu
+                                                    </MenuItem>
+                                                )}
                                                 <MenuItem onClick={toProfile}>
                                                     Profile
                                                 </MenuItem>

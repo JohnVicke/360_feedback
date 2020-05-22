@@ -41,7 +41,9 @@ function App() {
 
     const handleDbUser = async () => {
         const res = await GetUserByEmail(user.email);
-        res.data !== null ? setVerifiedUser(true) : setVerifiedUser(false);
+        setTimeout(() => {
+            res.data !== null ? setVerifiedUser(true) : setVerifiedUser(false);
+        }, 1000);
         if (res.data !== null) {
             if (res.data.given_name === 'Givenname') {
                 const {
@@ -96,23 +98,25 @@ function App() {
         {
             handleDbUser();
         }
-        return (
-            <div className='admin-background'>
-                <p
-                    style={{
-                        fontFamily: 'Source Sans Pro',
-                        fontSize: '2rem',
-                        color: '#fff',
-                    }}
-                >
-                    Contact your manager for <br /> access to this system
-                </p>
-            </div>
-        );
+        if (verifiedUser === null) {
+            return <Loading fullscreen={true} />;
+        } else
+            return (
+                <div className='admin-background'>
+                    <p
+                        style={{
+                            fontFamily: 'Source Sans Pro',
+                            fontSize: '2rem',
+                            color: '#fff',
+                        }}
+                    >
+                        Contact your manager for <br /> access to this system
+                    </p>
+                </div>
+            );
     } else if (choice === '' && isAdmin) {
         return <div>{AdminPath()}</div>;
     } else {
-        console.log(verifiedUser);
         return (
             <div className='App'>
                 <Router history={history}>
@@ -129,7 +133,11 @@ function App() {
                             component={MainMenu}
                             appProps={{ isAdmin }}
                         />
-                        <PrivateRoute path='/profile' component={Profile} />
+                        <PrivateRoute
+                            path='/profile'
+                            component={Profile}
+                            admin={{ isAdmin }}
+                        />
                         <PrivateRoute
                             path='/fillin'
                             component={FillEvaluation}
