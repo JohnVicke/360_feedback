@@ -12,7 +12,7 @@
 
 .mainBox {
     border-radius: 10px;
-    height: 80vh;
+    /* height: 80vh; */
     box-shadow: 3px 3px 7px #111111;
 }
 
@@ -24,7 +24,16 @@
 
 .employees {
     border-radius: 15px;
-    height: 580px;
+    max-height: 60vh;
+}
+
+.employeeGrid{
+    height: 60vh;
+    
+}
+
+.buttons{
+    padding:2rem;
 }
 
 /* Scrollbar */
