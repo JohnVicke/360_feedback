@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import {useAuth0} from '../../../react-auth0-spa';
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { useAuth0 } from '../../../react-auth0-spa';
 import Loading from '../../Loading/Loading';
 import {
     GetAllEvaluations,
@@ -26,7 +26,7 @@ import {
     Divider,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'Bold',
     },
 
-    NumberOfSurveysText:{
+    NumberOfSurveysText: {
         color: '#000000',
         fontSize: '40',
         '& .MuiTypography-body1': {
@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#000000',
         fontSize: '40',
         '& .MuiTypography-body1': {
-        textAlign: 'center',
+            textAlign: 'center',
         },
         fontFamily: 'Roboto Mono',
         fontWeight: 'Bold',
@@ -128,11 +128,11 @@ const useStyles = makeStyles((theme) => ({
 
     ProgressCircle: {
         position: 'absolute',
-        marginLeft: "auto",
-        marginRight: "auto",
+        marginLeft: 'auto',
+        marginRight: 'auto',
         left: 0,
         right: 0,
-        textAlign: "center",
+        textAlign: 'center',
     },
 
     ProgressText: {
@@ -160,16 +160,16 @@ function EmployeeList(props) {
     return (
         <List className={classes.EmployeeList} m={'0 0'} alignItems={'center'}>
             {props.users &&
-            props.users.map((user, index) => {
-                return (
-                    <ListItem m={'0 auto'} dense disableGutters>
-                        <EmployeeBar
-                            user={user}
-                            evaluations={props.evaluations}
-                        />
-                    </ListItem>
-                );
-            })}
+                props.users.map((user, index) => {
+                    return (
+                        <ListItem m={'0 auto'} dense disableGutters>
+                            <EmployeeBar
+                                user={user}
+                                evaluations={props.evaluations}
+                            />
+                        </ListItem>
+                    );
+                })}
         </List>
     );
 }
@@ -241,7 +241,6 @@ function EmployeeBar(props) {
     }
 
     function EvaluationProgress(props) {
-
         return (
             <div className={classes.ProgressCircleRoot}>
                 <CircularProgress
@@ -252,9 +251,9 @@ function EmployeeBar(props) {
                 />
                 <CircularProgress
                     className={classes.ProgressCircle}
-                    variant='static'
+                    variant="static"
                     size={'3rem'}
-                    style={{color: getProgressColor(props.evaluation)}}
+                    style={{ color: getProgressColor(props.evaluation) }}
                     value={getProgressValue(props.evaluation)}
                 />
             </div>
@@ -262,41 +261,40 @@ function EmployeeBar(props) {
     }
 
     function getLastEvaluatedDate(props) {
-        console.log("propsingetlast:");
+        console.log('propsingetlast:');
         console.log(props);
         var lastEvaluation = props.evaluations.find(
             (survey) => survey.e_id === props.user._id
         );
 
         if (!lastEvaluation) {
-            return "-";
-        }
-        else{
+            return '-';
+        } else {
             return getDate(lastEvaluation);
         }
     }
 
     return (
-        <Box className={classes.EmployeeBar} bgcolor='#F6F6F6'>
+        <Box className={classes.EmployeeBar} bgcolor="#F6F6F6">
             <Grid
                 container
-                direction='row'
-                justify='space-between'
-                alignItems='center'
+                direction="row"
+                justify="space-between"
+                alignItems="center"
             >
                 <Grid className={classes.EmployeeBarGridItem} item xs>
                     <Grid
                         container
-                        alignItems='center'
-                        justify='flex-start'
-                        direction='row'
+                        alignItems="center"
+                        justify="flex-start"
+                        direction="row"
                     >
                         <Hidden mdDown>
                             <Grid
                                 item
                                 xs={6}
-                                justify='flex-start'
-                                alignItems='center'
+                                justify="flex-start"
+                                alignItems="center"
                             >
                                 <Avatar
                                     className={classes.Avatar}
@@ -307,44 +305,43 @@ function EmployeeBar(props) {
                         <Grid
                             item
                             xs={6}
-                            direction='column'
-                            alignItems='center'
+                            direction="column"
+                            alignItems="center"
                             textAlign={'left'}
                         >
                             <Typography
                                 className={classes.UserNameText}
-                                align='left'
+                                align="left"
                             >
                                 {username}
                             </Typography>
                             <Typography
                                 className={classes.UserRoleText}
-                                align='left'
+                                align="left"
                             >
                                 {props.user.role}
                             </Typography>
                             <Typography
                                 className={classes.UserRoleText}
-                                align='left'
+                                align="left"
                             >
                                 {props.user.email}
                             </Typography>
                         </Grid>
                     </Grid>
-                    <Grid/>
+                    <Grid />
                 </Grid>
-                <Divider orientation='vertical' flexItem light/>
+                <Divider orientation="vertical" flexItem light />
                 <Grid className={classes.EmployeeBarGridItem} item xs>
                     <Typography
                         className={classes.NumberOfSurveysText}
-                        align='center'
-
+                        align="center"
                     >
                         Number of surveys: {props.user.responses.length}
                     </Typography>
                     <Typography
                         className={classes.LastEvaluatedText}
-                        align='center'
+                        align="center"
                     >
                         Last evaluated: {getLastEvaluatedDate(props)}
                     </Typography>
@@ -362,12 +359,16 @@ const ActiveListing = () => {
 
     const [users, setUsers] = useState([]);
 
-    const {loggedInUser} = useAuth0();
+    const { loggedInUser } = useAuth0();
 
     useEffect(() => {
         const fetchEvaluations = async () => {
             const response = await GetAllEvaluations();
-            response.data.data.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime());
+            response.data.data.sort(
+                (a, b) =>
+                    new Date(b.created_date).getTime() -
+                    new Date(a.created_date).getTime()
+            );
             setActiveEvaluations(response.data.data);
         };
         fetchEvaluations();
@@ -397,15 +398,13 @@ const ActiveListing = () => {
     }, [loggedInUser]);
 
     async function updateSurvey(id, active) {
-        const res = await UpdateSurveyActive(id, {active: active});
+        const res = await UpdateSurveyActive(id, { active: active });
         const response = await GetAllEvaluations();
         setActiveEvaluations(response.data.data);
     }
 
     if (users.length === 0) {
-        return <Loading/>;
-    } else if (activeEvaluations.length === 0 || templates.length === 0) {
-        return <Loading/>;
+        return <Loading />;
     }
 
     return (
