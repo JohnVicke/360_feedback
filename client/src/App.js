@@ -21,13 +21,16 @@ import NoAdminAccess from './components/NoAdminAccess/NoAdminAccess';
 import { Box, Button } from '@material-ui/core';
 import './AdminPath.css';
 import AdminRoute from './components/PricateRoutes/AdminRoutes';
-import { IsAdmin } from './utils/API';
+import { IsAdmin, UpdateUser } from './utils/API';
 import AddUser from './components/Admin/AddUser/AddUser';
+import { GetUserByEmail } from './utils/API';
+import { HistoryOutlined } from '@material-ui/icons';
 
 function App() {
     const { user, loading, isAuthenticated } = useAuth0();
     const [isAdmin, setIsAdmin] = useState(null);
     const [choice, setChoice] = useState('');
+    const [verifiedUser, setVerifiedUser] = useState(null);
 
     useEffect(() => {
         const getAdminStatus = async () => {
@@ -35,6 +38,26 @@ function App() {
         };
         if (user) getAdminStatus();
     }, [user]);
+
+    const handleDbUser = async () => {
+        const res = await GetUserByEmail(user.email);
+        res.data !== null ? setVerifiedUser(true) : setVerifiedUser(false);
+        if (res.data !== null) {
+            if (res.data.given_name === 'Givenname') {
+                const {
+                    data: { responses, role, _id },
+                } = res;
+                UpdateUser(_id, {
+                    given_name: user.given_name,
+                    family_name: user.family_name,
+                    responses: responses,
+                    role: role,
+                    picture: user.picture,
+                    email: user.email,
+                });
+            }
+        }
+    };
 
     const handleAdminClick = () => {
         setChoice('/main_menu');
@@ -59,8 +82,8 @@ function App() {
         );
     };
 
-    if (loading && isAdmin === null) {
-        return <Loading />;
+    if (loading) {
+        return <Loading fullscreen={true} />;
     } else if (!isAuthenticated) {
         return (
             <div>
@@ -69,10 +92,27 @@ function App() {
                 </Router>
             </div>
         );
-    }
-
-    if (choice === '' && isAdmin) return <div>{AdminPath()}</div>;
-    else {
+    } else if (!verifiedUser) {
+        {
+            handleDbUser();
+        }
+        return (
+            <div className='admin-background'>
+                <p
+                    style={{
+                        fontFamily: 'Source Sans Pro',
+                        fontSize: '2rem',
+                        color: '#fff',
+                    }}
+                >
+                    Contact your manager for <br /> access to this system
+                </p>
+            </div>
+        );
+    } else if (choice === '' && isAdmin) {
+        return <div>{AdminPath()}</div>;
+    } else {
+        console.log(verifiedUser);
         return (
             <div className='App'>
                 <Router history={history}>
