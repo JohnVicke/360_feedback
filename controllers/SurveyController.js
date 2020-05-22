@@ -112,6 +112,7 @@ updateSurvey = async (req, res) => {
         // Updates the fields for the survey and saves it in the database.
         survey.active = body.active;
         survey.e_id = body.e_id;
+        survey.created_date = body.created_date;
         survey.end_date = body.end_date;
         survey.template_id = body.template_id;
         survey.responses = body.responses;
