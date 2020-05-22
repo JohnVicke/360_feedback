@@ -34,6 +34,7 @@ function App() {
 
     useEffect(() => {
         const getAdminStatus = async () => {
+
             setIsAdmin(await IsAdmin(user.email));
         };
         if (user) getAdminStatus();

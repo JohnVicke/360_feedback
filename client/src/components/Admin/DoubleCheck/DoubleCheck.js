@@ -300,11 +300,8 @@ const DoubleCheck = (props) => {
                             </Grid>
                             <Grid
                                 container
-                                style={{
-                                    marginTop: '20px',
-                                    paddingLeft: '50px',
-                                    paddingRight: '50px',
-                                }}
+                                className="buttons"
+
                             >
                                 <Grid item xs={6}>
                                     <Button

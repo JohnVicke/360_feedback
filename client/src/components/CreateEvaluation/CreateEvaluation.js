@@ -44,7 +44,7 @@ export default class CreateEvaluation extends React.Component {
                 user: user,
                 addedUsers: startUsers,
             });
-            this.state.users.map((user) => {});
+            this.state.users.map((user) => { });
         });
     };
 
@@ -236,42 +236,44 @@ export default class CreateEvaluation extends React.Component {
                                 container
                                 direction='column'
                                 justify='flex-start'
-                                height='100vh'
                             >
-                                <Box
-                                    display='flex'
-                                    justifyContent='center'
-                                    style={{ margin: '1rem 0' }}
-                                >
-                                    <ComboBox
-                                        users={this.state.users}
-                                        handleOnChange={this.onComboChange}
-                                    />
-                                </Box>
-                                <Box
-                                    className='employees'
-                                    bgcolor='#222222'
-                                    overflow='auto'
-                                >
-                                    <Grid
-                                        container
-                                        direction='row'
-                                        justify='center'
-                                        alignItems='flex-start'
+                                <Grid item>
+
+                                    <Box
+                                        display='flex'
+                                        justifyContent='center'
+                                        style={{ margin: '1rem 0' }}
                                     >
-                                        <EmployeeList
+                                        <ComboBox
                                             users={this.state.users}
+                                            handleOnChange={this.onComboChange}
                                         />
-                                    </Grid>
-                                </Box>
+                                    </Box>
+                                </Grid>
+                                <Grid item className="employeeGrid" overflow="auto" >
+
+                                    <Box
+                                        className='employees'
+                                        bgcolor='#222222'
+                                        overflow='auto'
+                                    >
+                                        <Grid
+                                            container
+                                            direction='row'
+                                            justify='center'
+                                            alignItems='flex-start'
+                                        >
+                                            <EmployeeList
+                                                users={this.state.users}
+                                            />
+                                        </Grid>
+                                    </Box>
+                                </Grid>
                             </Grid>
                             <Grid
                                 container
-                                style={{
-                                    marginTop: '20px',
-                                    paddingLeft: '50px',
-                                    paddingRight: '50px',
-                                }}
+                                className="buttons"
+
                             >
                                 <Grid item xs={6}>
                                     <Button
