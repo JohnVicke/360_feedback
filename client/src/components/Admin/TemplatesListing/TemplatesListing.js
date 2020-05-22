@@ -10,7 +10,7 @@ import {
     List,
     ListItem,
     IconButton,
-    Button,
+    Button, Divider,
 } from '@material-ui/core';
 import ArchivedListing from '../EvaluationListings/ArchivedListing';
 import AddIcon from '@material-ui/icons/Add';
@@ -36,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#F6F6F6',
         width: '95%',
         maxHeight: '20%',
+    },
+
+    EmployeeBarGridItem: {
+        margin: '0 auto',
+        textAlign: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
 }));
 function EmployeeList(props) {
@@ -97,8 +104,8 @@ function EmployeeBar(props) {
                             {props.template.description}
                         </Typography>
                     </Grid>
-
-                    <Grid item xs={6}>
+                    <Divider orientation='vertical' flexItem light/>
+                    <Grid item xs={6} className={classes.EmployeeBarGridItem}>
                         <div
                             style={{
                                 float: 'right',
