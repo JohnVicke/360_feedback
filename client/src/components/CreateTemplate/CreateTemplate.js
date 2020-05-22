@@ -105,7 +105,7 @@ const CreateTemplate = (props) => {
         const { children, value, index, ...other } = props;
         return (
             <div
-                role='tabpanel'
+                role="tabpanel"
                 hidden={tabValue !== index}
                 id={`scrollable-auto-tabpanel-${index}`}
                 aria-labelledby={`scrollable-auto-tab-${index}`}
@@ -164,7 +164,7 @@ const CreateTemplate = (props) => {
                     style={{ width: '400px' }}
                     value={tabValue}
                     onChange={handleTabChange}
-                    variant='scrollable'
+                    variant="scrollable"
                     TabIndicatorProps={{ style: { background: '#4392fe' } }}
                 >
                     {sections.map((s, i) => (
@@ -175,9 +175,9 @@ const CreateTemplate = (props) => {
                     <TabPanel value={tabValue} index={i}>
                         {s.questions.map((q) => (
                             <Box
-                                display='flex'
-                                flexDirection='row'
-                                alignItems='center'
+                                display="flex"
+                                flexDirection="row"
+                                alignItems="center"
                             >
                                 <QuestionAnswerOutlined
                                     style={{ marginRight: '1rem' }}
@@ -195,14 +195,14 @@ const CreateTemplate = (props) => {
 
     const finishedComponent = () => {
         return (
-            <div className='submit'>
+            <div className="submit">
                 <Submitted
                     style={{ marginTop: '2rem' }}
                     header={`${template.name} was created!`}
                     subHeader={`It containts ${sections.length} section(s)`}
                     button={{
                         name: 'Continue',
-                        func: () => history.push('/'),
+                        func: () => history.push('/main_menu'),
                     }}
                 />
             </div>
@@ -212,7 +212,7 @@ const CreateTemplate = (props) => {
     const getPreviewContent = () => {
         if (template.name === '') {
             return (
-                <div className='headerText'>
+                <div className="headerText">
                     <p>This is a preview window </p>
                 </div>
             );
@@ -220,12 +220,12 @@ const CreateTemplate = (props) => {
 
         return (
             <div>
-                <div className='headerText'>
+                <div className="headerText">
                     <Box
-                        display='flex'
-                        flexDirection='row'
-                        justifyContent='center'
-                        alignItems='center'
+                        display="flex"
+                        flexDirection="row"
+                        justifyContent="center"
+                        alignItems="center"
                     >
                         <Assignment style={{ marginRight: '0.2rem' }} />
                         <p>{template.name}</p>
@@ -243,13 +243,13 @@ const CreateTemplate = (props) => {
         if (createQuestion) {
             return (
                 <div>
-                    <div className='headerText'>
+                    <div className="headerText">
                         <Box
                             style={{ margin: '2rem' }}
-                            display='flex'
-                            flexDirection='row'
-                            alignItems='top'
-                            justifyContent='center'
+                            display="flex"
+                            flexDirection="row"
+                            alignItems="top"
+                            justifyContent="center"
                         >
                             <QuestionAnswerOutlined
                                 style={{
@@ -264,7 +264,7 @@ const CreateTemplate = (props) => {
                         </Box>
                     </div>
 
-                    <form className='templateForm'>
+                    <form className="templateForm">
                         <p>{`Add new question to ${currentSectionName}`}</p>
                         <TextField
                             InputProps={{
@@ -280,8 +280,8 @@ const CreateTemplate = (props) => {
                                     opacity: '0.5',
                                 },
                             }}
-                            label='Qustion name'
-                            variant='outlined'
+                            label="Qustion name"
+                            variant="outlined"
                             value={currentQuestion.content}
                             error={error1}
                             onChange={(e) => {
@@ -310,8 +310,8 @@ const CreateTemplate = (props) => {
                                     opacity: '0.5',
                                 },
                             }}
-                            label='Question description'
-                            variant='outlined'
+                            label="Question description"
+                            variant="outlined"
                             value={currentQuestion.description}
                             onChange={(e) => {
                                 if (e.target.value !== '') setError2(false);
@@ -371,13 +371,13 @@ const CreateTemplate = (props) => {
         } else if (createSections) {
             return (
                 <div>
-                    <div className='headerText'>
+                    <div className="headerText">
                         <Box
                             style={{ margin: '2rem' }}
-                            display='flex'
-                            flexDirection='row'
-                            alignItems='top'
-                            justifyContent='center'
+                            display="flex"
+                            flexDirection="row"
+                            alignItems="top"
+                            justifyContent="center"
                         >
                             <FilterOutlined
                                 style={{
@@ -391,7 +391,7 @@ const CreateTemplate = (props) => {
                             </h1>
                         </Box>
                     </div>
-                    <form className='templateForm'>
+                    <form className="templateForm">
                         <p>{`Add Section #${sections.length + 1} to ${
                             template.name
                         }`}</p>
@@ -409,8 +409,8 @@ const CreateTemplate = (props) => {
                                     opacity: '0.5',
                                 },
                             }}
-                            label='Section Name'
-                            variant='outlined'
+                            label="Section Name"
+                            variant="outlined"
                             error={error1}
                             value={currentSectionName}
                             onChange={(e) => {
@@ -437,13 +437,13 @@ const CreateTemplate = (props) => {
         } else {
             return (
                 <div>
-                    <div className='headerText'>
+                    <div className="headerText">
                         <Box
                             style={{ margin: '2rem' }}
-                            display='flex'
-                            flexDirection='row'
-                            alignItems='top'
-                            justifyContent='center'
+                            display="flex"
+                            flexDirection="row"
+                            alignItems="top"
+                            justifyContent="center"
                         >
                             <Assignment
                                 style={{
@@ -457,7 +457,7 @@ const CreateTemplate = (props) => {
                             </h1>
                         </Box>
                     </div>
-                    <form className='templateForm'>
+                    <form className="templateForm">
                         <p>Start by asigning it a name</p>
                         <TextField
                             InputProps={{
@@ -473,8 +473,8 @@ const CreateTemplate = (props) => {
                                     opacity: '0.5',
                                 },
                             }}
-                            label='Template Name'
-                            variant='outlined'
+                            label="Template Name"
+                            variant="outlined"
                             value={template.name}
                             error={error1}
                             onChange={(e) => {
@@ -500,8 +500,8 @@ const CreateTemplate = (props) => {
                                     opacity: '0.5',
                                 },
                             }}
-                            label='Template Description'
-                            variant='outlined'
+                            label="Template Description"
+                            variant="outlined"
                             value={template.description}
                             error={error2}
                             onChange={(e) => {
@@ -533,15 +533,15 @@ const CreateTemplate = (props) => {
     };
     // GetPreviewContent --> displays content on half its parent element??
     return (
-        <div className='background'>
+        <div className="background">
             <AdminNavBar />
             {finishedTemplate ? (
                 finishedComponent()
             ) : (
                 <Grow in={true}>
-                    <div className='preview-container'>
-                        <div className='createCard'>{getContent()}</div>
-                        <div className='preview-window'>
+                    <div className="preview-container">
+                        <div className="createCard">{getContent()}</div>
+                        <div className="preview-window">
                             {getPreviewContent()}
                         </div>
                     </div>
