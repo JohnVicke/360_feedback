@@ -10,7 +10,7 @@ import {
     IconButton,
     Button,
 } from '@material-ui/core';
-import NavBar from '../../NavBar/NavBar';
+import AdminNavBar from '../../AdminNavBar/AdminNavBar';
 import { Assignment } from '@material-ui/icons';
 import history from '../../../utils/history';
 import Submitted from '../../FillEvaluation/Submit/Submitted';
@@ -153,7 +153,7 @@ const DoubleCheck = (props) => {
 
     return (
         <div className='background'>
-            <NavBar />
+            <AdminNavBar />
             {send && (
                 <div className='submitted-margin'>
                     <Submitted

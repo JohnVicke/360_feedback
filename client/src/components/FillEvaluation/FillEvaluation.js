@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { makeStyles, Box, Typography, Avatar } from '@material-ui/core';
 import './FillEvaluation.css';
-import NavBar from '../NavBar/NavBar';
+import AdminNavBar from '../AdminNavBar/AdminNavBar';
 import Question from './Question';
 import Submitted from './Submit/Submitted';
 import Loading from '../Loading/Loading';
@@ -72,7 +72,7 @@ class FillEvaluation extends Component {
             if (props.component.state.finished === false) {
                 return (
                     <div className='background'>
-                        <NavBar />
+                        <AdminNavBar />
                         <Typography
                             style={{
                                 color: '#fff',
@@ -123,7 +123,7 @@ class FillEvaluation extends Component {
             } else {
                 return (
                     <div className='background'>
-                        <NavBar />
+                        <AdminNavBar />
                         <div className='submitted-margin'>
                             <Submitted
                                 header='Your answer was submitted!'

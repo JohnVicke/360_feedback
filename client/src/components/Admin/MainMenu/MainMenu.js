@@ -15,8 +15,7 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Employees from '../../Employees/Employees';
-import NavBar from '../../NavBar/NavBar';
-import AdminNavBar from '../../NavBar/AdminNavBar';
+import AdminNavBar from '../../AdminNavBar/AdminNavBar';
 import ActiveListing from '../EvaluationListings/ActiveListing';
 import ArchivedListing from '../EvaluationListings/ArchivedListing';
 import TemplatesListing from '../TemplatesListing/TemplatesListing';
@@ -53,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         background: '#222222',
         border: 0,
         borderRadius: 15,
-        margin: '10rem',
+        margin: '2rem 10rem',
         [theme.breakpoints.down('sm')]: {
             margin: 0,
         },
@@ -138,6 +137,27 @@ const MainMenu = () => {
     return (
         <div className={classes.MainMenu}>
             <AdminNavBar />
+            <Box
+                color='#FFFFFF'
+                width={1}
+                style={{ margin: '1rem 0' }}
+                textAlign='center'
+            >
+                <Typography
+                    style={{
+                        color: '#fff',
+                        textAlign: 'center',
+                        fontSize: '24px',
+                        fontFamily: 'Source Sans Pro',
+                        fontWeight: '400',
+                        textTransform: 'uppercase',
+                        marginTop: '0.5rem',
+                    }}
+                >
+                    <strong>Main menu</strong>
+                    <hr style={{ margin: '0 10rem' }} />
+                </Typography>
+            </Box>
             <Box className={classes.MenuBox} justifyContent={'center'}>
                 <Paper className={classes.root}>
                     <Tabs

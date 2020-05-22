@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../NavBar/NavBar';
+import AdminNavBar from '../AdminNavBar/AdminNavBar';
 import './CreateEvaluation.css';
 import history from '../../utils/history';
 import {
@@ -198,7 +198,7 @@ export default class CreateEvaluation extends React.Component {
 
         return (
             <div className='background'>
-                <NavBar />
+                <AdminNavBar />
                 <Grow in={true}>
                     <Container>
                         <Grid

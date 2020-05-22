@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBar/NavBar';
+import AdminNavBar from '../AdminNavBar/AdminNavBar';
 import SelectedQuestion from './SelectedQuestion';
 import {
     Box,
@@ -225,7 +225,7 @@ class AOverviewBoard extends Component {
             return (
                 <div>
                     <div className='background'>
-                        <NavBar />
+                        <AdminNavBar />
 
                         <Typography
                             style={{
