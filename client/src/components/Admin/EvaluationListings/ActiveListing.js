@@ -410,7 +410,7 @@ const ActiveListing = () => {
     if (users.length === 0) {
         return <Loading/>;
     } else if (activeEvaluations.length === 0 || templates.length === 0) {
-        return <div>No active evaluations found</div>;
+        return <Loading/>;
     }
 
     return (
