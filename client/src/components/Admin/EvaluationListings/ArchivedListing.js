@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
     UserNameText: {
         color: '#000000',
-        fontSize: '30',
+        fontSize: '40',
         fontFamily: 'Source Sans Pro',
         fontWeight: 'Bold',
         display: 'flex',
@@ -94,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
 
     TextMuted: {
         color: '#000000',
+        fontSize: '14',
         opacity: '0.7',
         fontFamily: 'Source Sans Pro',
     },
@@ -104,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
 
     ProgressText: {
         color: '#000000',
-        fontSize: '1rem',
+        fontSize: '32',
         fontFamily: 'Roboto Mono',
     },
 
@@ -257,7 +258,7 @@ function EmployeeBar(props) {
                                 {username}
                             </Typography>
                             <Typography
-                                classname={classes.UserRoleText}
+                                className={classes.UserRoleText}
                                 align='left'
                             >
                                 {props.user.role}
@@ -296,7 +297,9 @@ function EmployeeBar(props) {
                         }}
                         style={{ textDecoration: 'none' }}
                     >
-                        Overview Board
+                        <Typography className={classes.OverviewBoardText}>
+                            Overview Board
+                        </Typography>
                     </Link>
                 </Grid>
                 <Divider orientation='vertical' flexItem light />
