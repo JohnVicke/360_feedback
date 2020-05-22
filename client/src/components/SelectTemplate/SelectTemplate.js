@@ -16,6 +16,7 @@ import {
 import { styled } from '@material-ui/core/styles';
 import { GetAllTemplates } from '../../utils/API';
 import history from '../../utils/history';
+import Loading from '../Loading/Loading';
 
 const MyCard = styled(Card)({
     background: '#222222',
@@ -134,7 +135,7 @@ class SelectTemplate extends Component {
                 }
                 return <h1>Hello!</h1>;
             } else {
-                return <h1>Good bye!</h1>;
+                return <p></p>
             }
         }
         return (
