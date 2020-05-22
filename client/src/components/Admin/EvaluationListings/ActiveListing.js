@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { useAuth0 } from '../../../react-auth0-spa';
+import React, {useEffect, useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import {useAuth0} from '../../../react-auth0-spa';
 import Loading from '../../Loading/Loading';
 import {
     GetAllEvaluations,
@@ -26,7 +26,7 @@ import {
     Divider,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
     EmployeeBar: {
         borderRadius: '15px',
-        margin: '15px 0',
+        margin: '15px auto',
         backgroundColor: '#F6F6F6',
         width: '95%',
         maxHeight: '20%',
@@ -96,8 +96,21 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Source Sans Pro',
     },
 
+    ProgressCircleRoot: {
+        position: 'relative',
+    },
+
+    ProgressCircleBackground: {
+        color: '#E8E8E8',
+    },
+
     ProgressCircle: {
-        color: '#4392FE',
+        position: 'absolute',
+        marginLeft: "auto",
+        marginRight: "auto",
+        left: 0,
+        right: 0,
+        textAlign: "center",
     },
 
     ProgressText: {
@@ -123,26 +136,26 @@ const useStyles = makeStyles((theme) => ({
 function EmployeeList(props) {
     const classes = useStyles();
     return (
-        <List className={classes.EmployeeList} m={'0 0'} alignItems={'center'}>
+        <List className={classes.EmployeeList} m={'0 0'} alignItems={'center'} >
             {props.evaluations &&
-                props.evaluations.map((evaluation, index) => {
-                    if (evaluation.active) {
-                        const creator = evaluation.creator;
-                        const user = props.users.find(
-                            (user) => user._id === evaluation.e_id
-                        );
-                        return (
-                            <ListItem m={'0'}>
-                                <EmployeeBar
-                                    user={user}
-                                    evaluation={evaluation}
-                                    templates={props.templates}
-                                    updateFunction={props.updateFunction}
-                                />
-                            </ListItem>
-                        );
-                    }
-                })}
+            props.evaluations.map((evaluation, index) => {
+                if (evaluation.active) {
+                    const creator = evaluation.creator;
+                    const user = props.users.find(
+                        (user) => user._id === evaluation.e_id
+                    );
+                    return (
+                        <ListItem m={'0 auto'}>
+                            <EmployeeBar
+                                user={user}
+                                evaluation={evaluation}
+                                templates={props.templates}
+                                updateFunction={props.updateFunction}
+                            />
+                        </ListItem>
+                    );
+                }
+            })}
         </List>
     );
 }
@@ -213,6 +226,27 @@ function EmployeeBar(props) {
         return template.name;
     }
 
+    function EvaluationProgress(props) {
+
+        return (
+            <div className={classes.ProgressCircleRoot}>
+                <CircularProgress
+                    variant="determinate"
+                    value={100}
+                    className={classes.ProgressCircleBackground}
+                    size={'3rem'}
+                />
+                <CircularProgress
+                    className={classes.ProgressCircle}
+                    variant='static'
+                    size={'3rem'}
+                    style={{color: getProgressColor(props.evaluation)}}
+                    value={getProgressValue(props.evaluation)}
+                />
+            </div>
+        );
+    }
+
     return (
         <Box className={classes.EmployeeBar} bgcolor='#F6F6F6'>
             <Grid
@@ -262,7 +296,7 @@ function EmployeeBar(props) {
                             </Typography>
                         </Grid>
                     </Grid>
-                    <Grid />
+                    <Grid/>
                 </Grid>
                 <Grid
                     className={classes.EmployeeBarGridItem}
@@ -274,13 +308,9 @@ function EmployeeBar(props) {
                     <Typography className={classes.TextMuted}>
                         {getTemplateName(props.evaluation.template_id)}
                     </Typography>
-                    <CircularProgress
-                        className={classes.ProgressCircle}
-                        variant='static'
-                        size={'3rem'}
-                        style={{ color: getProgressColor(props.evaluation) }}
-                        value={getProgressValue(props.evaluation)}
-                    />
+
+                    {EvaluationProgress(props)}
+
                     <Typography className={classes.ProgressText}>
                         {getProgressString(props.evaluation)}
                     </Typography>
@@ -292,14 +322,14 @@ function EmployeeBar(props) {
                                 surveyId: props.evaluation._id,
                             },
                         }}
-                        style={{ textDecoration: 'none' }}
+                        style={{textDecoration: 'none'}}
                     >
                         <Typography className={classes.OverviewBoardText}>
                             Overview Board
                         </Typography>
                     </Link>
                 </Grid>
-                <Divider orientation='vertical' flexItem light />
+                <Divider orientation='vertical' flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
                     <Typography className={classes.TimeStamp}>
                         {getDate(props.evaluation)}
@@ -337,7 +367,7 @@ const ActiveListing = () => {
 
     const [users, setUsers] = useState([]);
 
-    const { loggedInUser } = useAuth0();
+    const {loggedInUser} = useAuth0();
 
     useEffect(() => {
         const fetchEvaluations = async () => {
@@ -372,13 +402,13 @@ const ActiveListing = () => {
     }, [loggedInUser]);
 
     async function updateSurvey(id, active) {
-        const res = await UpdateSurveyActive(id, { active: active });
+        const res = await UpdateSurveyActive(id, {active: active});
         const response = await GetAllEvaluations();
         setActiveEvaluations(response.data.data);
     }
 
     if (users.length === 0) {
-        return <Loading />;
+        return <Loading/>;
     } else if (activeEvaluations.length === 0 || templates.length === 0) {
         return <div>No active evaluations found</div>;
     }

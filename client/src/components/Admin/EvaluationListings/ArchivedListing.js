@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
     EmployeeBar: {
         borderRadius: '15px',
-        margin: '15px 0',
+        margin: '15px auto',
         backgroundColor: '#F6F6F6',
         width: '95%',
         maxHeight: '20%',
@@ -99,8 +99,22 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Source Sans Pro',
     },
 
+    ProgressCircleRoot: {
+        position: 'relative',
+    },
+
+    ProgressCircleBackground: {
+        color: '#E8E8E8',
+    },
+
     ProgressCircle: {
-        color: '#FBCA53',
+        color: '#FBCA53',//getProgressColor(props.evaluation),
+        position: 'absolute',
+        marginLeft: "auto",
+        marginRight: "auto",
+        left: 0,
+        right: 0,
+        textAlign: "center",
     },
 
     ProgressText: {
@@ -216,6 +230,27 @@ function EmployeeBar(props) {
         return template.name;
     }
 
+    function EvaluationProgress(props) {
+
+        return (
+            <div className={classes.ProgressCircleRoot}>
+                <CircularProgress
+                    variant="determinate"
+                    value={100}
+                    className={classes.ProgressCircleBackground}
+                    size={'3rem'}
+                />
+                <CircularProgress
+                    className={classes.ProgressCircle}
+                    variant='static'
+                    size={'3rem'}
+                    style={{color: getProgressColor(props.evaluation)}}
+                    value={getProgressValue(props.evaluation)}
+                />
+            </div>
+        );
+    }
+
     return (
         <Box className={classes.EmployeeBar} bgcolor='#F6F6F6'>
             <Grid
@@ -277,13 +312,9 @@ function EmployeeBar(props) {
                     <Typography className={classes.TextMuted}>
                         {getTemplateName(props.evaluation.template_id)}
                     </Typography>
-                    <CircularProgress
-                        className={classes.ProgressCircle}
-                        variant='static'
-                        size={'3rem'}
-                        style={{ color: getProgressColor(props.evaluation) }}
-                        value={getProgressValue(props.evaluation)}
-                    />
+
+                    {EvaluationProgress(props)}
+
                     <Typography className={classes.ProgressText}>
                         {getProgressString(props.evaluation)}
                     </Typography>

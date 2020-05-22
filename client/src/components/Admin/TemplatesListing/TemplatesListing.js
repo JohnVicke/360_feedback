@@ -32,9 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
     EmployeeBar: {
         borderRadius: '15px',
-        margin: '15px 0',
-        paddingTop: '10px',
-        paddingBottom: '10px',
+        margin: '15px auto',
         backgroundColor: '#F6F6F6',
         width: '95%',
         maxHeight: '20%',
@@ -72,7 +70,6 @@ function EmployeeBar(props) {
                                 height: '60px',
                                 marginTop: '10px',
                                 marginRight: '10px',
-                                marginLeft: '10px',
                             }}
                         />
 
