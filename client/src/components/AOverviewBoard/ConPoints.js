@@ -86,7 +86,11 @@ class ConPoints extends Component {
         }
     };
     getScoreDifference = (index) => {
-        return this.getColleaguesScore(index) - this.getYourScore(index);
+        return (
+            Math.round(
+                (this.getColleaguesScore(index) - this.getYourScore(index)) * 10
+            ) / 10
+        );
     };
     render() {
         return (

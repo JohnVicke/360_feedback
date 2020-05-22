@@ -201,10 +201,15 @@ class AOverviewBoard extends Component {
     getAnswers = (index, questionId) => {
         var answers = [];
         const responses = this.state.survey.responses;
+
         for (var i = 0; i < responses.length; i++) {
             if (responses[i].user_id !== this.state.userId) {
                 for (var j = 0; j < responses[i].answers.length; j++) {
                     const answer = responses[i].answers[j];
+                    console.log(answer.s_id);
+                    console.log(answer.q_id);
+                    console.log(index + 1);
+                    console.log(questionId);
                     if (answer.s_id == index + 1 && answer.q_id == questionId) {
                         answers.push(answer);
                     }
@@ -335,7 +340,7 @@ class AOverviewBoard extends Component {
                             >
                                 {this.state.template.sections[
                                     this.state.index
-                                ].questions.map((question) => {
+                                ].questions.map((question, index) => {
                                     return (
                                         <Box
                                             style={{
@@ -400,7 +405,7 @@ class AOverviewBoard extends Component {
                                                                 comp.getYourAnswer(
                                                                     comp.state
                                                                         .index,
-                                                                    question.q_id
+                                                                    index + 1
                                                                 ).content
                                                             ),
                                                             margin: '0 2rem',
@@ -411,7 +416,7 @@ class AOverviewBoard extends Component {
                                                             comp.getYourAnswer(
                                                                 comp.state
                                                                     .index,
-                                                                question.q_id
+                                                                index + 1
                                                             ).content
                                                         }
                                                     </Typography>
@@ -428,7 +433,7 @@ class AOverviewBoard extends Component {
                                                             comp.getYourAnswer(
                                                                 comp.state
                                                                     .index,
-                                                                question.q_id
+                                                                index + 1
                                                             ).comment
                                                         }
                                                     </Typography>
@@ -436,7 +441,7 @@ class AOverviewBoard extends Component {
                                                 {comp
                                                     .getAnswers(
                                                         comp.state.index,
-                                                        question.q_id
+                                                        index + 1
                                                     )
                                                     .map((answer) => {
                                                         return (
@@ -578,7 +583,7 @@ class AOverviewBoard extends Component {
                                 {this.state.template.sections.map(
                                     (section, index) => {
                                         return section.questions.map(
-                                            (question) => {
+                                            (question, q_index) => {
                                                 return (
                                                     <Box
                                                         style={{
@@ -633,16 +638,20 @@ class AOverviewBoard extends Component {
                                                                             ),
                                                                             comp.getYourAnswer(
                                                                                 index,
-                                                                                question.q_id
+                                                                                q_index +
+                                                                                    1
                                                                             )
                                                                                 .content,
                                                                             comp.getYourAnswer(
                                                                                 index,
-                                                                                question.q_id
+                                                                                q_index +
+                                                                                    1
                                                                             )
                                                                                 .comment,
-                                                                            question.q_id,
-                                                                            question.s_id
+                                                                            q_index +
+                                                                                1,
+                                                                            index +
+                                                                                1
                                                                         );
                                                                     }}
                                                                 />
@@ -679,7 +688,8 @@ class AOverviewBoard extends Component {
                                                                         color: comp.getColor(
                                                                             comp.getYourAnswer(
                                                                                 index,
-                                                                                question.q_id
+                                                                                q_index +
+                                                                                    1
                                                                             )
                                                                                 .content
                                                                         ),
@@ -692,7 +702,8 @@ class AOverviewBoard extends Component {
                                                                     {
                                                                         comp.getYourAnswer(
                                                                             index,
-                                                                            question.q_id
+                                                                            q_index +
+                                                                                1
                                                                         )
                                                                             .content
                                                                     }
@@ -712,7 +723,8 @@ class AOverviewBoard extends Component {
                                                                     {
                                                                         comp.getYourAnswer(
                                                                             index,
-                                                                            question.q_id
+                                                                            q_index +
+                                                                                1
                                                                         )
                                                                             .comment
                                                                     }
@@ -721,7 +733,7 @@ class AOverviewBoard extends Component {
                                                             {comp
                                                                 .getAnswers(
                                                                     index,
-                                                                    question.q_id
+                                                                    q_index + 1
                                                                 )
                                                                 .map(
                                                                     (
@@ -752,8 +764,10 @@ class AOverviewBoard extends Component {
                                                                                             ),
                                                                                             answer.content,
                                                                                             answer.comment,
-                                                                                            question.q_id,
-                                                                                            question.s_id
+                                                                                            q_index +
+                                                                                                1,
+                                                                                            index +
+                                                                                                1
                                                                                         );
                                                                                     }}
                                                                                 />
