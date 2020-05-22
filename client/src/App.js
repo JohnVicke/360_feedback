@@ -26,7 +26,7 @@ import AddUser from './components/Admin/AddUser/AddUser';
 
 function App() {
     const { user, loading, isAuthenticated } = useAuth0();
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(null);
     const [choice, setChoice] = useState('');
 
     useEffect(() => {
@@ -37,7 +37,7 @@ function App() {
     }, [user]);
 
     const handleAdminClick = () => {
-        setChoice('/');
+        setChoice('/main_menu');
     };
 
     const handleUserClick = () => {
@@ -59,7 +59,7 @@ function App() {
         );
     };
 
-    if (loading) {
+    if (loading && isAdmin === null) {
         return <Loading />;
     } else if (!isAuthenticated) {
         return (
@@ -70,75 +70,75 @@ function App() {
             </div>
         );
     }
-    if (isAuthenticated) {
-        if (choice === '' && isAdmin) return <div>{AdminPath()}</div>;
-        else
-            return (
-                <div className='App'>
-                    <Router history={history}>
-                        {isAdmin
-                            ? history.push(choice)
-                            : history.push('/profile')}
-                        <Switch>
-                            <AdminRoute
-                                exact
-                                path='/'
-                                component={MainMenu}
-                                appProps={{ isAdmin }}
-                            />
-                            <PrivateRoute path='/profile' component={Profile} />
-                            <PrivateRoute
-                                path='/fillin'
-                                component={FillEvaluation}
-                            />
-                            <AdminRoute
-                                appProps={{ isAdmin }}
-                                path='/selectEvaluators'
-                                component={CreateEvaluation}
-                            />
-                            <AdminRoute
-                                appProps={{ isAdmin }}
-                                path='/selectEvaluatee'
-                                component={SelectEvaluatee}
-                            />
-                            <AdminRoute
-                                appProps={{ isAdmin }}
-                                path='/selectTemplate'
-                                component={SelectTemplate}
-                            />
-                            <AdminRoute
-                                appProps={{ isAdmin }}
-                                path='/createEvaluation'
-                                component={CreateEvaluation}
-                            />
-                            <AdminRoute
-                                appProps={{ isAdmin }}
-                                path='/double_check'
-                                component={DoubleCheck}
-                            />
-                            <AdminRoute
-                                appProps={{ isAdmin }}
-                                path={'/createTemplate'}
-                                component={CreateTemplate}
-                            />
-                            <AdminRoute
-                                appProps={{ isAdmin }}
-                                path='/admin/overviewboard'
-                                component={AOverviewBoard}
-                            />
-                            <AdminRoute
-                                appProps={{ isAdmin }}
-                                path='/add_user'
-                                component={AddUser}
-                            />
-                            <Route
-                                path='/no_access'
-                                component={NoAdminAccess}
-                            />
-                        </Switch>
-                    </Router>
-                </div>
-            );
+
+    if (choice === '' && isAdmin) return <div>{AdminPath()}</div>;
+    else {
+        return (
+            <div className='App'>
+                <Router history={history}>
+                    <Switch>
+                        {isAdmin !== null
+                            ? isAdmin
+                                ? history.push(choice)
+                                : history.push('/profile')
+                            : history.push('/')}
+                        <Route exact path='/' component={LandingPage} />
+                        <AdminRoute
+                            exact
+                            path='/main_menu'
+                            component={MainMenu}
+                            appProps={{ isAdmin }}
+                        />
+                        <PrivateRoute path='/profile' component={Profile} />
+                        <PrivateRoute
+                            path='/fillin'
+                            component={FillEvaluation}
+                        />
+                        <AdminRoute
+                            appProps={{ isAdmin }}
+                            path='/selectEvaluators'
+                            component={CreateEvaluation}
+                        />
+                        <AdminRoute
+                            appProps={{ isAdmin }}
+                            path='/selectEvaluatee'
+                            component={SelectEvaluatee}
+                        />
+                        <AdminRoute
+                            appProps={{ isAdmin }}
+                            path='/selectTemplate'
+                            component={SelectTemplate}
+                        />
+                        <AdminRoute
+                            appProps={{ isAdmin }}
+                            path='/createEvaluation'
+                            component={CreateEvaluation}
+                        />
+                        <AdminRoute
+                            appProps={{ isAdmin }}
+                            path='/double_check'
+                            component={DoubleCheck}
+                        />
+                        <AdminRoute
+                            appProps={{ isAdmin }}
+                            path={'/createTemplate'}
+                            component={CreateTemplate}
+                        />
+                        <AdminRoute
+                            appProps={{ isAdmin }}
+                            path='/admin/overviewboard'
+                            component={AOverviewBoard}
+                        />
+                        <AdminRoute
+                            appProps={{ isAdmin }}
+                            path='/add_user'
+                            component={AddUser}
+                        />
+                        <Route path='/no_access' component={NoAdminAccess} />
+                    </Switch>
+                </Router>
+            </div>
+        );
     }
 }
 
