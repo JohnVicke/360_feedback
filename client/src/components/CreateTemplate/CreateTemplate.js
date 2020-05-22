@@ -32,7 +32,7 @@ import {
 } from '@material-ui/icons';
 import Submitted from '../FillEvaluation/Submit/Submitted';
 import { useHistory } from 'react-router-dom';
-import NavBar from '../NavBar/NavBar';
+import AdminNavBar from '../AdminNavBar/AdminNavBar';
 
 const CreateTemplate = (props) => {
     const history = useHistory();
@@ -534,7 +534,7 @@ const CreateTemplate = (props) => {
     // GetPreviewContent --> displays content on half its parent element??
     return (
         <div className='background'>
-            <NavBar />
+            <AdminNavBar />
             {finishedTemplate ? (
                 finishedComponent()
             ) : (

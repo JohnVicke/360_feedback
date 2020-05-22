@@ -135,6 +135,10 @@ const AdminNavBar = () => {
                                 </Typography>
                             </Button>
                         </Box>
+                        <p style={{ marginRight: '1em' }}>
+                            Logged in <br />
+                            as admin
+                        </p>
                         <Button
                             onClick={handleToggle}
                             ref={anchorRef}
@@ -177,6 +181,15 @@ const AdminNavBar = () => {
                                                 id='menu-list-grow'
                                                 onKeyDown={handleListKeyDown}
                                             >
+                                                <MenuItem
+                                                    onClick={() =>
+                                                        history.push(
+                                                            '/main_menu'
+                                                        )
+                                                    }
+                                                >
+                                                    Main Menu
+                                                </MenuItem>
                                                 <MenuItem onClick={toProfile}>
                                                     Profile
                                                 </MenuItem>
@@ -184,9 +197,6 @@ const AdminNavBar = () => {
                                                     onClick={handleLogout}
                                                 >
                                                     Logout
-                                                </MenuItem>
-                                                <MenuItem onClick={toAddUser}>
-                                                    Add User
                                                 </MenuItem>
                                             </MenuList>
                                         </ClickAwayListener>
