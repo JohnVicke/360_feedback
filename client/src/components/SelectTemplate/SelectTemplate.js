@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBar/NavBar';
+import AdminNavBar from '../AdminNavBar/AdminNavBar';
 import {
     Grow,
     Box,
@@ -139,7 +139,7 @@ class SelectTemplate extends Component {
         }
         return (
             <div className='background'>
-                <NavBar />
+                <AdminNavBar />
 
                 <Typography
                     style={{
