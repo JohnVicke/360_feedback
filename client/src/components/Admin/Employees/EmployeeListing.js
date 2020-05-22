@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { useAuth0 } from '../../../react-auth0-spa';
+import React, {useEffect, useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import {useAuth0} from '../../../react-auth0-spa';
+import Loading from '../../Loading/Loading';
 import {
-    GetActiveEvaluations,
     GetAllEvaluations,
-    GetUserByID,
     GetAllUsers,
     GetAllTemplates,
     UpdateSurveyActive,
@@ -27,8 +26,7 @@ import {
     Divider,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import Loading from '../../Loading/Loading';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,8 +79,29 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'Bold',
     },
 
-    ResumeButton: {
-        backgroundColor: '#472F80',
+    NumberOfSurveysText:{
+        color: '#000000',
+        fontSize: '40',
+        '& .MuiTypography-body1': {
+            textAlign: 'center',
+        },
+        fontFamily: 'Roboto Mono',
+        fontWeight: 'Bold',
+        whiteSpace: 'nowrap',
+    },
+
+    LastEvaluatedText: {
+        color: '#000000',
+        fontSize: '40',
+        '& .MuiTypography-body1': {
+        textAlign: 'center',
+        },
+        fontFamily: 'Roboto Mono',
+        fontWeight: 'Bold',
+        whiteSpace: 'nowrap',
+    },
+
+    ArchiveButton: {
         color: 'white',
         fontSize: '13px',
     },
@@ -108,7 +127,6 @@ const useStyles = makeStyles((theme) => ({
     },
 
     ProgressCircle: {
-        color: '#FBCA53',//getProgressColor(props.evaluation),
         position: 'absolute',
         marginLeft: "auto",
         marginRight: "auto",
@@ -141,25 +159,17 @@ function EmployeeList(props) {
     const classes = useStyles();
     return (
         <List className={classes.EmployeeList} m={'0 0'} alignItems={'center'}>
-            {props.evaluations &&
-                props.evaluations.map((evaluation, index) => {
-                    if (!evaluation.active) {
-                        const creator = evaluation.creator;
-                        const user = props.users.find(
-                            (user) => user._id === evaluation.e_id
-                        );
-                        return (
-                            <ListItem m={'0'} dense disableGutters>
-                                <EmployeeBar
-                                    user={user}
-                                    evaluation={evaluation}
-                                    templates={props.templates}
-                                    updateFunction={props.updateFunction}
-                                />
-                            </ListItem>
-                        );
-                    }
-                })}
+            {props.users &&
+            props.users.map((user, index) => {
+                return (
+                    <ListItem m={'0 auto'} dense disableGutters>
+                        <EmployeeBar
+                            user={user}
+                            evaluations={props.evaluations}
+                        />
+                    </ListItem>
+                );
+            })}
         </List>
     );
 }
@@ -181,7 +191,7 @@ function EmployeeBar(props) {
     }
 
     function getProgressColor(evaluation) {
-        let progressColor = '#FBCA53';
+        let progressColor = '#4392FE';
         const responses = evaluation.responses;
         var nrOfAnswers = 0;
         for (var i = 0; i < responses.length; i++) {
@@ -251,6 +261,21 @@ function EmployeeBar(props) {
         );
     }
 
+    function getLastEvaluatedDate(props) {
+        console.log("propsingetlast:");
+        console.log(props);
+        var lastEvaluation = props.evaluations.find(
+            (survey) => survey.e_id === props.user._id
+        );
+
+        if (!lastEvaluation) {
+            return "-";
+        }
+        else{
+            return getDate(lastEvaluation);
+        }
+    }
+
     return (
         <Box className={classes.EmployeeBar} bgcolor='#F6F6F6'>
             <Grid
@@ -298,85 +323,60 @@ function EmployeeBar(props) {
                             >
                                 {props.user.role}
                             </Typography>
+                            <Typography
+                                className={classes.UserRoleText}
+                                align='left'
+                            >
+                                {props.user.email}
+                            </Typography>
                         </Grid>
                     </Grid>
-                    <Grid />
+                    <Grid/>
                 </Grid>
-                <Grid
-                    className={classes.EmployeeBarGridItem}
-                    direction={'column'}
-                    item
-                    xs
-                    alignContent={'center'}
-                >
-                    <Typography className={classes.TextMuted}>
-                        {getTemplateName(props.evaluation.template_id)}
-                    </Typography>
-
-                    {EvaluationProgress(props)}
-
-                    <Typography className={classes.ProgressText}>
-                        {getProgressString(props.evaluation)}
-                    </Typography>
-
-                    <Link
-                        to={{
-                            pathname: '/admin/overviewboard',
-                            state: {
-                                surveyId: props.evaluation._id,
-                            },
-                        }}
-                        style={{ textDecoration: 'none' }}
-                    >
-                        <Typography className={classes.OverviewBoardText}>
-                            Overview Board
-                        </Typography>
-                    </Link>
-                </Grid>
-                <Divider orientation='vertical' flexItem light />
+                <Divider orientation='vertical' flexItem light/>
                 <Grid className={classes.EmployeeBarGridItem} item xs>
-                    <Typography className={classes.TimeStamp}>
-                        {getDate(props.evaluation)}
-                    </Typography>
-
                     <Typography
-                        className={classes.CurrentStatusText}
-                        my={'2rem'}
+                        className={classes.NumberOfSurveysText}
+                        align='center'
+
                     >
-                        CURRENTLY ARCHIVED
+                        Number of surveys: {props.user.responses.length}
                     </Typography>
-                    <Button
-                        className={classes.ResumeButton}
-                        aria-label='add'
-                        style={{ backgroundColor: '#472F80' }}
-                        onClick={() => {
-                            props.updateFunction(props.evaluation._id, true);
-                        }}
+                    <Typography
+                        className={classes.LastEvaluatedText}
+                        align='center'
                     >
-                        RESUME
-                    </Button>
+                        Last evaluated: {getLastEvaluatedDate(props)}
+                    </Typography>
                 </Grid>
             </Grid>
         </Box>
     );
 }
 
-const ArchivedListing = () => {
+const ActiveListing = () => {
     const classes = useStyles();
-    const [users, setUsers] = useState([]);
-    const [archivedEvaluations, setArchivedEvaluations] = useState([]);
+    const [checked, setChecked] = React.useState([1]);
+    const [activeEvaluations, setActiveEvaluations] = useState([]);
     const [templates, setTemplates] = useState([]);
 
-    const { loggedInUser } = useAuth0();
+    const [users, setUsers] = useState([]);
+
+    const {loggedInUser} = useAuth0();
 
     useEffect(() => {
         const fetchEvaluations = async () => {
             const response = await GetAllEvaluations();
             response.data.data.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime());
-            setArchivedEvaluations(response.data.data);
+            setActiveEvaluations(response.data.data);
         };
         fetchEvaluations();
     }, [loggedInUser]);
+
+    const fetchActiveEvaluations = async () => {
+        const response = await GetAllEvaluations();
+        setActiveEvaluations(response.data.data);
+    };
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -397,20 +397,21 @@ const ArchivedListing = () => {
     }, [loggedInUser]);
 
     async function updateSurvey(id, active) {
-        const res = await UpdateSurveyActive(id, { active: active });
+        const res = await UpdateSurveyActive(id, {active: active});
         const response = await GetAllEvaluations();
-        setArchivedEvaluations(response.data.data);
+        setActiveEvaluations(response.data.data);
     }
 
     if (users.length === 0) {
-        return <Loading />;
-    } else if (archivedEvaluations.length === 0 || templates.length === 0) {
-        return <div>No archived evaluations found</div>;
+        return <Loading/>;
+    } else if (activeEvaluations.length === 0 || templates.length === 0) {
+        return <div>No active evaluations found</div>;
     }
+
     return (
         <div>
             <EmployeeList
-                evaluations={archivedEvaluations}
+                evaluations={activeEvaluations}
                 users={users}
                 templates={templates}
                 updateFunction={updateSurvey}
@@ -419,4 +420,4 @@ const ArchivedListing = () => {
     );
 };
 
-export default ArchivedListing;
+export default ActiveListing;

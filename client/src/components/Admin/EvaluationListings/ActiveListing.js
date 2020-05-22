@@ -145,7 +145,7 @@ function EmployeeList(props) {
                         (user) => user._id === evaluation.e_id
                     );
                     return (
-                        <ListItem m={'0 auto'}>
+                        <ListItem m={'0 auto'} dense disableGutters>
                             <EmployeeBar
                                 user={user}
                                 evaluation={evaluation}

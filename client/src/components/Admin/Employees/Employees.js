@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getAllUsers } from '../../utils/API';
-import Loading from '../Loading/Loading';
+import { getAllUsers } from '../../../utils/API';
+import Loading from '../../Loading/Loading';
 import { Box, Button } from '@material-ui/core';
-import history from '../../utils/history';
+import history from '../../../utils/history';
 
 const Employees = (props) => {
     const [employees, setEmployees] = useState([]);
