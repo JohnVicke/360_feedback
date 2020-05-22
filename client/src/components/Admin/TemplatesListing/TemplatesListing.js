@@ -45,7 +45,7 @@ function EmployeeList(props) {
             {props.templates &&
                 props.templates.map((template, index) => {
                     return (
-                        <ListItem m={'0'}>
+                        <ListItem m={'0'} dense disableGutters>
                             <EmployeeBar template={template} />
                         </ListItem>
                     );

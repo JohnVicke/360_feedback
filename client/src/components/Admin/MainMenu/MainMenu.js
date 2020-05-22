@@ -14,11 +14,12 @@ import {
     spacing,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import Employees from '../../Employees/Employees';
+import Employees from '../Employees/Employees';
 import AdminNavBar from '../../AdminNavBar/AdminNavBar';
 import ActiveListing from '../EvaluationListings/ActiveListing';
 import ArchivedListing from '../EvaluationListings/ArchivedListing';
 import TemplatesListing from '../TemplatesListing/TemplatesListing';
+import EmployeeListing from '../Employees/EmployeeListing';
 import happy from '../../../assets/misc/emoji-happy.svg';
 import Profile from '../../Profile/Profile';
 import MainMenuTabs from './MainMenuTabs';
@@ -109,11 +110,11 @@ const MainMenu = () => {
             );
         }
         if (value === 3) {
-            return <Employees/>;
+            return <EmployeeListing/>;
         }
     }
 
-    function createTemplateButton() {
+    function returnButton() {
         if (value === 2) {
             return (
                 <Button
@@ -128,6 +129,19 @@ const MainMenu = () => {
                 >
                     <CreateIcon style={{marginRight: '5px'}}/>
                     Create new template
+                </Button>
+            );
+        }
+        if (value === 3) {
+            return (
+                <Button
+                    variant='contained'
+                    color='primary'
+                    className={classes.CreateNewTemplateButton}
+                    onClick={() => history.push('/add_user')}
+                >
+                    <CreateIcon style={{marginRight: '5px'}}/>
+                    Add user
                 </Button>
             );
         }
@@ -211,7 +225,7 @@ const MainMenu = () => {
                         style={{width: "90%"}}
                     >
                         <Grid item xs={6}>
-                            {createTemplateButton()}
+                            {returnButton()}
                         </Grid>
                         <Grid item xs={6}>
                             <Button
